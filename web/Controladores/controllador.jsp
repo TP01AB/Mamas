@@ -5,17 +5,26 @@
 <%
 //Vista de Login ----------------------------------------------------
     //LOGIN
-    if (request.getParameter("iniciar") != null) {
+    if (request.getParameter("iniciarseBD") != null) {
 
     }
 
+//Vista de Registro --------------------------------------------------    
+    //REGISTRO
+    if (request.getParameter("registrarseBD") != null) {
+
+    }
+
+// Vista de Contraseña olvidadad -------------------------------------
+
+    //CONTRASEÑA OLVIDADA
+    if (request.getParameter("enviarMail") != null) {
+
+    }
+
+//GENERALES ----------------------------------------------------------
     //VUELTA AL HOME
-    if (request.getParameter("volverLogin") != null) {
-
-    }
-
-    //IR A REGISTRO
-    if (request.getParameter("vistaRegistro") != null) {
+    if (request.getParameter("home") != null) {
 
     }
 
@@ -23,19 +32,12 @@
     if (request.getParameter("vistaOlvidada") != null) {
 
     }
-//Vista de Registro --------------------------------------------------    
-
-    //REGISTRO
-    if (request.getParameter("registrarseBD") != null) {
+    //IR A REGISTRO
+    if (request.getParameter("vistaRegistro") != null) {
 
     }
-    
-    
-    
-//GENERALES ----------------------------------------------------------
-     //VUELTA AL HOME
-    if (request.getParameter("home") != null) {
+    //IR A LOGIN
+    if (request.getParameter("vistaLogin") != null) {
 
     }
-
 %>
