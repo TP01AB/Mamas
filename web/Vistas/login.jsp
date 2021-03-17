@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 17-mar-2021, 8:59:03
+    Document   : login
+    Created on : 17-mar-2021, 9:33:32
     Author     : isra9
 --%>
 
@@ -9,8 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mamas</title>
-        <!-- Bootstrap core CSS -->
+        <title>JSP Page</title>
+         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <!-- Material Design Bootstrap -->
         <link rel="stylesheet" href="css/mdb.min.css">
@@ -19,8 +19,15 @@
         <link rel="stylesheet" href="css/all.css">
     </head>
     <body>
-        <h1>BIENVENIDO</h1>
-
+        <h1>Hello Login!</h1>
+        <!-- Formulario de inicio sesion -->
+        <form name="loginForm" action="../Controladores/controlador.jsp" method="POST">
+            <input type="email" id="emailLogin" name="emailLogin" >
+            <input type="password" id="passwordLogin" name="passwordLogin">
+            <input type="submit" id="iniciarseBD" name="iniciarseBD">
+            <input type="submit" id="home" name="home">
+        </form>
+        
         <!-- SCRIPT -->
 
         <!-- jQuery -->
