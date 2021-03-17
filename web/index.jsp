@@ -20,7 +20,11 @@
     </head>
     <body>
         <h1>BIENVENIDO</h1>
-
+        <form action="Controladores/controlador.jsp">
+            <input type="submit" name="vistaLogin" value="LOGIN">
+            <input type="submit" name="vistaRegistro" value="REGISTRO">
+            <input type="submit" name="vistaOlvidada" value="CONTRASEÑA OLV">
+        </form>
         <!-- SCRIPT -->
 
         <!-- jQuery -->

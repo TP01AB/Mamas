@@ -4,14 +4,11 @@
  * and open the template in the editor.
  */
 
-
-//******************************************************************************
-//--------------------------VALIDACIÓN FORMULARIO LOGIN-------------------------
-//******************************************************************************
+//Validacion formulario login
 
 function validacionLogin() {
-    const form = document.getElementById("login");
-    const email = document.getElementById("email");
+    const form = document.getElementById("loginForm");
+    const email = document.getElementById("emailLogin");
     const emailError = document.getElementById("emailError");
     form.addEventListener('submit', function (event) {
         if (!email.validity.valid) {

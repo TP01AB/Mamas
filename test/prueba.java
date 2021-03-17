@@ -3,15 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Auxiliar;
 
 /**
  *
  * @author isra9
  */
-public class constantes {
+import junit.framework.TestCase;
+
+public class prueba  extends TestCase {
     
-    public static String BBDD = "mamas";
-    public static String usuario = "usuario";
-    public static String password = "Chubaca2020";
+    public void probarFallar(){
+        assertFalse(false);
+    }
+    public void probarAcertar(){
+        assertFalse(true);
+    }
 }
