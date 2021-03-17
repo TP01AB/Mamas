@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 17-mar-2021, 8:59:03
+    Document   : olvidada
+    Created on : 17-mar-2021, 9:34:00
     Author     : isra9
 --%>
 
@@ -9,8 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mamas</title>
-        <!-- Bootstrap core CSS -->
+        <title>JSP Page</title>
+         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <!-- Material Design Bootstrap -->
         <link rel="stylesheet" href="css/mdb.min.css">
@@ -19,8 +19,14 @@
         <link rel="stylesheet" href="css/all.css">
     </head>
     <body>
-        <h1>BIENVENIDO</h1>
-
+        <h1>Hello Contraseña Olvidada!</h1>
+          <!-- Formulario de contraseña olvidada -->
+        <form name="loginForm" action="../Controladores/controlador.jsp" method="POST">
+            <input type="email" id="emailForget" name="emailForget" >
+            <input type="submit" id="passwordForget" name="passwordForget">
+            <input type="submit" id="home" name="home">
+        </form>
+          
         <!-- SCRIPT -->
 
         <!-- jQuery -->

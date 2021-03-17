@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 17-mar-2021, 8:59:03
+    Document   : registro
+    Created on : 17-mar-2021, 9:33:46
     Author     : isra9
 --%>
 
@@ -9,8 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mamas</title>
-        <!-- Bootstrap core CSS -->
+        <title>JSP Page</title>
+         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <!-- Material Design Bootstrap -->
         <link rel="stylesheet" href="css/mdb.min.css">
@@ -19,9 +19,17 @@
         <link rel="stylesheet" href="css/all.css">
     </head>
     <body>
-        <h1>BIENVENIDO</h1>
-
-        <!-- SCRIPT -->
+        <h1>Hello Registro!</h1>
+        
+         <!-- Formulario de registro -->
+        <form name="loginForm" action="../Controladores/controlador.jsp" method="POST">
+            <input type="email" id="emailRegistro" name="emailRegistro" >
+            <input type="password" id="passwordRegistro" name="passwordRegistro">
+            <input type="submit" id="registrarseBD" name="registrarseBD">
+            <input type="submit" id="home" name="home">
+        </form>
+        
+         <!-- SCRIPT -->
 
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery.min.js"></script>

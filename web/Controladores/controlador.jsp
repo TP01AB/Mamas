@@ -18,7 +18,7 @@
 // Vista de Contraseña olvidadad -------------------------------------
 
     //CONTRASEÑA OLVIDADA
-    if (request.getParameter("enviarMail") != null) {
+    if (request.getParameter("passwordForget") != null) {
 
     }
 
