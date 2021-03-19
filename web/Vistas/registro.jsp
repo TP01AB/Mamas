@@ -23,9 +23,40 @@
         <main>
             <h1>Hello Registro!</h1>
             <!-- Formulario de registro -->
-            <form name="loginForm" action="../Controladores/controlador.jsp" method="POST">
-                <input type="email" id="emailRegistro" name="emailRegistro" >
-                <input type="password" id="passwordRegistro" name="passwordRegistro">
+            <form name="loginForm" action="../Controladores/controlador.jsp" method="POST" novalidate>
+                <div class="row align-content-center">
+                    <label for="emailRegistro">Email:</label><br>
+                    <input type="email" id="emailRegistro" name="emailRegistro" required>
+                    <div name="emailRegistroError" class="" id="emailRegistroError" aria-live="polite"></div>
+                    <br>
+
+                    <label for="passwordRegistro">Contraseña:</label><br>
+                    <input type="password" id="passwordLogin" name="passwordRegistro" required minlength="8">
+                    <div name="passwordRegistroError" class="" id="passwordRegistroError" aria-live="polite"></div>
+                    <br>
+                </div>
+                <div class="row">
+                    <hr>
+                    <label for="nombre">Nombre:</label><br>
+                    <input type="text" id="nombre" name="nombre" required>
+                    <div name="nombre" class="" id="nombre" aria-live="polite"></div>
+                    <br>
+                    <label for="apellidos">Apellidos:</label><br>
+                    <input type="text" id="apellidos" name="apellidos" required>
+                    <div name="apellidos" class="" id="apellidos" aria-live="polite"></div>
+                    <br>
+                </div>
+                <div class="row">
+                    <label for="telefono">Telefono:</label><br>
+                    <input type="number" id="telefono" name="telefono" required minlength="9">
+                    <div name="telefono" class="" id="telefono" aria-live="polite"></div>
+                    <br>
+
+                    <label for="nacimiento">Fecha de nacimiento:</label><br>
+                    <input type="date" id="nacimiento" name="nacimiento" required>
+                    <div name="nacimiento" class="" id="nacimiento" aria-live="polite"></div>
+                    <br>
+                </div>
                 <input type="submit" id="registrarseBD" name="registrarseBD" value="registrarse">
 
             </form>

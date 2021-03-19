@@ -47,7 +47,52 @@ public class Conexion {
     }
 
     //METODOS PARA LOGIN-------------------------------------Ordenados por utilizacion
-    
+    //COMPROBAR INTENTOS
+    public static int getIntentos(String email) {
+        int intentos = -1;
+        Conexion.nueva();
+        PreparedStatement ps = null;
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM usuarios WHERE email = ?";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setString(1, email);
+            Conexion.Conj_Registros = ps.executeQuery();
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    intentos = Conj_Registros.getInt("intentos");
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general 2: " + ex.getMessage());
+            }
+        }
+        return intentos;
+    }
+
+    // SUMAR INTENTO DE INICIO
+    public static void sumarIntento(String email, int op) {
+        //El op a 0 significa que reseteamos la variable en BD , y en 1 sumaria un intento.
+        Conexion.nueva();
+        try {
+            String sql;
+            if (op == 1) {
+                sql = "UPDATE usuarios SET intentos=intentos+1 WHERE email = '" + email + "'";
+            } else {
+                sql = "UPDATE usuarios SET intentos=0 WHERE email = '" + email + "'";
+            }
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+
+    // 
     //1º USUARIO ACTIVADO
     public static boolean isActive(String email) {// comprobamos si el usuario es activo para evitar hacer consulta de login si no lo esta.
         Conexion.nueva();
@@ -79,6 +124,7 @@ public class Conexion {
         }
         return isActive;
     }
+
     //2º LOGIN 
     public static Usuario login(String email, String password) {// Realizamos la comprobacion de mail y contraseña .
         Conexion.nueva();
@@ -111,11 +157,12 @@ public class Conexion {
         }
         return user;
     }
+
     //3º ROL
     public static int getRol(int id) { //Obtenemos el rol del usuario logueado correctamente
         Conexion.nueva();
         PreparedStatement ps = null;
-        int rol=-1;
+        int rol = -1;
         //SENTENCIA SQL
         String sql = "SELECT * FROM asig_rol WHERE id_usuario = ?";
         try {

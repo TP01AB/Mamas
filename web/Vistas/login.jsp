@@ -26,6 +26,7 @@
             <h1>Hello Login!</h1>
             <!-- Formulario de inicio sesion -->
             <form name="loginForm" id="loginForm" action="../Controladores/controlador.jsp" method="POST" novalidate>
+                
                 <label for="emailLogin">Email:</label><br>
                 <input type="email" id="emailLogin" name="emailLogin" required>
                 <span name="emailLoginError" class="" id="emailLoginError" aria-live="polite"></span>
