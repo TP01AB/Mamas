@@ -4,21 +4,31 @@
  * and open the template in the editor.
  */
 
-
-//******************************************************************************
-//--------------------------VALIDACIÓN FORMULARIO LOGIN-------------------------
-//******************************************************************************
+//Validacion formulario login
 
 function validacionLogin() {
-    const form = document.getElementById("login");
-    const email = document.getElementById("email");
-    const emailError = document.getElementById("emailError");
+    //Obtenemos formulario.
+    const form = document.getElementById("loginForm");
+    //Obtencion del campo email y su campo de error.
+    const email = document.getElementById("emailLogin");
+    const emailError = document.getElementById("emailLoginError");
+    // Obtencion del campo password y su campo error.
+    const password = document.getElementById("passwordLogin");
+    const passwordError = document.getElementById("passwordLoginError");
+
+    //Control de validacion en evento submit para el envio de formulario.
     form.addEventListener('submit', function (event) {
         if (!email.validity.valid) {
             error(email);
             event.preventDefault();
         }
+        if (!password.validity.valid) {
+            error(password);
+            event.preventDefault();
+        }
     });
+
+    //Control de validacion en evento blur para cuando cambiamos el focus del input nos valide el campo.
     email.addEventListener('blur', function (event) {
         if (email.validity.valid) {
             emailError.className = 'valid-feedback';
@@ -29,6 +39,17 @@ function validacionLogin() {
             error(email);
         }
     });
+    password.addEventListener('blur', function (event) {
+        if (password.validity.valid) {
+            passwordError.className = 'valid-feedback';
+            password.classList.remove('is-invalid');
+            password.classList.add('is-valid');
+            passwordError.textContent = '';
+        } else {
+            error(password);
+        }
+    });
+    // fucnion para gestion de error por parametro del campo que genera el error en formulario
     function error(campo) {
         if (campo == email) {
             //Campo vacío
@@ -44,11 +65,24 @@ function validacionLogin() {
             email.classList.add('is-invalid');
             emailError.className = 'invalid-feedback';
         }
+        if (campo == password) {
+            //Campo vacío
+            if (password.validity.valueMissing) {
+                passwordError.textContent = 'Debe introducir una contraseña.';
+                //Dato demasiado cortos
+            } else if (password.validity.tooShort) {
+                passwordError.textContent = 'Debe tener al menos ' + password.minLength + ' caracteres; ha introducido ' + password.value.length;
+                //Dato demasiado largo
+            }
+            // Establece el estilo apropiado
+            password.classList.remove('is-valid');
+            password.classList.add('is-invalid');
+            passwordError.className = 'invalid-feedback';
+        }
     }
 }
-//******************************************************************************
-//--------------------------VALIDACIÓN FORMULARIO REGISTRO----------------------
-//******************************************************************************
+
+//Validacion del formulario de registro.
 function validarRegistro() {
 //--------------------------ROLES
     if (document.getElementById("profesor") != null) {

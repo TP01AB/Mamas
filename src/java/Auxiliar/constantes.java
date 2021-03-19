@@ -13,5 +13,5 @@ public class constantes {
     
     public static String BBDD = "mamas";
     public static String usuario = "usuario";
-    public static String password = "chubaca2020";
+    public static String password = "Chubaca2020";
 }
