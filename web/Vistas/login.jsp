@@ -20,40 +20,45 @@
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/all.css">
     </head>
-    <body onload="validacionLogin()">
-        <h1>Hello Login!</h1>
-        <!-- Formulario de inicio sesion -->
-        <form name="loginForm" id="loginForm" action="../Controladores/controlador.jsp" method="POST" novalidate>
-            <label for="emailLogin">Email:</label><br>
-            <input type="email" id="emailLogin" name="emailLogin" required>
-            <span name="emailLoginError" class="" id="emailLoginError" aria-live="polite"></span>
-            <br>
+    <body onload="validacionLogin()" class="container">
+        <div class=""></div>
+        <main class="justify-content-center">
+            <h1>Hello Login!</h1>
+            <!-- Formulario de inicio sesion -->
+            <form name="loginForm" id="loginForm" action="../Controladores/controlador.jsp" method="POST" novalidate>
+                <label for="emailLogin">Email:</label><br>
+                <input type="email" id="emailLogin" name="emailLogin" required>
+                <span name="emailLoginError" class="" id="emailLoginError" aria-live="polite"></span>
+                <br>
 
-            <label for="passwordLogin">Contraseña:</label><br>
-            <input type="password" id="passwordLogin" name="passwordLogin" required minlength="8">
-            <span name="passwordLoginError" class="" id="passwordLoginError" aria-live="polite"></span>
-            <br>
+                <label for="passwordLogin">Contraseña:</label><br>
+                <input type="password" id="passwordLogin" name="passwordLogin" required minlength="8">
+                <span name="passwordLoginError" class="" id="passwordLoginError" aria-live="polite"></span>
+                <br>
 
-            
-            <!<!-- Mensaje de error guardado en sesion -->
-             <% 
-                    
+
+                <!<!-- Mensaje de error guardado en sesion -->
+                <%
+
                     if (session.getAttribute("mensaje") != null) {
                         String mensaje = (String) session.getAttribute("mensaje");
                 %>
                 <hr>
                 <div ><span name="mensaje" id="mensaje"><%=mensaje%></span></div>
                 <hr>
-                    <%
-                        }
-                    %>
-            <br>
-            <input type="submit" id="iniciarseBD" name="iniciarseBD" value="inicar sesion">
-            
-        </form>
-            <form name="loginForm" id="loginForm" action="../Controladores/controlador.jsp" method="POST" >
-            <input type="submit" id="home" name="home" value="HOME">
+                <%
+                    }
+                %>
+                <br>
+                <input type="submit" id="iniciarseBD" name="iniciarseBD" value="inicar sesion">
+
             </form>
+            <form name="Form" id="Form" action="../Controladores/controlador.jsp" method="POST" >
+                <input type="submit" id="home" name="home" value="HOME">
+            </form>
+
+        </main>
+        <div></div>
         <!-- SCRIPT -->
 
         <!-- jQuery -->

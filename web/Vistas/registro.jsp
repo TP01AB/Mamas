@@ -18,19 +18,22 @@
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/all.css">
     </head>
-    <body>
-        <h1>Hello Registro!</h1>
+    <body class="container">
+        <div></div>
+        <main>
+            <h1>Hello Registro!</h1>
+            <!-- Formulario de registro -->
+            <form name="loginForm" action="../Controladores/controlador.jsp" method="POST">
+                <input type="email" id="emailRegistro" name="emailRegistro" >
+                <input type="password" id="passwordRegistro" name="passwordRegistro">
+                <input type="submit" id="registrarseBD" name="registrarseBD" value="registrarse">
 
-        <!-- Formulario de registro -->
-        <form name="loginForm" action="../Controladores/controlador.jsp" method="POST">
-            <input type="email" id="emailRegistro" name="emailRegistro" >
-            <input type="password" id="passwordRegistro" name="passwordRegistro">
-            <input type="submit" id="registrarseBD" name="registrarseBD" value="registrarse">
-
-        </form>
-        <form name="loginForm" id="loginForm" action="../Controladores/controlador.jsp" method="POST" >
-            <input type="submit" id="home" name="home" value="HOME">
-        </form>
+            </form>
+            <form name="Form" id="Form" action="../Controladores/controlador.jsp" method="POST" >
+                <input type="submit" id="home" name="home" value="HOME">
+            </form>
+        </main>
+        <div></div>
         <!-- SCRIPT -->
 
         <!-- jQuery -->
