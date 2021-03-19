@@ -22,9 +22,9 @@ public class Conexion {
 
     public static void nueva() {
         try {
-            
+
             String controlador = "org.mariadb.jdbc.Driver"; // MariaDB la version libre de MySQL (requiere incluir la librería jar correspondiente).
-           
+
             Class.forName(controlador);
 
             Conex = DriverManager.getConnection(
@@ -46,9 +46,12 @@ public class Conexion {
         }
     }
 
-    public static boolean isActive(String email) {
+    //METODOS PARA LOGIN-------------------------------------Ordenados por utilizacion
+    
+    //1º USUARIO ACTIVADO
+    public static boolean isActive(String email) {// comprobamos si el usuario es activo para evitar hacer consulta de login si no lo esta.
         Conexion.nueva();
-        
+
         boolean isActive = false;
         PreparedStatement ps = null;
 
@@ -76,8 +79,9 @@ public class Conexion {
         }
         return isActive;
     }
-
-    public static Usuario login(String email, String password) {
+    //2º LOGIN 
+    public static Usuario login(String email, String password) {// Realizamos la comprobacion de mail y contraseña .
+        Conexion.nueva();
         Usuario user = null;
         PreparedStatement ps = null;
 
@@ -106,6 +110,34 @@ public class Conexion {
             }
         }
         return user;
+    }
+    //3º ROL
+    public static int getRol(int id) { //Obtenemos el rol del usuario logueado correctamente
+        Conexion.nueva();
+        PreparedStatement ps = null;
+        int rol=-1;
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM asig_rol WHERE id_usuario = ?";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setInt(1, id);
+            Conexion.Conj_Registros = ps.executeQuery();
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    rol = (Conj_Registros.getInt("id_rol"));
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general: " + ex.getMessage());
+            }
+        }
+        return rol;
     }
 
 }
