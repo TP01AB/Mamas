@@ -1,3 +1,4 @@
+<%@page import="Modelo.Email"%>
 <%@page import="Auxiliar.passwordEncryption"%>
 <%@page import="Modelo.Usuario"%>
 <%@page import="java.util.LinkedList"%>
@@ -5,6 +6,8 @@
 <%@page import="Modelo.Usuario"%>
 <%
 //GENERALES------------------------------
+    int intentos; // controlaremos los intentos de inicio de sesion
+
     //Borramos el mensaje para que tras el cambio de pagina no muestre  el mismo mensaje.
     if (session.getAttribute("mensaje") != null) {
         session.setAttribute("mensaje", null);
@@ -15,14 +18,17 @@
         //Obtenemos los datos del formulario .
         String email = request.getParameter("emailLogin");
         String password = passwordEncryption.MD5(request.getParameter("passwordLogin")); //encriptacion por MD5
-        
-        // Comprobamos si el email proporcionado esta activo.
-        if (Conexion.isActive(email)) {
 
-            Usuario usuarioActual = null;
-            //Comprobamos las credenciales en BBDD.
-            usuarioActual = Conexion.login(email, password);
-            if (usuarioActual != null) {
+        Usuario usuarioActual = null;
+        //Comprobamos las credenciales en BBDD.
+        usuarioActual = Conexion.login(email, password);
+
+        if (usuarioActual != null) {
+            //Ahora vamos a poner el contador de intentos a 0 tras hacer un inicio correcto.
+            Conexion.sumarIntento(email, 0);
+
+            // Comprobamos si el email proporcionado esta activo.
+            if (Conexion.isActive(email)) {
                 //Obtenemos el rol del usuario por medio de su id_usuario
                 usuarioActual.setRol(Conexion.getRol(usuarioActual.getId_user()));
 
@@ -38,22 +44,40 @@
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
                 }
 
-            } //credenciales erroneas o no existentes en BD.
+            } //usuario no activado
             else {
-                int intentos = (int) session.getAttribute("intentosLogin");
-                if (intentos < 4) {
-                }
-                session.setAttribute("mensaje", "Contraseï¿½a o e-mail erroneos, intentelo de nuevo.Intento numero:");
-                session.setAttribute("intentosLogin", intentos + 1);
+                session.setAttribute("mensaje", "Usuario desactivado,contacte con el administrador.");
                 response.sendRedirect("../Vistas/login.jsp");
             }
 
-            response.sendRedirect("../index.jsp");
+        } else { //credenciales erroneas o no existentes en BD.
+            intentos = Conexion.getIntentos(email);
+            if (intentos < 3) {
+                Conexion.sumarIntento(email, 1);
+                intentos++;
+                session.setAttribute("mensaje", "Contraseña o e-mail erroneos, intentelo de nuevo.Intento numero:" + intentos + ".");
+                response.sendRedirect("../Vistas/login.jsp");
+            } else {
+             //Enviar email
+        String az = Integer.toString((int) (Math.random() * 9999999));
 
-        } //usuario no activado
-        else {
-            session.setAttribute("mensaje", "Usuario desactivado,contacte con el administrador.");
-            response.sendRedirect("../Vistas/login.jsp");
+        //Envía email con la contraseña nueva
+        Email em = new Email();
+        String de = "auxiliardaw2@gmail.com";
+        String clave = "Chubaca20";
+        String para = request.getParameter("emailForget");
+        String mensaje = "Nueva contraseña: " + az + " \n Debido a superar el numero de intentos maximos , se ha procedido a modificar su contraseña. Al iniciar sesion se le pedria un cambio de contraseña.";
+        String asunto = "Superado intentos de sesion-cambio de contraseña.";
+        em.enviarCorreo(de, clave, para, mensaje, asunto);
+
+        //Asignar nueva contraseña al usuario
+        az = passwordEncryption.MD5(az);
+        Conexion.modificarClave(para, az);
+
+        session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
+        System.out.println("Email enviado correctamente a " + para);
+        response.sendRedirect("../index.jsp");
+            }
         }
     }
 
@@ -63,10 +87,28 @@
 
     }
 
-// Vista de Contraseï¿½a olvidadad -------------------------------------
-    //CONTRASEï¿½A OLVIDADA
+// Vista de Contraseña olvidadad -------------------------------------
+    //CONTRASEÑA OLVIDADA
     if (request.getParameter("passwordForget") != null) {
+        //Enviar email
+        String az = Integer.toString((int) (Math.random() * 9999999));
 
+        //Envía email con la contraseña nueva
+        Email em = new Email();
+        String de = "auxiliardaw2@gmail.com";
+        String clave = "Chubaca20";
+        String para = request.getParameter("emailForget");
+        String mensaje = "Nueva contraseña: " + az + " \n  Como has solicitado se te envia una nueva contraseña , la cual debe ser cambiada en el primer inicio de sesion.";
+        String asunto = "Superado intentos de sesion-cambio de contraseña.";
+        em.enviarCorreo(de, clave, para, mensaje, asunto);
+
+        //Asignar nueva contraseña al usuario
+        az = passwordEncryption.MD5(az);
+        Conexion.modificarClave(para, az);
+
+        session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
+        System.out.println("Email enviado correctamente a " + para);
+        response.sendRedirect("../index.jsp");
     }
 
 //GENERALES ----------------------------------------------------------
@@ -75,7 +117,7 @@
         response.sendRedirect("../index.jsp");
     }
 
-    // IR A CONTRASEï¿½A OLVIDADA
+    // IR A CONTRASEÑA OLVIDADA
     if (request.getParameter("vistaOlvidada") != null) {
         response.sendRedirect("../Vistas/olvidada.jsp");
     }

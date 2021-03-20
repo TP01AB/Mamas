@@ -25,6 +25,21 @@
             <input type="submit" name="vistaRegistro" value="REGISTRO">
             <input type="submit" name="vistaOlvidada" value="CONTRASEÑA OLV">
         </form>
+
+
+        <!<!-- Mensaje de error guardado en sesion -->
+        <%
+
+            if (session.getAttribute("mensaje") != null) {
+                String mensaje = (String) session.getAttribute("mensaje");
+        %>
+        <hr>
+        <div ><span name="mensaje" id="mensaje"><%=mensaje%></span></div>
+        <hr>
+        <%
+            }
+        %>
+        <br>
         <!-- SCRIPT -->
 
         <!-- jQuery -->
