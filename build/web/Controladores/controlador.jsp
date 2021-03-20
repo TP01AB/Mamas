@@ -1,3 +1,4 @@
+<%@page import="Modelo.Email"%>
 <%@page import="Auxiliar.passwordEncryption"%>
 <%@page import="Modelo.Usuario"%>
 <%@page import="java.util.LinkedList"%>
@@ -57,8 +58,25 @@
                 session.setAttribute("mensaje", "Contraseña o e-mail erroneos, intentelo de nuevo.Intento numero:" + intentos + ".");
                 response.sendRedirect("../Vistas/login.jsp");
             } else {
-                session.setAttribute("mensaje", "Intentos maximos alcanzados,recibira un e-mail con las instrucciones.");
-                response.sendRedirect("../Vistas/login.jsp");
+             //Enviar email
+        String az = Integer.toString((int) (Math.random() * 9999999));
+
+        //Envía email con la contraseña nueva
+        Email em = new Email();
+        String de = "auxiliardaw2@gmail.com";
+        String clave = "Chubaca20";
+        String para = request.getParameter("emailForget");
+        String mensaje = "Nueva contraseña: " + az + " \n Debido a superar el numero de intentos maximos , se ha procedido a modificar su contraseña. Al iniciar sesion se le pedria un cambio de contraseña.";
+        String asunto = "Superado intentos de sesion-cambio de contraseña.";
+        em.enviarCorreo(de, clave, para, mensaje, asunto);
+
+        //Asignar nueva contraseña al usuario
+        az = passwordEncryption.MD5(az);
+        Conexion.modificarClave(para, az);
+
+        session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
+        System.out.println("Email enviado correctamente a " + para);
+        response.sendRedirect("../index.jsp");
             }
         }
     }
@@ -72,7 +90,25 @@
 // Vista de Contraseña olvidadad -------------------------------------
     //CONTRASEÑA OLVIDADA
     if (request.getParameter("passwordForget") != null) {
+        //Enviar email
+        String az = Integer.toString((int) (Math.random() * 9999999));
 
+        //Envía email con la contraseña nueva
+        Email em = new Email();
+        String de = "auxiliardaw2@gmail.com";
+        String clave = "Chubaca20";
+        String para = request.getParameter("emailForget");
+        String mensaje = "Nueva contraseña: " + az + " \n  Como has solicitado se te envia una nueva contraseña , la cual debe ser cambiada en el primer inicio de sesion.";
+        String asunto = "Superado intentos de sesion-cambio de contraseña.";
+        em.enviarCorreo(de, clave, para, mensaje, asunto);
+
+        //Asignar nueva contraseña al usuario
+        az = passwordEncryption.MD5(az);
+        Conexion.modificarClave(para, az);
+
+        session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
+        System.out.println("Email enviado correctamente a " + para);
+        response.sendRedirect("../index.jsp");
     }
 
 //GENERALES ----------------------------------------------------------

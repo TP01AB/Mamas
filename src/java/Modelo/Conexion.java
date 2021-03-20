@@ -46,7 +46,7 @@ public class Conexion {
         }
     }
 
-    //METODOS PARA LOGIN-------------------------------------Ordenados por utilizacion
+    //METODOS PARA LOGIN-------------------------------------
     //COMPROBAR INTENTOS
     public static int getIntentos(String email) {
         int intentos = -1;
@@ -92,8 +92,7 @@ public class Conexion {
         }
     }
 
-    // 
-    //1º USUARIO ACTIVADO
+    // USUARIO ACTIVADO
     public static boolean isActive(String email) {// comprobamos si el usuario es activo para evitar hacer consulta de login si no lo esta.
         Conexion.nueva();
 
@@ -125,7 +124,7 @@ public class Conexion {
         return isActive;
     }
 
-    //2º LOGIN 
+    // LOGIN 
     public static Usuario login(String email, String password) {// Realizamos la comprobacion de mail y contraseña .
         Conexion.nueva();
         Usuario user = null;
@@ -158,7 +157,7 @@ public class Conexion {
         return user;
     }
 
-    //3º ROL
+    // ROL
     public static int getRol(int id) { //Obtenemos el rol del usuario logueado correctamente
         Conexion.nueva();
         PreparedStatement ps = null;
@@ -186,5 +185,19 @@ public class Conexion {
         }
         return rol;
     }
+    // ENVIAR CORREO CAMBIO DE CONTRASEÑA
 
+    public static void modificarClave(String email, String az) {
+        //El op a 0 significa que reseteamos la variable en BD , y en 1 sumaria un intento.
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "UPDATE usuarios SET password ='" + az + "' WHERE email = '" + email + "'";
+
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+
+//Metodos para registro ----------------------------------------
 }
