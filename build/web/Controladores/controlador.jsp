@@ -15,10 +15,12 @@
 //Vista de Login ----------------------------------------------------
     //LOGIN
     if (request.getParameter("iniciarseBD") != null) {
+
         //Obtenemos los datos del formulario .
         String email = request.getParameter("emailLogin");
         String password = passwordEncryption.MD5(request.getParameter("passwordLogin")); //encriptacion por MD5
 
+        intentos = Conexion.getIntentos(email);
         Usuario usuarioActual = null;
         //Comprobamos las credenciales en BBDD.
         usuarioActual = Conexion.login(email, password);
@@ -26,12 +28,17 @@
         if (usuarioActual != null) {
             //Ahora vamos a poner el contador de intentos a 0 tras hacer un inicio correcto.
             Conexion.sumarIntento(email, 0);
+            if (intentos > 2) {
+                session.setAttribute("email", email);
+                //dirigimos al usuario a la pantalla donde se le obligara a cambiar de contraseña.
+                response.sendRedirect("../Vistas/cambioContra.jsp");
+            }
 
             // Comprobamos si el email proporcionado esta activo.
             if (Conexion.isActive(email)) {
                 //Obtenemos el rol del usuario por medio de su id_usuario
                 usuarioActual.setRol(Conexion.getRol(usuarioActual.getId_user()));
-
+                session.setAttribute("usuarioActual", usuarioActual);
                 //redireccionamos a su inicio dependiendo de su rol.
                 if (usuarioActual.getRol() == 1) {
                     //Rol de alumno
@@ -51,32 +58,30 @@
             }
 
         } else { //credenciales erroneas o no existentes en BD.
-            intentos = Conexion.getIntentos(email);
+
             if (intentos < 3) {
                 Conexion.sumarIntento(email, 1);
                 intentos++;
-                session.setAttribute("mensaje", "Contraseï¿½a o e-mail erroneos, intentelo de nuevo.Intento numero:" + intentos + ".");
+                session.setAttribute("mensaje", "Contraseña o e-mail erroneos, intentelo de nuevo.Intento numero:" + intentos + ".");
                 response.sendRedirect("../Vistas/login.jsp");
             } else {
-             //Enviar email
-        String az = Integer.toString((int) (Math.random() * 9999999));
+                //Enviar email
+                String az = Integer.toString((int) (Math.random() * 9999999));
 
-        //Envï¿½a email con la contraseï¿½a nueva
-        Email em = new Email();
-        String de = "auxiliardaw2@gmail.com";
-        String clave = "Chubaca20";
-        String para = request.getParameter("emailForget");
-        String mensaje = "Nueva contraseï¿½a: " + az + " \n Debido a superar el numero de intentos maximos , se ha procedido a modificar su contraseï¿½a. Al iniciar sesion se le pedria un cambio de contraseï¿½a.";
-        String asunto = "Superado intentos de sesion-cambio de contraseï¿½a.";
-        em.enviarCorreo(de, clave, para, mensaje, asunto);
+                //Envía email con la contraseña nueva
+                Email em = new Email();
+                String para = request.getParameter("emailForget");
+                String mensaje = "Nueva contraseña: " + az + " \n Debido a superar el numero de intentos maximos , se ha procedido a modificar su contraseña. Al iniciar sesion se le pedria un cambio de contraseña.";
+                String asunto = "Superado intentos de sesion-cambio de contraseña.";
+                em.enviarCorreo(para, mensaje, asunto);
 
-        //Asignar nueva contraseï¿½a al usuario
-        az = passwordEncryption.MD5(az);
-        Conexion.modificarClave(para, az);
+                //Asignar nueva contraseña al usuario
+                az = passwordEncryption.MD5(az);
+                Conexion.modificarClave(para, az);
 
-        session.setAttribute("mensaje", "Contraseï¿½a enviada al e-mail proporcionado.");
-        System.out.println("Email enviado correctamente a " + para);
-        response.sendRedirect("../index.jsp");
+                session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
+                System.out.println("Email enviado correctamente a " + para);
+                response.sendRedirect("../index.jsp");
             }
         }
     }
@@ -87,37 +92,40 @@
 
     }
 
-// Vista de Contraseï¿½a olvidadad -------------------------------------
-    //CONTRASEï¿½A OLVIDADA
+// Vista de Contraseña olvidadad -------------------------------------
+    //CONTRASEÑA OLVIDADA
     if (request.getParameter("passwordForget") != null) {
         //Enviar email
         String az = Integer.toString((int) (Math.random() * 9999999));
 
-        //Envï¿½a email con la contraseï¿½a nueva
+        //Envía email con la contraseña nueva
         Email em = new Email();
-        String de = "auxiliardaw2@gmail.com";
-        String clave = "Chubaca20";
         String para = request.getParameter("emailForget");
-        String mensaje = "Nueva contraseï¿½a: " + az + " \n  Como has solicitado se te envia una nueva contraseï¿½a , la cual debe ser cambiada en el primer inicio de sesion.";
-        String asunto = "Superado intentos de sesion-cambio de contraseï¿½a.";
-        em.enviarCorreo(de, clave, para, mensaje, asunto);
+        String mensaje = "Nueva contraseña: " + az + " \n  Como has solicitado se te envia una nueva contraseña , la cual debe ser cambiada en el primer inicio de sesion.";
+        String asunto = "Superado intentos de sesion-cambio de contraseña.";
+        em.enviarCorreo(para, mensaje, asunto);
 
-        //Asignar nueva contraseï¿½a al usuario
+        //Asignar nueva contraseña al usuario
         az = passwordEncryption.MD5(az);
         Conexion.modificarClave(para, az);
 
-        session.setAttribute("mensaje", "Contraseï¿½a enviada al e-mail proporcionado.");
+        session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
         System.out.println("Email enviado correctamente a " + para);
         response.sendRedirect("../index.jsp");
     }
-
+//Vista de cambio de contraseña --------------------------------------
+    if (request.getParameter("passwordChange") != null) {
+        String email = (String) session.getAttribute("email");
+        String password = passwordEncryption.MD5(request.getParameter("passwordChange")); //encriptacion por MD5
+        Conexion.passwordChange(email);
+    }
 //GENERALES ----------------------------------------------------------
     //VUELTA AL HOME
     if (request.getParameter("home") != null) {
         response.sendRedirect("../index.jsp");
     }
 
-    // IR A CONTRASEï¿½A OLVIDADA
+    // IR A CONTRASEÑA OLVIDADA
     if (request.getParameter("vistaOlvidada") != null) {
         response.sendRedirect("../Vistas/olvidada.jsp");
     }
