@@ -200,4 +200,15 @@ public class Conexion {
     }
 
 //Metodos para registro ----------------------------------------
+//Metodos para cambio de contraseña-----------------------------
+    public static void passwordChange(String email, String password) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "UPDATE usuarios SET password ='" + password + "' WHERE email = '" + email + "'";
+
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
 }

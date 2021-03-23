@@ -1,25 +1,26 @@
 {
-  "name": "mamas",
-  "version": "1.0.0",
-  "description": "Mamas",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "devDependencies": {
-    "cypress": "^6.7.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TP01AB/Mamas.git"
-  },
-  "author": "isra9shadow",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TP01AB/Mamas/issues"
-  },
-  "homepage": "https://github.com/TP01AB/Mamas#readme"
+    "name": "mamas",
+    "version": "1.0.0",
+    "description": "Mamas",
+    "main": "index.js",
+    "directories": {
+        "test": "test"
+    },
+    "devDependencies": {
+        "cypress": "^6.8.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "e2e": "cypress open"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TP01AB/Mamas.git"
+    },
+    "author": "isra9shadow",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/TP01AB/Mamas/issues"
+    },
+    "homepage": "https://github.com/TP01AB/Mamas#readme"
 }
