@@ -42,12 +42,15 @@
                 //redireccionamos a su inicio dependiendo de su rol.
                 if (usuarioActual.getRol() == 1) {
                     //Rol de alumno
+                    session.setAttribute("rolActual", 1);
                     response.sendRedirect("../Vistas/inicioAlu.jsp");
                 } else if (usuarioActual.getRol() == 2) {
                     //Rol de profesor
+                    session.setAttribute("rolActual", 2);
                     response.sendRedirect("../Vistas/inicioProf.jsp");
                 } else if (usuarioActual.getRol() == 3) {
                     //Rol de administrador
+                    session.setAttribute("rolActual", 3);
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
                 }
 
@@ -117,7 +120,7 @@
     if (request.getParameter("passwordChange") != null) {
         String email = (String) session.getAttribute("email");
         String password = passwordEncryption.MD5(request.getParameter("passwordChange")); //encriptacion por MD5
-        Conexion.passwordChange(email,password);
+        Conexion.passwordChange(email, password);
         session.setAttribute("mensaje", "Contraseña cambiada correctamente.");
         response.sendRedirect("../Vistas/login.jsp");
     }

@@ -39,9 +39,20 @@
         <link rel="stylesheet" href="../css/all.css">
     </head>
     <body>
-         <jsp:include page="../Recursos/navbar.jsp"/>
+        <jsp:include page="../Recursos/navbar.jsp"/>
         <h1>Hello Administrador!</h1>
+        <form action="../Controladores/controladorAdmin.jsp" method="POST">
+            <button type="submit" name="crudUsuarios">
+                Crud Usuarios
+            </button>
+            <button type="submit" name="crudCiclos">
+                Crud Ciclos
+            </button>
+            <button type="submit" name="crudMaterias">
+                Crud Materias
+            </button>
 
+        </form>
 
         <!-- SCRIPT -->
 
