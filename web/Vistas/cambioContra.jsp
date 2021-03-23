@@ -22,9 +22,14 @@
         <main>
             <h1>Hello Cambio de contraseña!</h1>
             <!-- Formulario de contraseña olvidada -->
-            <form name="changeForm" action="../Controladores/controlador.jsp" method="POST">
-                <input type="password" id="passwordChange" name="passwordChange" >
-                <input type="password" id="password2Change" name="password2Change" >
+            <form name="changeForm" action="../Controladores/controlador.jsp" method="POST" novalidate>
+                <label for="passwordChange"> Contraseña:</label>
+                <input type="password" id="passwordChange" name="passwordChange" minlength="8" required>
+                <span name="passwordChangeError1" class="" id="passwordChangeError1" aria-live="polite"></span>
+                
+                <label for="password2Change">Repite la contraseña:</label>
+                <input type="password" id="password2Change" name="password2Change" minlength="8" required >
+                <span name="passwordChangeError2" class="" id="passwordChangeError2" aria-live="polite"></span>
                 <input type="submit" id="passwordChange" name="passwordChange" value="Cambio contraseña">
             </form>
             <form name="Form" id="loginForm" action="../Controladores/controlador.jsp" method="POST" >

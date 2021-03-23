@@ -115,8 +115,57 @@ function validarRegistro() {
         }
 
     }
-
-
+//---------------------------Validacion de cambio de contraseña
+    const form = document.getElementById("changeForm");
+    const pass1 = document.getElementById("passwordChange");
+    const pass2 = document.getElementById("password2Change");
+    const pass1Error = document.getElementById("passwordChangeError1");
+    const pass2Error = document.getElementById("password2ChangeError2");
+//-----------------------------FORMULARIO SUBMIT
+    var correcto;
+    form.addEventListener('submit', function (event) {
+    if (!pass1.validity.valid) {
+    error(pass1);
+            event.preventDefault();
+    }
+    if (!pass2.validity.valid) {
+    error(pass2);
+            event.preventDefault();
+    }
+    }
+     pass1.addEventListener('blur', function (event) {
+        if (pass.validity.valid) {
+            passError.className = 'valid-feedback';
+            pass.classList.add('is-valid');
+            pass.classList.remove('is-invalid');
+            passError.textContent = '';
+        } else {
+            error(pass);
+        }
+    });
+    pass2.addEventListener('input', function (event) {
+        comprobarContras();
+    });
+    function comprobarContras() {
+        
+        var c1 = pass1.value;
+        var c2 = pass2.value;
+        if (c1 != c2) {
+            pass2Error.textContent = 'Las contraseñas no coinciden.';
+            pass2Error.className = 'invalid-feedback';
+            pass2.classList.remove('is-valid');
+            pass2.classList.add('is-invalid');
+            correcto = false;
+        } else {
+            correcto = true;
+            if (!pass2.value.length == 0) {
+                pass2Error.textContent = '';
+                pass2Error.className = 'valid-feedback';
+                pass2.classList.add('is-valid');
+                pass2.classList.remove('is-invalid');
+            }
+        }
+    }
 //---------------------------VARIABLES
     const form = document.getElementById("registro");
     const email = document.getElementById("email");
@@ -215,38 +264,7 @@ function validarRegistro() {
             error(tfno);
         }
     });
-    pass.addEventListener('blur', function (event) {
-        if (pass.validity.valid) {
-            passError.className = 'valid-feedback';
-            pass.classList.add('is-valid');
-            pass.classList.remove('is-invalid');
-            passError.textContent = '';
-        } else {
-            error(pass);
-        }
-    });
-    pass2.addEventListener('input', function (event) {
-        comprobarContras();
-    });
-    function comprobarContras() {
-        var c1 = pass.value;
-        var c2 = pass2.value;
-        if (c1 != c2) {
-            pass2Error.textContent = 'Las contraseñas no coinciden.';
-            pass2Error.className = 'invalid-feedback';
-            pass2.classList.remove('is-valid');
-            pass2.classList.add('is-invalid');
-            correcto = false;
-        } else {
-            correcto = true;
-            if (!pass2.value.length == 0) {
-                pass2Error.textContent = '';
-                pass2Error.className = 'valid-feedback';
-                pass2.classList.add('is-valid');
-                pass2.classList.remove('is-invalid');
-            }
-        }
-    }
+   
     function error(campo) {
         if (campo == nombre) {
 //Campo vacío
@@ -435,8 +453,6 @@ function validacionTfnoPass() {
             } else if (pass.validity.tooShort) {
                 passError.textContent = 'Debe tener al menos ' + pass.minLength + ' caracteres; ha introducido ' + pass.value.length;
                 //Dato demasiado largo
-            } else if (pass.validity.tooLong) {
-                passError.textContent = 'Debe tener como máximo ' + pass.maxLength + ' caracteres; ha introducido ' + pass.value.length;
             }
 // Establece el estilo apropiado
             pass.classList.remove('is-valid');

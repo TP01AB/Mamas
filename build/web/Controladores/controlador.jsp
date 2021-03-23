@@ -70,7 +70,7 @@
 
                 //Envía email con la contraseña nueva
                 Email em = new Email();
-                String para = request.getParameter("emailForget");
+                String para = email;
                 String mensaje = "Nueva contraseña: " + az + " \n Debido a superar el numero de intentos maximos , se ha procedido a modificar su contraseña. Al iniciar sesion se le pedria un cambio de contraseña.";
                 String asunto = "Superado intentos de sesion-cambio de contraseña.";
                 em.enviarCorreo(para, mensaje, asunto);
@@ -102,7 +102,7 @@
         Email em = new Email();
         String para = request.getParameter("emailForget");
         String mensaje = "Nueva contraseña: " + az + " \n  Como has solicitado se te envia una nueva contraseña , la cual debe ser cambiada en el primer inicio de sesion.";
-        String asunto = "Superado intentos de sesion-cambio de contraseña.";
+        String asunto = "Solicitado cambio de contraseña";
         em.enviarCorreo(para, mensaje, asunto);
 
         //Asignar nueva contraseña al usuario
@@ -117,7 +117,9 @@
     if (request.getParameter("passwordChange") != null) {
         String email = (String) session.getAttribute("email");
         String password = passwordEncryption.MD5(request.getParameter("passwordChange")); //encriptacion por MD5
-        Conexion.passwordChange(email);
+        Conexion.passwordChange(email,password);
+        session.setAttribute("mensaje", "Contraseña cambiada correctamente.");
+        response.sendRedirect("../Vistas/login.jsp");
     }
 //GENERALES ----------------------------------------------------------
     //VUELTA AL HOME
