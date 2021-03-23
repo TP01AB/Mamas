@@ -5,12 +5,14 @@
         <group>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/olvidada.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controlador.jsp</file>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Usuario.java</file>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/registro.jsp</file>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/test/Modelo/UsuarioTest.java</file>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/login.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Recursos/Footer.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controladorAlumno.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controladorProfesor.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Conexion.java</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Recursos/navbar.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Auxiliar/constantes.java</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Email.java</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controladorAdmin.jsp</file>
         </group>
     </open-files>
 </project-private>

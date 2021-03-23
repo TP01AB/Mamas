@@ -10,8 +10,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mamas-inicio</title>
+        <%
+            // PROTECCION DE RUTAS 
 
-         <!-- Bootstrap core CSS -->
+            //Control de login
+            if (session.getAttribute("usuarioActual") == null) {
+                session.setAttribute("mensaje", "Debes iniciar sesion para acceder a dicha pagina");
+                response.sendRedirect("../Vistas/login.jsp");
+            } else //Control por rol
+            if (((int) session.getAttribute("rolActual")) < 2) {
+                session.setAttribute("mensaje", "No tienes permisos para acceder a esa pagina");
+
+                response.sendRedirect("../Vistas/inicioAlu.jsp");
+            }
+        %>
+        <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <!-- Material Design Bootstrap -->
         <link rel="stylesheet" href="../css/mdb.min.css">
@@ -21,10 +34,10 @@
     </head>
     <body>
         <h1>Hello Profesor!</h1>
-        
-        
-        
-          <!-- SCRIPT -->
+
+
+
+        <!-- SCRIPT -->
 
         <!-- jQuery -->
         <script type="text/javascript" src="../js/jquery.min.js"></script>
