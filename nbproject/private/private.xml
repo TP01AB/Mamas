@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/olvidada.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controlador.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Recursos/Footer.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controladorAlumno.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controladorProfesor.jsp</file>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Conexion.java</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/inicioAdmin.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Recursos/navbar.jsp</file>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Auxiliar/constantes.java</file>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Email.java</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/inicioAlu.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controladorAdmin.jsp</file>
         </group>
     </open-files>
