@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="../css/all.css">
     </head>
     <body>
+        <jsp:include page="../Recursos/navbar.jsp"/>
         <h1>Hello Alumno!</h1>
 
 
@@ -36,5 +37,6 @@
         <script type="text/javascript" src="../js/mdb.min.js"></script>
         <!-- Your custom scripts (optional) -->
         <script type="text/javascript"></script>
+        <jsp:include page="../Recursos/Footer.jsp"/>
     </body>
 </html>
