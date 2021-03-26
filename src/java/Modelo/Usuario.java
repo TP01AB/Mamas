@@ -16,23 +16,36 @@ public class Usuario {
 
     private int id_user;
     private String email;
+    private String password;
     private boolean isActive;
+    private int intentos;
     //Roles
     private int rol;
 
     //Constructor de usuario sin ID y rol , los cuales se asignaran tras el Login.
-    public Usuario(int id,String email, boolean isActive) {
-        this.id_user=id;
+    public Usuario(int id, String email, int isActive) {
+        this.id_user = id;
         this.email = email;
-        this.isActive = isActive;
+        if (isActive == 1) {
+            this.isActive = true;
+        } else {
+            this.isActive = false;
+        }
     }
 
     //Constructor de usuario con todos los datos para casos en los que se consulte el usuario completo en BD.
-    public Usuario(int id_user, String email, boolean isActive, int rol) {
+    public Usuario(int id_user, String email, String password, int rol, int isActive, int intentos) {
         this.id_user = id_user;
         this.email = email;
-        this.isActive = isActive;
+        this.password = password;
+        if (isActive == 1) {
+            this.isActive = true;
+        } else {
+            this.isActive = false;
+        }
+
         this.rol = rol;
+        this.intentos = intentos;
     }
 
     //Constructor vacio
@@ -70,6 +83,22 @@ public class Usuario {
 
     public void setRol(int rol) {
         this.rol = rol;
+    }
+
+    public int getIntentos() {
+        return intentos;
+    }
+
+    public void setIntentos(int intentos) {
+        this.intentos = intentos;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

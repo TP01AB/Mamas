@@ -7,6 +7,7 @@ package Modelo;
 import Auxiliar.constantes;
 import static Auxiliar.constantes.usuario;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -304,4 +305,30 @@ public class Conexion {
         } catch (SQLException ex) {
         }
     }
+
+//ADMINISTRADOR
+//CRUD USUARIOS
+    public static LinkedList getUsers() {
+        LinkedList usuarios = new LinkedList();
+        usuarios = null;
+        try {
+            String sentencia = "SELECT * FROM usuarios";
+            Conexion.Conj_Registros = Conexion.Sentencia_SQL.executeQuery(sentencia);
+            while (Conexion.Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String email = Conj_Registros.getString("email");
+                String password = Conj_Registros.getString("password");
+                int activo = Conj_Registros.getInt("isActive");
+                int intentos = Conj_Registros.getInt("intentos");
+                int rol = Conexion.getRol(id);
+                Usuario u = new Usuario(id, email, password, rol, activo, intentos);
+                usuarios.add(u);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return usuarios;
+    }
+
 }

@@ -4,6 +4,8 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Conexion"%>
+<%@page import="java.util.ArrayList"%>
 <%
     //Borramos el mensaje para que tras el cambio de pagina no muestre  el mismo mensaje.
     if (session.getAttribute("mensaje") != null) {
@@ -15,15 +17,17 @@
     }
     //CRUD USUARIOS
     if (request.getParameter("crudUsuarios") != null) {
-        response.sendRedirect("../Vistas/Administrador/crudUsuarios.jsp");
+        response.sendRedirect("../Vistas/crudUsuarios.jsp");
     }
     //CRUD MATERIAS
     if (request.getParameter("crudMaterias") != null) {
-        response.sendRedirect("../Vistas/Administrador/crudMaterias.jsp");
+        ArrayList usuarios = Conexion.getUsers();
+        session.setAttribute("usuarios", usuarios);
+        response.sendRedirect("../Vistas/crudMaterias.jsp");
     }
     //CRUD CICLOS
     if (request.getParameter("crudCiclos") != null) {
-        response.sendRedirect("../Vistas/Administrador/crudCiclos.jsp");
+        response.sendRedirect("../Vistas/crudCiclos.jsp");
     }
     //CERRAR SESION
     if (request.getParameter("close") != null) {
