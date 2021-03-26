@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/all.css">
     </head>
-    <body class="container">
+    <body class="container" onload="validarCambio()">
         <div></div>
         <main>
             <h1>Hello Cambio de contraseña!</h1>

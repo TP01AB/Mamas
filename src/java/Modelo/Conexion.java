@@ -200,7 +200,100 @@ public class Conexion {
     }
 
 //Metodos para registro ----------------------------------------
+    //Comprobamos dni .
+    public static boolean existeDni(String dni) {
+        boolean existe = false;
+        Conexion.nueva();
+        PreparedStatement ps = null;
+
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM temporal WHERE dni = ?";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setString(1, dni);
+            Conexion.Conj_Registros = ps.executeQuery();
+
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    existe = true;
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general 2: " + ex.getMessage());
+            }
+        }
+        return existe;
+    }
+
+    //Comprobamos email .
+    public static boolean existeEmail(String email) {
+        boolean existe = false;
+        Conexion.nueva();
+        PreparedStatement ps = null;
+
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM usuarios WHERE email = ?";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setString(1, email);
+            Conexion.Conj_Registros = ps.executeQuery();
+
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    existe = true;
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general 2: " + ex.getMessage());
+            }
+        }
+        return existe;
+    }
+
+    //Registramos los datos de acceso del usuario
+    public static void insertAcceso(String email, String password) {
+        Conexion.nueva();
+
+        String sentencia = "INSERT INTO usuarios VALUES(default,'" + email + "','" + password + "',default,default)";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+
+            Conexion.cerrarBD();
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+    }
+
+    //Registramos los datos de perfil del usuario
+    public static void insertPerfil(String nombre, String apellidos, String dni, String telefono, String nacimiento) {
+        Conexion.nueva();
+
+        String sentencia = "INSERT INTO temporal VALUES(default,'" + nombre + "','" + apellidos + "','" + dni + "','" + telefono + "','" + nacimiento + "')";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+            Conexion.cerrarBD();
+
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+
+    }
 //Metodos para cambio de contraseña-----------------------------
+
     public static void passwordChange(String email, String password) {
         Conexion.nueva();
         try {
