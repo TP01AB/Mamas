@@ -13,6 +13,18 @@
     if (request.getParameter("adminHome") != null) {
         response.sendRedirect("../Vistas/inicioAdmin.jsp");
     }
+    //CRUD USUARIOS
+    if (request.getParameter("crudUsuarios") != null) {
+        response.sendRedirect("../Vistas/Administrador/crudUsuarios.jsp");
+    }
+    //CRUD MATERIAS
+    if (request.getParameter("crudMaterias") != null) {
+        response.sendRedirect("../Vistas/Administrador/crudMaterias.jsp");
+    }
+    //CRUD CICLOS
+    if (request.getParameter("crudCiclos") != null) {
+        response.sendRedirect("../Vistas/Administrador/crudCiclos.jsp");
+    }
     //CERRAR SESION
     if (request.getParameter("close") != null) {
         session.removeAttribute("usuarioActual");

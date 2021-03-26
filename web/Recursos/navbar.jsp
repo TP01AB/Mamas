@@ -27,8 +27,8 @@
     <%
         if (rol == 3) {
     %>
-    <form action="../Controladores/controladorProfesor" method="POST">
-        <button type="submit" name="profHome">Home prof</button>
+    <form action="../Controladores/controladorProfesor" method="POST" >
+        <button type="submit" name="profHome" disabled>Home prof</button>
     </form>
     <form action="../Controladores/controladorAdmin.jsp" method="POST">    
         <button type="submit" name="adminHome">Home</button>
