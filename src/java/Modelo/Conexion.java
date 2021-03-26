@@ -308,6 +308,7 @@ public class Conexion {
 //ADMINISTRADOR
 //CRUD USUARIOS
     public static LinkedList getUsers() {
+        Conexion.nueva();
         LinkedList usuarios = new LinkedList();
         usuarios = null;
         try {
@@ -328,6 +329,7 @@ public class Conexion {
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
+        Conexion.cerrarBD();
         return usuarios;
     }
 
