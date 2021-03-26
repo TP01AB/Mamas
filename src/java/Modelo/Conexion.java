@@ -146,8 +146,7 @@ public class Conexion {
         } finally {
             try {
                 if (Conexion.Conj_Registros.next()) {
-                    boolean isActive = (Conj_Registros.getInt("isActive") == 0) ? true : false;
-                    user = new Usuario(Conj_Registros.getInt("id"), email, isActive);
+                    user = new Usuario(Conj_Registros.getInt("id"), email, Conj_Registros.getInt("isActive"));
                 }
                 ps.close();
                 Conexion.cerrarBD();
@@ -323,6 +322,7 @@ public class Conexion {
                 int rol = Conexion.getRol(id);
                 Usuario u = new Usuario(id, email, password, rol, activo, intentos);
                 usuarios.add(u);
+                System.out.println("usuario: " + u);
             }
 
         } catch (SQLException ex) {

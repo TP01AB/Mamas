@@ -22,5 +22,5 @@
 <script type="text/javascript" src="../js/mdb.min.js"></script>
 <div class="row bg-secondary pl-4">
 
-    <a class="text-dark" href="https://github.com/TP01AB">Israel Molina Pulpón</a> <a href="https://github.com/TP01AB/Mamas.git">Repositorio</a> <a href="https://app.gitkraken.com/glo/board/YFCQxyrR4wARIbb2">BoardTareas</a>
+    <a class="text-dark m-2 p-2" href="https://github.com/TP01AB">Israel Molina Pulpón</a> <a class="text-dark m-2 p-2" href="https://github.com/TP01AB/Mamas.git">Repositorio</a> <a class="text-dark m-2 p-2" href="https://app.gitkraken.com/glo/board/YFCQxyrR4wARIbb2">BoardTareas</a>
 </div>

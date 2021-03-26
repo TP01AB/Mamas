@@ -57,7 +57,7 @@
                             <td><input class="form-control" type="email" name="email" value="<%=u.getEmail()%>"></td>
                             <td><input class="form-control" type="password" name="password" value="<%=u.getPassword()%>"></td>
                             <td><input type="number" name="rol" value="<%=u.getRol()%>"></td>
-                            
+
                             <td><input type="submit" class="btn btn-success" name="actualizarUsuario" value="Guardar"></td>
                             <td><input type="submit" class="btn btn-danger" name="eliminarUsuario" value="Eliminar"></td>
                         </form>
@@ -68,7 +68,6 @@
                         </tbody>
                     </table>
                 </div>
-                <jsp:include page="recursos/footer.jsp"/>
             </div>
 
         </div>

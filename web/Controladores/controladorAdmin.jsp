@@ -4,6 +4,7 @@
     Author     : isra9
 --%>
 
+<%@page import="java.util.LinkedList"%>
 <%@page import="Modelo.Conexion"%>
 <%@page import="java.util.ArrayList"%>
 <%
@@ -17,12 +18,13 @@
     }
     //CRUD USUARIOS
     if (request.getParameter("crudUsuarios") != null) {
+        LinkedList usuarios = Conexion.getUsers();
+        session.setAttribute("usuarios", usuarios);
         response.sendRedirect("../Vistas/crudUsuarios.jsp");
     }
     //CRUD MATERIAS
     if (request.getParameter("crudMaterias") != null) {
-        ArrayList usuarios = Conexion.getUsers();
-        session.setAttribute("usuarios", usuarios);
+
         response.sendRedirect("../Vistas/crudMaterias.jsp");
     }
     //CRUD CICLOS
