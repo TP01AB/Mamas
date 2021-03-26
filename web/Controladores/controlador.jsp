@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@page import="Modelo.Email"%>
 <%@page import="Auxiliar.passwordEncryption"%>
 <%@page import="Modelo.Usuario"%>
@@ -92,6 +93,24 @@
 //Vista de Registro --------------------------------------------------    
     //REGISTRO
     if (request.getParameter("registrarseBD") != null) {
+        String email = request.getParameter("emailRegistro");
+        String password = passwordEncryption.MD5(request.getParameter("passwordRegistro"));
+        String nombre = request.getParameter("nombre");
+        String apellidos = request.getParameter("apellidos");
+        String dni = request.getParameter("dni");
+        String telefono = request.getParameter("telefono");
+        String nacimiento = request.getParameter("nacimiento");
+        if (Conexion.existeDni(dni) || Conexion.existeEmail(email)) {
+            session.setAttribute("mensaje", "Datos proporcionados ya existentes en el sistema.");
+            response.sendRedirect("../index.jsp");
+        } else {
+            Conexion.insertAcceso(email, password);
+            Conexion.insertPerfil(nombre, apellidos, dni, telefono, nacimiento);
+
+            session.setAttribute("mensaje", "Registro correcto.");
+            response.sendRedirect("../index.jsp");
+
+        }
 
     }
 

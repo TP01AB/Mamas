@@ -3,6 +3,198 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//Validacion del formulario de registro.
+function validarRegistro() {
+//---------------------------VARIABLES
+    const form = document.getElementById("registerForm");
+    const email = document.getElementById("emailRegistro");
+    const nombre = document.getElementById("nombre");
+    const apellidos = document.getElementById("apellidos");
+    const dni = document.getElementById("dni");
+    const tfno = document.getElementById("telefono");
+    const pass = document.getElementById("passwordRegistro");
+    const nacimiento = document.getElementById("nacimiento");
+    const emailError = document.getElementById("emailRegistroError");
+    const nombreError = document.getElementById("nombreError");
+    const apellidosError = document.getElementById("apellidosError");
+    const dniError = document.getElementById("dniError");
+    const tfnoError = document.getElementById("telefonoError");
+    const passError = document.getElementById("passwordRegistroError");
+    const nacimientoError = document.getElementById("nacimientoError");
+    //-----------------------------FORMULARIO SUBMIT
+    var correcto;
+    form.addEventListener('submit', function (event) {
+        if (!nombre.validity.valid) {
+            error(nombre);
+            event.preventDefault();
+        }
+        if (!apellidos.validity.valid) {
+            error(apellidos);
+            event.preventDefault();
+        }
+        if (!email.validity.valid) {
+            error(email);
+            event.preventDefault();
+        }
+        if (!dni.validity.valid) {
+            error(dni);
+            event.preventDefault();
+        }
+        if (!tfno.validity.valid) {
+            error(tfno);
+            event.preventDefault();
+        }
+        if (!pass.validity.valid) {
+            error(pass);
+            event.preventDefault();
+        }
+    });
+    nombre.addEventListener('blur', function (event) {
+        if (nombre.validity.valid) {
+            nombreError.className = 'valid-feedback';
+            nombre.classList.add('is-valid');
+            nombre.classList.remove('is-invalid');
+            nombreError.textContent = '';
+        } else {
+            error(nombre);
+        }
+    });
+    apellidos.addEventListener('blur', function (event) {
+        if (apellidos.validity.valid) {
+            apellidosError.className = 'valid-feedback';
+            apellidos.classList.add('is-valid');
+            apellidos.classList.remove('is-invalid');
+            apellidosError.textContent = '';
+        } else {
+            error(apellidos);
+        }
+    });
+    email.addEventListener('blur', function (event) {
+        if (email.validity.valid) {
+            emailError.className = 'valid-feedback';
+            email.classList.add('is-valid');
+            email.classList.remove('is-invalid');
+            emailError.textContent = '';
+        } else {
+            error(email);
+        }
+    });
+    dni.addEventListener('blur', function (event) {
+        if (dni.validity.valid) {
+            dniError.className = 'valid-feedback';
+            dni.classList.add('is-valid');
+            dni.classList.remove('is-invalid');
+            dniError.textContent = '';
+        } else {
+            error(dni);
+        }
+    });
+    pass.addEventListener('blur', function (event) {
+        if (pass.validity.valid) {
+            passError.className = 'valid-feedback';
+            pass.classList.add('is-valid');
+            pass.classList.remove('is-invalid');
+            passError.textContent = '';
+        } else {
+            error(pass);
+        }
+    });
+    telefono.addEventListener('blur', function (event) {
+        if (telefono.validity.valid) {
+            telefonoError.className = 'valid-feedback';
+            telefono.classList.add('is-valid');
+            telefono.classList.remove('is-invalid');
+            telefonoError.textContent = '';
+        } else {
+            error(telefono);
+        }
+    });
+    function error(campo) {
+        if (campo == nombre) {
+//Campo vacío
+            if (nombre.validity.valueMissing) {
+                nombreError.textContent = 'Debe introducir su nombre.';
+            } else if (nombre.validity.tooShort) {
+                nombreError.textContent = 'Debe tener al menos ' + nombre.minLength + ' caracteres; ha introducido ' + nombre.value.length;
+            } else if (nombre.validity.tooLong) {
+                nombreError.textContent = 'Debe tener como máximo ' + nombre.maxLength + ' caracteres; ha introducido ' + nombre.value.length;
+            }
+// Establece el estilo apropiado
+            nombre.classList.remove('is-valid');
+            nombre.classList.add('is-invalid');
+            nombreError.className = 'invalid-feedback';
+        }
+        if (campo == apellidos) {
+//Campo vacío
+            if (apellidos.validity.valueMissing) {
+                apellidosError.textContent = 'Debe introducir sus apellidos.';
+            } else if (apellidos.validity.tooShort) {
+                apellidosError.textContent = 'Debe tener al menos ' + apellidos.minLength + ' caracteres; ha introducido ' + apellidos.value.length;
+            } else if (apellidos.validity.tooLong) {
+                apellidosError.textContent = 'Debe tener como máximo ' + apellidos.maxLength + ' caracteres; ha introducido ' + apellidos.value.length;
+            }
+// Establece el estilo apropiado
+            apellidos.classList.remove('is-valid');
+            apellidos.classList.add('is-invalid');
+            apellidosError.className = 'invalid-feedback';
+        }
+        if (campo == email) {
+//Campo vacío
+            if (email.validity.valueMissing) {
+                emailError.textContent = 'Debe introducir su dirección de correo electrónico.';
+                //No cumple los requisitos del campo email
+            } else if (email.validity.typeMismatch) {
+                emailError.textContent = 'El valor introducido debe ser una dirección de correo electrónico ';
+                //Datos demasiado cortos
+            }
+// Establece el estilo apropiado
+            email.classList.remove('is-valid');
+            email.classList.add('is-invalid');
+            emailError.className = 'invalid-feedback';
+        }
+        if (campo == dni) {
+//Campo vacío
+            if (dni.validity.valueMissing) {
+                dniError.textContent = 'Debe introducir su dni.';
+                //No cumple con el pattern
+            } else if (dni.validity.patternMismatch) {
+                dniError.textContent = 'El valor introducido debe seguir este patron 00000000X';
+            }
+// Establece el estilo apropiado
+            dni.classList.remove('is-valid');
+            dni.classList.add('is-invalid');
+            dniError.className = 'invalid-feedback';
+        }
+        if (campo == telefono) {
+            if (telefono.validity.valueMissing) {
+                telefonoError.textContent = 'Debe introducir su teléfono.';
+            } else if (telefono.validity.patternMismatch) {
+                telefonoError.textContent = 'El valor introducido debe ser un numero de telefono de 9 digitos.';
+            }
+// Establece el estilo apropiado
+            telefono.classList.remove('is-valid');
+            telefono.classList.add('is-invalid');
+            telefonoError.className = 'invalid-feedback';
+        }
+        if (campo == pass) {
+//Campo vacío
+            if (pass.validity.valueMissing) {
+                passError.textContent = 'Debe introducir una contraseña.';
+                //Dato demasiado cortos
+            } else if (pass.validity.tooShort) {
+                passError.textContent = 'Debe tener al menos ' + pass.minLength + ' caracteres; ha introducido ' + pass.value.length;
+                //Dato demasiado largo
+            } else if (pass.validity.tooLong) {
+                passError.textContent = 'Debe tener como máximo ' + pass.maxLength + ' caracteres; ha introducido ' + pass.value.length;
+            }
+// Establece el estilo apropiado
+            pass.classList.remove('is-valid');
+            pass.classList.add('is-invalid');
+            passError.className = 'invalid-feedback';
+        }
+    }
+
+}
 
 //Validacion formulario login
 
@@ -82,40 +274,40 @@ function validacionLogin() {
     }
 }
 
-//Validacion del formulario de registro.
-function validarRegistro() {
+
 //--------------------------ROLES
-    if (document.getElementById("profesor") != null) {
-
-        const admin = document.getElementById("admin");
-        const asignaturas = document.getElementById("asignaturas");
-        var radio = document.getElementById('profesor');
-        var radio2 = document.getElementById('alumno');
-        radio.addEventListener("change", validaRadio, false);
-        function validaRadio()
-        {
-            var checked = radio.checked;
-            if (checked) {
-                admin.classList.remove('d-none');
-                admin.classList.add('d-block');
-                asignaturas.classList.remove('d-none');
-                asignaturas.classList.add('d-block');
-            }
-        }
-        radio2.addEventListener("change", validaRadio2, false);
-        function validaRadio2()
-        {
-            var checked = radio2.checked;
-            if (checked) {
-                admin.classList.remove('d-block');
-                admin.classList.add('d-none');
-                asignaturas.classList.remove('d-block');
-                asignaturas.classList.add('d-none');
-            }
-        }
-
-    }
+//if (document.getElementById("profesor") != null) {
+//
+//    const admin = document.getElementById("admin");
+//    const asignaturas = document.getElementById("asignaturas");
+//    var radio = document.getElementById('profesor');
+//    var radio2 = document.getElementById('alumno');
+//    radio.addEventListener("change", validaRadio, false);
+//    function validaRadio()
+//    {
+//        var checked = radio.checked;
+//        if (checked) {
+//            admin.classList.remove('d-none');
+//            admin.classList.add('d-block');
+//            asignaturas.classList.remove('d-none');
+//            asignaturas.classList.add('d-block');
+//        }
+//    }
+//    radio2.addEventListener("change", validaRadio2, false);
+//    function validaRadio2()
+//    {
+//        var checked = radio2.checked;
+//        if (checked) {
+//            admin.classList.remove('d-block');
+//            admin.classList.add('d-none');
+//            asignaturas.classList.remove('d-block');
+//            asignaturas.classList.add('d-none');
+//        }
+//    }
+//
+//}
 //---------------------------Validacion de cambio de contraseña
+function validarCambio() {
     const form = document.getElementById("changeForm");
     const pass1 = document.getElementById("passwordChange");
     const pass2 = document.getElementById("password2Change");
@@ -124,234 +316,69 @@ function validarRegistro() {
 //-----------------------------FORMULARIO SUBMIT
     var correcto;
     form.addEventListener('submit', function (event) {
-    if (!pass1.validity.valid) {
-    error(pass1);
+        if (!pass1.validity.valid) {
+            error(pass1);
             event.preventDefault();
-    }
-    if (!pass2.validity.valid) {
-    error(pass2);
+        }
+        if (!pass2.validity.valid) {
+            error(pass2);
             event.preventDefault();
-    }
-    }
-     pass1.addEventListener('blur', function (event) {
-        if (pass.validity.valid) {
-            passError.className = 'valid-feedback';
-            pass.classList.add('is-valid');
-            pass.classList.remove('is-invalid');
-            passError.textContent = '';
+        }
+    });
+
+    pass1.addEventListener('blur', function (event) {
+        if (pass1.validity.valid) {
+            pass1Error.className = 'valid-feedback';
+            pass1.classList.add('is-valid');
+            pass1.classList.remove('is-invalid');
+            pass1Error.textContent = '';
         } else {
-            error(pass);
+            error(pass1);
         }
     });
     pass2.addEventListener('input', function (event) {
-        comprobarContras();
+        comprobarContras(pass1, pass2);
     });
-    function comprobarContras() {
-        
-        var c1 = pass1.value;
-        var c2 = pass2.value;
-        if (c1 != c2) {
-            pass2Error.textContent = 'Las contraseñas no coinciden.';
-            pass2Error.className = 'invalid-feedback';
-            pass2.classList.remove('is-valid');
-            pass2.classList.add('is-invalid');
-            correcto = false;
-        } else {
-            correcto = true;
-            if (!pass2.value.length == 0) {
-                pass2Error.textContent = '';
-                pass2Error.className = 'valid-feedback';
-                pass2.classList.add('is-valid');
-                pass2.classList.remove('is-invalid');
-            }
-        }
-    }
-//---------------------------VARIABLES
-    const form = document.getElementById("registro");
-    const email = document.getElementById("email");
-    const nombre = document.getElementById("nombre");
-    const apellidos = document.getElementById("apellidos");
-    const dni = document.getElementById("dni");
-    const tfno = document.getElementById("tfno");
-    const pass = document.getElementById("pass");
-    const pass2 = document.getElementById("pass2");
-    const emailError = document.getElementById("emailError");
-    const nombreError = document.getElementById("nombreError");
-    const apellidosError = document.getElementById("apellidosError");
-    const dniError = document.getElementById("dniError");
-    const tfnoError = document.getElementById("tfnoError");
-    const passError = document.getElementById("passError");
-    const pass2Error = document.getElementById("pass2Error");
-    //-----------------------------FORMULARIO SUBMIT
-    var correcto;
-    form.addEventListener('submit', function (event) {
-        if (!nombre.validity.valid) {
-            error(nombre);
-            event.preventDefault();
-        }
-        if (!apellidos.validity.valid) {
-            error(apellidos);
-            event.preventDefault();
-        }
-        if (!email.validity.valid) {
-            error(email);
-            event.preventDefault();
-        }
-        if (!dni.validity.valid) {
-            error(dni);
-            event.preventDefault();
-        }
-        if (!tfno.validity.valid) {
-            error(tfno);
-            event.preventDefault();
-        }
-        if (!pass.validity.valid) {
-            error(pass);
-            event.preventDefault();
-        }
-        comprobarContras();
-        if (!correcto) {
-            event.preventDefault();
-        }
-    });
-    nombre.addEventListener('blur', function (event) {
-        if (nombre.validity.valid) {
-            nombreError.className = 'valid-feedback';
-            nombre.classList.add('is-valid');
-            nombre.classList.remove('is-invalid');
-            nombreError.textContent = '';
-        } else {
-            error(nombre);
-        }
-    });
-    apellidos.addEventListener('blur', function (event) {
-        if (apellidos.validity.valid) {
-            apellidosError.className = 'valid-feedback';
-            apellidos.classList.add('is-valid');
-            apellidos.classList.remove('is-invalid');
-            apellidosError.textContent = '';
-        } else {
-            error(apellidos);
-        }
-    });
-    email.addEventListener('blur', function (event) {
-        if (email.validity.valid) {
-            emailError.className = 'valid-feedback';
-            email.classList.add('is-valid');
-            email.classList.remove('is-invalid');
-            emailError.textContent = '';
-        } else {
-            error(email);
-        }
-    });
-    dni.addEventListener('blur', function (event) {
-        if (dni.validity.valid) {
-            dniError.className = 'valid-feedback';
-            dni.classList.add('is-valid');
-            dni.classList.remove('is-invalid');
-            dniError.textContent = '';
-        } else {
-            error(dni);
-        }
-    });
-    tfno.addEventListener('blur', function (event) {
-        if (tfno.validity.valid) {
-            tfnoError.className = 'valid-feedback';
-            tfno.classList.add('is-valid');
-            tfno.classList.remove('is-invalid');
-            tfnoError.textContent = '';
-        } else {
-            error(tfno);
-        }
-    });
-   
-    function error(campo) {
-        if (campo == nombre) {
-//Campo vacío
-            if (nombre.validity.valueMissing) {
-                nombreError.textContent = 'Debe introducir su nombre.';
-            } else if (nombre.validity.tooShort) {
-                nombreError.textContent = 'Debe tener al menos ' + nombre.minLength + ' caracteres; ha introducido ' + nombre.value.length;
-            } else if (nombre.validity.tooLong) {
-                nombreError.textContent = 'Debe tener como máximo ' + nombre.maxLength + ' caracteres; ha introducido ' + nombre.value.length;
-            }
-// Establece el estilo apropiado
-            nombre.classList.remove('is-valid');
-            nombre.classList.add('is-invalid');
-            nombreError.className = 'invalid-feedback';
-        }
-        if (campo == apellidos) {
-//Campo vacío
-            if (apellidos.validity.valueMissing) {
-                apellidosError.textContent = 'Debe introducir sus apellidos.';
-            } else if (apellidos.validity.tooShort) {
-                apellidosError.textContent = 'Debe tener al menos ' + apellidos.minLength + ' caracteres; ha introducido ' + apellidos.value.length;
-            } else if (apellidos.validity.tooLong) {
-                apellidosError.textContent = 'Debe tener como máximo ' + apellidos.maxLength + ' caracteres; ha introducido ' + apellidos.value.length;
-            }
-// Establece el estilo apropiado
-            apellidos.classList.remove('is-valid');
-            apellidos.classList.add('is-invalid');
-            apellidosError.className = 'invalid-feedback';
-        }
-        if (campo == email) {
-//Campo vacío
-            if (email.validity.valueMissing) {
-                emailError.textContent = 'Debe introducir su dirección de correo electrónico.';
-                //No cumple los requisitos del campo email
-            } else if (email.validity.typeMismatch) {
-                emailError.textContent = 'El valor introducido debe ser una dirección de correo electrónico ';
-                //Datos demasiado cortos
-            }
-// Establece el estilo apropiado
-            email.classList.remove('is-valid');
-            email.classList.add('is-invalid');
-            emailError.className = 'invalid-feedback';
-        }
-        if (campo == dni) {
-//Campo vacío
-            if (dni.validity.valueMissing) {
-                dniError.textContent = 'Debe introducir su dni.';
-                //No cumple con el pattern
-            } else if (dni.validity.patternMismatch) {
-                dniError.textContent = 'El valor introducido debe seguir este patron 00000000X';
-            }
-// Establece el estilo apropiado
-            dni.classList.remove('is-valid');
-            dni.classList.add('is-invalid');
-            dniError.className = 'invalid-feedback';
-        }
-        if (campo == tfno) {
-            if (tfno.validity.valueMissing) {
-                tfnoError.textContent = 'Debe introducir su teléfono.';
-            }
-//No cumple con el pattern
-            else if (tfno.validity.patternMismatch) {
-                tfnoError.textContent = 'El valor introducido debe tener 9 números';
-            }
-// Establece el estilo apropiado
-            tfno.classList.remove('is-valid');
-            tfno.classList.add('is-invalid');
-            tfnoError.className = 'invalid-feedback';
-        }
-        if (campo == pass) {
-//Campo vacío
-            if (pass.validity.valueMissing) {
-                passError.textContent = 'Debe introducir una contraseña.';
-                //Dato demasiado cortos
-            } else if (pass.validity.tooShort) {
-                passError.textContent = 'Debe tener al menos ' + pass.minLength + ' caracteres; ha introducido ' + pass.value.length;
-                //Dato demasiado largo
-            } else if (pass.validity.tooLong) {
-                passError.textContent = 'Debe tener como máximo ' + pass.maxLength + ' caracteres; ha introducido ' + pass.value.length;
-            }
-// Establece el estilo apropiado
-            pass.classList.remove('is-valid');
-            pass.classList.add('is-invalid');
-            passError.className = 'invalid-feedback';
-        }
-    }
+}
+function comprobarContras(pass1, pass2) {
 
+    var c1 = pass1.value;
+    var c2 = pass2.value;
+    if (c1 != c2) {
+        pass2Error.textContent = 'Las contraseñas no coinciden.';
+        pass2Error.className = 'invalid-feedback';
+        pass2.classList.remove('is-valid');
+        pass2.classList.add('is-invalid');
+        correcto = false;
+    } else {
+        correcto = true;
+        if (!pass2.value.length == 0) {
+            pass2Error.textContent = '';
+            pass2Error.className = 'valid-feedback';
+            pass2.classList.add('is-valid');
+            pass2.classList.remove('is-invalid');
+        }
+    }
+}
+
+
+//VALIDACION LETRA DNI-------------------
+function validateDNI(dni) {
+    var numero, let, letra;
+    var expresion_regular_dni = /^[0-9]{8}[A-Z]{1}$/;
+    dni = dni.toUpperCase();
+    numero = dni.substr(0, dni.length - 1);
+    let = dni.substr(dni.length - 1, 1);
+    numero = numero % 23;
+    letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+    letra = letra.substring(numero, numero + 1);
+    if (letra != let) {
+//alert('Dni erroneo, la letra del NIF no se corresponde');
+        return false;
+    } else {
+//alert('Dni correcto');
+        return true;
+    }
 }
 
 //******************************************************************************
@@ -500,11 +527,9 @@ function validacionExamen() {
     var asignaturas = document.getElementById("asignaturas");
     var contenido = document.getElementById("contenido");
     var descripcion = document.getElementById("descripcion");
-
     var asignaturaError = document.getElementById("asignaturaError");
     var contenidoError = document.getElementById("contenidoError");
     var descripcionError = document.getElementById("descripcionError");
-
     formulario.addEventListener('submit', function (event) {
         if (!contenido.validity.valid) {
             error(contenido);
@@ -513,7 +538,6 @@ function validacionExamen() {
         if (!descripcion.validity.valid) {
             error(descripcion);
             event.preventDefault();
-
         }
         if (!asignaturaS()) {
 
@@ -559,7 +583,6 @@ function validacionExamen() {
             //Campo vacío
             if (contenido.validity.valueMissing) {
                 contenidoError.textContent = 'Debe introducir el contenido del examen';
-
             }
             contenido.classList.remove('is-valid');
             contenido.classList.add('is-invalid');
@@ -569,7 +592,6 @@ function validacionExamen() {
             //Campo vacío
             if (descripcion.validity.valueMissing) {
                 descripcionError.textContent = 'Debe introducir la descipcion del examen';
-
             }
             descripcion.classList.remove('is-valid');
             descripcion.classList.add('is-invalid');
