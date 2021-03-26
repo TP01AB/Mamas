@@ -19,29 +19,35 @@
         <link rel="stylesheet" href="css/all.css">
     </head>
     <body>
-        <h1>BIENVENIDO</h1>
-        <form action="Controladores/controlador.jsp">
-            <input type="submit" name="vistaLogin" value="LOGIN">
-            <input type="submit" name="vistaRegistro" value="REGISTRO">
-            <input type="submit" name="vistaOlvidada" value="CONTRASEÑA OLV">
-        </form>
+        <div class="container mx-auto mt-3">
+            <div class="card">
+                <h1 class="card-header mx-auto text-primary">BIENVENIDO</h1>
+                <form class="card-body mx-auto" action="Controladores/controlador.jsp" method="post">
+                    <input type="submit" name="vistaLogin" value="LOGIN">
+                    <input type="submit" name="vistaRegistro" value="REGISTRO">
+                    <input type="submit" name="vistaOlvidada" value="CONTRASEÑA OLV">
+                </form>
 
 
-        <!<!-- Mensaje de error guardado en sesion -->
-        <%
 
-            if (session.getAttribute("mensaje") != null) {
-                String mensaje = (String) session.getAttribute("mensaje");
-        %>
-        <hr>
-        <div ><span name="mensaje" id="mensaje"><%=mensaje%></span></div>
-        <hr>
-        <%
-            }
-        %>
-        <br>
-        <!-- SCRIPT -->
 
+
+                <!<!-- Mensaje de error guardado en sesion -->
+                <%
+
+                    if (session.getAttribute("mensaje") != null) {
+                        String mensaje = (String) session.getAttribute("mensaje");
+                %>
+                <hr>
+                <div ><span name="mensaje" id="mensaje"><%=mensaje%></span></div>
+                <hr>
+                <%
+                    }
+                %>
+                <br>
+            </div>
+            <!-- SCRIPT -->
+        </div>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <!-- Bootstrap tooltips -->

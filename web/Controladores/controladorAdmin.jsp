@@ -6,7 +6,6 @@
 
 <%@page import="java.util.LinkedList"%>
 <%@page import="Modelo.Conexion"%>
-<%@page import="java.util.ArrayList"%>
 <%
     //Borramos el mensaje para que tras el cambio de pagina no muestre  el mismo mensaje.
     if (session.getAttribute("mensaje") != null) {
@@ -18,7 +17,9 @@
     }
     //CRUD USUARIOS
     if (request.getParameter("crudUsuarios") != null) {
-        LinkedList usuarios = Conexion.getUsers();
+        System.out.println("entro en usuarios crud");
+        LinkedList usuarios = new LinkedList();
+        usuarios= Conexion.getUsers();
         session.setAttribute("usuarios", usuarios);
         response.sendRedirect("../Vistas/crudUsuarios.jsp");
     }

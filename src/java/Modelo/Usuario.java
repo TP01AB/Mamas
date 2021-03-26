@@ -34,7 +34,7 @@ public class Usuario {
     }
 
     //Constructor de usuario con todos los datos para casos en los que se consulte el usuario completo en BD.
-    public Usuario(int id_user, String email, String password, int rol, int isActive, int intentos) {
+    public Usuario(int id_user, String email, String password, int isActive, int intentos) {
         this.id_user = id_user;
         this.email = email;
         this.password = password;
@@ -99,6 +99,11 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id_user=" + id_user + ", email=" + email + ", password=" + password + ", isActive=" + isActive + ", intentos=" + intentos + ", rol=" + rol + '}';
     }
 
 }

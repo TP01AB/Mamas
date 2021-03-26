@@ -23,16 +23,15 @@
     <body>
 
         <div class="container-fluid d-flex justify-content-center">
-            <div class="row principal rounded">
+            <div class="card rounded col-12">
                 <jsp:include page="../Recursos/navbar.jsp"/>
-                <!-- Título de la sección -->
-                <div class="col-12 mt-4 ml-4">
+                Título de la sección 
+                <div class="card-header">
                     <h4 class="h4">Crud administrador: Usuarios</h4>
                 </div>
 
-                <!-- Cuerpo -->
-                <div class="col-12 mt-4 px-4 d-flex justify-content-center">
-                    <table class="table table-hover w-75" style="text-align: center">
+                <div class="col-12 justify-content-center">
+                    <table class="table table-hover " style="text-align: center">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -58,8 +57,8 @@
                             <td><input class="form-control" type="password" name="password" value="<%=u.getPassword()%>"></td>
                             <td><input type="number" name="rol" value="<%=u.getRol()%>"></td>
 
-                            <td><input type="submit" class="btn btn-success" name="actualizarUsuario" value="Guardar"></td>
-                            <td><input type="submit" class="btn btn-danger" name="eliminarUsuario" value="Eliminar"></td>
+                            <td><input type="submit" class="btn btn-success" name="updateUsuario" value="Guardar"></td>
+                            <td><input type="submit" class="btn btn-danger" name="delelteUsuario" value="Eliminar"></td>
                         </form>
                         </tr>
                         <%                                }

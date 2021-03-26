@@ -310,22 +310,25 @@ public class Conexion {
     public static LinkedList getUsers() {
         Conexion.nueva();
         LinkedList usuarios = new LinkedList();
-        usuarios = null;
         try {
             String sentencia = "SELECT * FROM usuarios";
-            Conexion.Conj_Registros = Conexion.Sentencia_SQL.executeQuery(sentencia);
-            while (Conexion.Conj_Registros.next()) {
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
                 int id = Conj_Registros.getInt("id");
                 String email = Conj_Registros.getString("email");
                 String password = Conj_Registros.getString("password");
                 int activo = Conj_Registros.getInt("isActive");
                 int intentos = Conj_Registros.getInt("intentos");
-                int rol = Conexion.getRol(id);
-                Usuario u = new Usuario(id, email, password, rol, activo, intentos);
+                Usuario u = new Usuario(id, email, password, activo, intentos);
                 usuarios.add(u);
-                System.out.println("usuario: " + u);
+                System.out.println(u);
             }
-
+            for (int i = 0; i < usuarios.size(); i++) {
+                Usuario u = (Usuario) usuarios.get(i);
+                int rol = Conexion.getRol(u.getId_user());
+                u.setRol(rol);
+                usuarios.set(i, u);
+            }
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
