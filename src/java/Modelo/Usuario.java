@@ -9,11 +9,18 @@ package Modelo;
  *
  * @author isra9
  */
+import Auxiliar.passwordEncryption;
+import java.sql.Date;
 import java.util.LinkedList;
 
 public class Usuario {
-    //Atributos  usuario 
 
+    //Atributos  usuario 
+    private String nombre;
+    private String apellidos;
+    private String dni;
+    private int telefono;
+    private Date nacimiento;
     private int id_user;
     private String email;
     private String password;
@@ -46,6 +53,8 @@ public class Usuario {
 
         this.rol = rol;
         this.intentos = intentos;
+        this.apellidos = "prueba";
+        this.nombre = "prueba";
     }
 
     //Constructor vacio
@@ -67,6 +76,46 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public Date getNacimiento() {
+        return nacimiento;
+    }
+
+    public void setNacimiento(Date nacimiento) {
+        this.nacimiento = nacimiento;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public boolean isIsActive() {

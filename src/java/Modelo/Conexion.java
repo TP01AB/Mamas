@@ -199,15 +199,44 @@ public class Conexion {
         }
     }
 
+    public static int getId(String email) {
+        Conexion.nueva();
+        PreparedStatement ps = null;
+        int id = 0;
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM usuarios WHERE email = ? ";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setString(1, email);
+            Conexion.Conj_Registros = ps.executeQuery();
+
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    id = Conj_Registros.getInt("id");
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general: " + ex.getMessage());
+            }
+        }
+        return id;
+    }
 //Metodos para registro ----------------------------------------
     //Comprobamos dni .
+
     public static boolean existeDni(String dni) {
         boolean existe = false;
         Conexion.nueva();
         PreparedStatement ps = null;
 
         //SENTENCIA SQL
-        String sql = "SELECT * FROM temporal WHERE dni = ?";
+        String sql = "SELECT * FROM perfil WHERE dni = ?";
         try {
             ps = Conexion.Conex.prepareStatement(sql);
             ps.setString(1, dni);
@@ -278,10 +307,25 @@ public class Conexion {
     }
 
     //Registramos los datos de perfil del usuario
-    public static void insertPerfil(String nombre, String apellidos, String dni, String telefono, String nacimiento) {
+    public static void insertPerfil(int id, String nombre, String apellidos, String dni, String telefono, String nacimiento) {
         Conexion.nueva();
 
-        String sentencia = "INSERT INTO temporal VALUES(default,'" + nombre + "','" + apellidos + "','" + dni + "','" + telefono + "','" + nacimiento + "')";
+        String sentencia = "INSERT INTO perfil VALUES('" + id + "','" + nombre + "','" + apellidos + "','" + dni + "','" + telefono + "','" + nacimiento + "')";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+            Conexion.cerrarBD();
+
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+
+    }
+
+    public static void insertRol(int id, int rol) {
+        Conexion.nueva();
+
+        String sentencia = "INSERT INTO asig_rol VALUES('" + id + "','" + rol + "')";
 
         try {
             Conexion.Sentencia_SQL.executeUpdate(sentencia);
@@ -336,4 +380,186 @@ public class Conexion {
         return usuarios;
     }
 
+    public static LinkedList getPerfil(LinkedList usuarios) {
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT * FROM perfil";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                for (int i = 0; i < usuarios.size(); i++) {
+                    Usuario u = (Usuario) usuarios.get(i);
+                    if (u.getId_user() == id) {
+                        u.setNombre(Conj_Registros.getString("nombre"));
+                        u.setApellidos(Conj_Registros.getString("apellidos"));
+                        u.setDni(Conj_Registros.getString("dni"));
+                        u.setTelefono(Conj_Registros.getInt("telefono"));
+                        u.setNacimiento(Conj_Registros.getDate("nacimiento"));
+                        usuarios.set(i, u);
+                    }
+
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return usuarios;
+    }
+
+    public static String getEmail(int id) {
+        String email = "";
+        Conexion.nueva();
+        PreparedStatement ps = null;
+
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM usuarios WHERE id = ?";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setInt(1, id);
+            Conexion.Conj_Registros = ps.executeQuery();
+
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    email = Conj_Registros.getString("email");
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general 2: " + ex.getMessage());
+            }
+        }
+        return email;
+    }
+
+    public static String getPassword(int id) {
+        String password = "";
+        Conexion.nueva();
+        PreparedStatement ps = null;
+
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM usuarios WHERE id = ?";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setInt(1, id);
+            Conexion.Conj_Registros = ps.executeQuery();
+
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    password = Conj_Registros.getString("password");
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general 2: " + ex.getMessage());
+            }
+        }
+        return password;
+    }
+
+    public static void setEmail(String email, int id) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "UPDATE usuarios SET email ='" + email + "' WHERE id = '" + id + "'";
+
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+
+    public static void setActive(int id, int status) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "UPDATE usuarios SET isActive = '" + status + "' WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+
+    public static void borrarAcceso(int id) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "DELETE FROM usuarios  WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+
+    public static void borrarPerfil(int id) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "DELETE FROM perfil  WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+
+    public static void actualizarUsuario(int id, String nombre, String apellidos, int telefono) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "UPDATE perfil SET  nombre = '" + nombre + "', apellidos = '" + apellidos + "',telefono = '" + telefono + "' WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+
+    public static String getDni(int id) {
+        String dni = "";
+        Conexion.nueva();
+        PreparedStatement ps = null;
+
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM perfil WHERE id = ?";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setInt(1, id);
+            Conexion.Conj_Registros = ps.executeQuery();
+
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    dni = Conj_Registros.getString("dni");
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general 2: " + ex.getMessage());
+            }
+        }
+        return dni;
+    }
+
+    public static void setDni(int id, String dni) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "UPDATE perfil SET dni = '" + dni + "' WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
 }
