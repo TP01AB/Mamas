@@ -136,8 +136,26 @@
     if (request.getParameter("addCiclo") != null) {
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        Conexion.insertCiclo(nombre,descripcion);
-        
+        Conexion.insertCiclo(nombre, descripcion);
+
+        LinkedList<Ciclo> ciclos = Conexion.getCiclos();
+        session.setAttribute("ciclos", ciclos);
+        response.sendRedirect("../Vistas/crudCiclos.jsp");
+    }
+    if (request.getParameter("eliminarCiclo") != null) {
+        int id = (Integer.parseInt(request.getParameter("id")));
+        Conexion.borrarCiclo(id);
+
+        LinkedList<Ciclo> ciclos = Conexion.getCiclos();
+        session.setAttribute("ciclos", ciclos);
+        response.sendRedirect("../Vistas/crudCiclos.jsp");
+    }
+    if (request.getParameter("editarCiclo") != null) {
+        int id = (Integer.parseInt(request.getParameter("id")));
+        String nombre = request.getParameter("nombre");
+        String descripcion = request.getParameter("descripcion");
+        Conexion.actualizarCiclo(id, nombre, descripcion);
+
         LinkedList<Ciclo> ciclos = Conexion.getCiclos();
         session.setAttribute("ciclos", ciclos);
         response.sendRedirect("../Vistas/crudCiclos.jsp");

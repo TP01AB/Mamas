@@ -52,7 +52,7 @@
                                 <input class="form-control" type="text" name="descripcion" placeholder="introduce una descripcion" >
                                 <input class="btn btn-primary" type="submit" name="addCiclo" value="+">
                             </form>
-                            <table >
+                            <table class="mx-auto" >
                                 <tr class="m-5">
                                     <th>id</th>
                                     <th >Nombre</th>
@@ -63,14 +63,14 @@
                                     for (int i = 0; i < ciclos.size(); i++) {
                                         Ciclo c = ciclos.get(i);
                                 %>
-                                <form class="text-center"  action="../Controladores/controladorAdmin.jsp" method="POST" >
+                                <form class="text-center justify-content-center"  action="../Controladores/controladorAdmin.jsp" method="POST" >
                                     <tr>
                                     <input type="hidden" name="id" value="<%= c.getId_ciclo()%>">
                                     <td >
                                         <p><%=c.getId_ciclo()%></p>
                                     </td>
                                     <td >
-                                        <input class="form-control" type="text" name="descripcion" value="<%=c.getNombre()%>" >
+                                        <input class="form-control" type="text" name="nombre" value="<%=c.getNombre()%>" >
                                     </td>
                                     <td >
                                         <input class="form-control" type="text" name="descripcion" value="<%=c.getDescripcion()%>" >

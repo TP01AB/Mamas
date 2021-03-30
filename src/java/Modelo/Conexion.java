@@ -598,4 +598,26 @@ public class Conexion {
             System.out.println("Error general 2: " + ex.getMessage());
         }
     }
+
+    public static void borrarCiclo(int id) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "DELETE FROM ciclos  WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+
+    public static void actualizarCiclo(int id, String nombre, String descripcion) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "UPDATE ciclos SET  nombre = '" + nombre + "', descripcion = '" + descripcion + "' WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
 }
