@@ -4,6 +4,7 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Ciclo"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Locale"%>
@@ -128,6 +129,17 @@
 
     //CRUD CICLOS
     if (request.getParameter("crudCiclos") != null) {
+        LinkedList<Ciclo> ciclos = Conexion.getCiclos();
+        session.setAttribute("ciclos", ciclos);
+        response.sendRedirect("../Vistas/crudCiclos.jsp");
+    }
+    if (request.getParameter("addCiclo") != null) {
+        String nombre = request.getParameter("nombre");
+        String descripcion = request.getParameter("descripcion");
+        Conexion.insertCiclo(nombre,descripcion);
+        
+        LinkedList<Ciclo> ciclos = Conexion.getCiclos();
+        session.setAttribute("ciclos", ciclos);
         response.sendRedirect("../Vistas/crudCiclos.jsp");
     }
     //CERRAR SESION

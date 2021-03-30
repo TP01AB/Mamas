@@ -134,7 +134,7 @@
                                                 out.print("disabled");
                                             }%>>X</button>
                                         <button class="btn btn-primary m-1 p-1" type="submit" name="update" title="actualiza usuario">UP</button>
-                                                <button class="btn btn-green m-1 p-1" type="submit" name="activar" title="activar usuario"  <% if (actual) {
+                                        <button class="btn btn-green m-1 p-1" type="submit" name="activar" title="activar usuario"  <% if (actual) {
                                                         out.print("disabled");
                                                     }%>>On/Off</button>
                                     </td>
@@ -147,7 +147,9 @@
                 </div>
             </div>
         </section>
-
+        <footer>
+            <jsp:include page="../Recursos/Footer.jsp"/>
+        </footer>
         <!-- SCRIPT -->
         <!-- jQuery -->
         <script type="text/javascript" src="../js/jquery.min.js"></script>

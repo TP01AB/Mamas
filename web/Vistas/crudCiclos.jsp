@@ -4,6 +4,8 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Ciclo"%>
+<%@page import="java.util.LinkedList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,22 +21,75 @@
         <link rel="stylesheet" href="../css/all.css">
     </head>
     <body>
-        <jsp:include page="../Recursos/navbar.jsp"/>
-        <h1>Hello CICLOS!</h1>
+        <nav>
+            <jsp:include page="../Recursos/navbar.jsp"/>
+        </nav>
+        <section class="text-center">
+            <div class="row">  
+                <div class="col-md-12 mx-auto">
+                    <div class="card rounded col-12 mx-auto">
+                        <div class="card-body">
+                            <h3 class="font-weight-bold my-4">Gestión de Ciclos</h3>
+                            <!<!-- Mensaje de error guardado en sesion -->
+                            <%
 
-
-        <!-- SCRIPT -->
-
-        <!-- jQuery -->
-        <script type="text/javascript" src="../js/jquery.min.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="../js/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="../js/mdb.min.js"></script>
-        <!-- Your custom scripts (optional) -->
-        <script type="text/javascript"></script>
-        <jsp:include page="../Recursos/Footer.jsp"/>
+                                if (session.getAttribute("mensaje") != null) {
+                                    String mensaje = (String) session.getAttribute("mensaje");
+                            %>
+                            <hr>
+                            <div ><span name="mensaje" id="mensaje"><%=mensaje%></span></div>
+                            <hr>
+                            <%}%>
+                            <!------------------TABLA------------------------->
+                            <%
+                                LinkedList<Ciclo> ciclos = null;
+                                if (session.getAttribute("ciclos") != null) {
+                                    ciclos = (LinkedList<Ciclo>) session.getAttribute("ciclos");
+                                }
+                            %>
+                            <form class="text-center"  action="../Controladores/controladorAdmin.jsp" method="POST" >
+                                <input class="form-control" type="text" name="nombre" placeholder="introduce un nombre" >
+                                <input class="form-control" type="text" name="descripcion" placeholder="introduce una descripcion" >
+                                <input class="btn btn-primary" type="submit" name="addCiclo" value="+">
+                            </form>
+                            <table >
+                                <tr class="m-5">
+                                    <th>id</th>
+                                    <th >Nombre</th>
+                                    <th >Descripcion</th>
+                                    <th >Acciones</th>
+                                </tr>
+                                <%
+                                    for (int i = 0; i < ciclos.size(); i++) {
+                                        Ciclo c = ciclos.get(i);
+                                %>
+                                <form class="text-center"  action="../Controladores/controladorAdmin.jsp" method="POST" >
+                                    <tr>
+                                    <input type="hidden" name="id" value="<%= c.getId_ciclo()%>">
+                                    <td >
+                                        <p><%=c.getId_ciclo()%></p>
+                                    </td>
+                                    <td >
+                                        <input class="form-control" type="text" name="descripcion" value="<%=c.getNombre()%>" >
+                                    </td>
+                                    <td >
+                                        <input class="form-control" type="text" name="descripcion" value="<%=c.getDescripcion()%>" >
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-success m-1 p-1" type="submit" name="editarCiclo" title="editar Ciclo">+</button>
+                                        <button class="btn btn-danger m-1 p-1" type="submit" name="eliminarCiclo" title="eliminar Ciclo">-</button>
+                                    </td>
+                                    </tr>
+                                </form>
+                                <%}%>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <jsp:include page="../Recursos/Footer.jsp"/>
+        </footer>
     </body>
 </html>

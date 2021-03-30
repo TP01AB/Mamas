@@ -41,6 +41,7 @@
                 usuarioActual.setRol(Conexion.getRol(usuarioActual.getId_user()));
                 session.setAttribute("usuarioActual", usuarioActual);
                 //redireccionamos a su inicio dependiendo de su rol.
+                session.setMaxInactiveInterval(-1);
                 if (usuarioActual.getRol() == 1) {
                     //Rol de alumno
                     session.setAttribute("rolActual", 1);

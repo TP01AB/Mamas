@@ -562,4 +562,40 @@ public class Conexion {
         } catch (SQLException ex) {
         }
     }
+
+    //CRUD CICLOS
+    public static LinkedList getCiclos() {
+        Conexion.nueva();
+        LinkedList ciclos = new LinkedList();
+        try {
+            String sentencia = "SELECT * FROM ciclos";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String nombre = Conj_Registros.getString("nombre");
+                String descripcion = Conj_Registros.getString("descripcion");
+                Ciclo c = new Ciclo(id, nombre, descripcion);
+                ciclos.add(c);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return ciclos;
+    }
+
+    public static void insertCiclo(String nombre, String descripcion) {
+        Conexion.nueva();
+
+        String sentencia = "INSERT INTO ciclos VALUES(default,'" + nombre + "','" + descripcion + "')";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+
+            Conexion.cerrarBD();
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+    }
 }
