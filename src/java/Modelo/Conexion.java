@@ -711,4 +711,62 @@ public class Conexion {
             System.out.println("Error general 2: " + ex.getMessage());
         }
     }
+
+    //ASIGNACIONES DE MATERIAS
+    public static LinkedList getAsignacionesMateria(int id) {
+        Conexion.nueva();
+        LinkedList asignaciones = new LinkedList();
+        try {
+            String sentencia = "SELECT * FROM asig_materias WHERE id_materia = '" + id + "'";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int idCiclo = Conj_Registros.getInt("id_Ciclo");
+                Ciclo c = new Ciclo();
+                c.setId_ciclo(idCiclo);
+                asignaciones.add(c);
+            }
+            for (int i = 0; i < asignaciones.size(); i++) {
+                Ciclo c = (Ciclo) asignaciones.get(i);
+                c = Conexion.getCiclo(c.getId_ciclo());
+                asignaciones.set(i, c);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return asignaciones;
+    }
+
+    public static Ciclo getCiclo(int id) {
+        Ciclo c = new Ciclo();
+        Conexion.nueva();
+        PreparedStatement ps = null;
+
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM ciclos WHERE id = ?";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            Conexion.Conj_Registros = ps.executeQuery();
+
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    c.setId_ciclo(id);
+                    c.setNombre(Conj_Registros.getString("nombre"));
+                    c.setDescripcion(Conj_Registros.getString("descripcion"));
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general 2: " + ex.getMessage());
+            }
+        }
+        return c;
+    }
 }

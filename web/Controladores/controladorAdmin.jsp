@@ -146,6 +146,18 @@
         session.setAttribute("materias", materias);
         response.sendRedirect("../Vistas/crudMaterias.jsp");
     }
+    if (request.getParameter("verAsignaciones") != null) {
+        int id = (Integer.parseInt(request.getParameter("id")));
+        String nombre = request.getParameter("nombre");
+        String descripcion = request.getParameter("descripcion");
+
+        Materia m = new Materia(id, nombre, descripcion);
+        session.setAttribute("Materia", m);
+        LinkedList ciclos = Conexion.getAsignacionesMateria(m.getId());
+        session.setAttribute("ciclos", ciclos);
+
+        response.sendRedirect("../Vistas/verAsignaciones.jsp");
+    }
     //CRUD CICLOS
     if (request.getParameter("crudCiclos") != null) {
         LinkedList<Ciclo> ciclos = Conexion.getCiclos();

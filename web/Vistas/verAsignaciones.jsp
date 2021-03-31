@@ -1,6 +1,6 @@
 <%-- 
-    Document   : crudMaterias
-    Created on : 23-mar-2021, 23:07:35
+    Document   : verAsignaciones
+    Created on : 31-mar-2021, 21:18:57
     Author     : isra9
 --%>
 
@@ -51,20 +51,14 @@
                                 if (session.getAttribute("materias") != null) {
                                     materias = (LinkedList<Materia>) session.getAttribute("materias");
                                 }
+                                Materia materia = new Materia();
+                                if (session.getAttribute("Materia") != null) {
+                                    materia = (Materia) session.getAttribute("Materia");
+                                }
                             %>
-                            <form class="text-center row"  action="../Controladores/controladorAdmin.jsp" method="POST" >
-                                <input class="form-control col-3 m-1" type="text" name="nombre" placeholder="introduce un nombre" >
-                                <input class="form-control col-5 m-1" type="text" name="descripcion" placeholder="introduce una descripcion" >
-                                <select name="cicloAsignado" class="from-control col-2 m-1">
-                                    <option value="-1">Ninguna</option>
-                                    <% for (int i = 0; i < ciclos.size(); i++) {
-                                            Ciclo c = ciclos.get(i);%>
-                                    <option value="<%=c.getId_ciclo()%>"><%=c.getNombre()%></option>
-                                    <%}%>
-                                </select>
-                                <input class="btn btn-primary col-2 text-center" type="submit" name="addMateria" value="+">
-
-                            </form>
+                            <h3><%=materia.getNombre()%></h3>
+                            <h6><%=materia.getDescripcion()%></h6>
+                            <hr>
                             <table class="mx-auto" >
                                 <tr class="m-5">
                                     <th>id</th>
@@ -73,23 +67,23 @@
                                     <th >Acciones</th>
                                 </tr>
                                 <%
-                                    for (int i = 0; i < materias.size(); i++) {
-                                        Materia m = materias.get(i);
+                                    for (int i = 0; i < ciclos.size(); i++) {
+                                        Ciclo c = ciclos.get(i);
                                 %>
                                 <form class="text-center justify-content-center"  action="../Controladores/controladorAdmin.jsp" method="POST" >
                                     <tr>
-                                    <input type="hidden" name="id" value="<%= m.getId()%>">
+                                    <input type="hidden" name="id" value="<%= c.getId_ciclo()%>">
                                     <td >
-                                        <p><%=m.getId()%></p>
+                                        <p><%=c.getId_ciclo()%></p>
                                     </td>
                                     <td >
-                                        <input class="form-control" type="text" name="nombre" value="<%=m.getNombre()%>" >
+                                        <input class="form-control" type="text" name="nombre" value="<%=c.getNombre()%>" >
                                     </td>
                                     <td >
-                                        <input class="form-control" type="text" name="descripcion" value="<%=m.getDescripcion()%>" >
+                                        <input class="form-control" type="text" name="descripcion" value="<%=c.getDescripcion()%>" >
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-success m-1 p-1" type="submit" name="verAsignaciones" title="asignar Materia">Ver</button>
+                                        <button class="btn btn-success m-1 p-1" type="submit" name="verAsignaciones" title="asignar Materia">+</button>
                                         <button class="btn btn-success m-1 p-1" type="submit" name="editarMateria" title="editar Materia">+</button>
                                         <button class="btn btn-danger m-1 p-1" type="submit" name="eliminarMateria" title="eliminar Materia">-</button>
                                     </td>
