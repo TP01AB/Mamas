@@ -30,7 +30,7 @@
                 <div class="col-md-12 mx-auto">
                     <div class="card rounded col-12 mx-auto">
                         <div class="card-body">
-                            <h3 class="font-weight-bold my-4">Gestión de Ciclos</h3>
+                            <h3 class="font-weight-bold my-4">Gestión de Materias</h3>
                             <!<!-- Mensaje de error guardado en sesion -->
                             <%
 
@@ -52,16 +52,18 @@
                                     materias = (LinkedList<Materia>) session.getAttribute("materias");
                                 }
                             %>
-                            <form class="text-center"  action="../Controladores/controladorAdmin.jsp" method="POST" >
-                                <input class="form-control" type="text" name="nombre" placeholder="introduce un nombre" >
-                                <input class="form-control" type="text" name="descripcion" placeholder="introduce una descripcion" >
-                                <input class="btn btn-primary" type="submit" name="addMateria" value="+">
-                                <select name="cicloAsignado">
+                            <form class="text-center row"  action="../Controladores/controladorAdmin.jsp" method="POST" >
+                                <input class="form-control col-3 m-1" type="text" name="nombre" placeholder="introduce un nombre" >
+                                <input class="form-control col-5 m-1" type="text" name="descripcion" placeholder="introduce una descripcion" >
+                                <select name="cicloAsignado" class="from-control col-2 m-1">
+                                    <option value="-1">Ninguna</option>
                                     <% for (int i = 0; i < ciclos.size(); i++) {
                                             Ciclo c = ciclos.get(i);%>
                                     <option value="<%=c.getId_ciclo()%>"><%=c.getNombre()%></option>
                                     <%}%>
                                 </select>
+                                <input class="btn btn-primary col-2 text-center" type="submit" name="addMateria" value="+">
+
                             </form>
                             <table class="mx-auto" >
                                 <tr class="m-5">

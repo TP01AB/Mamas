@@ -653,4 +653,62 @@ public class Conexion {
         return materias;
     }
 
+    public static void insertMateria(String nombre, String descripcion) {
+        Conexion.nueva();
+
+        String sentencia = "INSERT INTO materias VALUES(default,'" + nombre + "','" + descripcion + "')";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+
+            Conexion.cerrarBD();
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+    }
+
+    public static int getIdMateria(String nombre, String descripcion) {
+        int idMateria = -1;
+        Conexion.nueva();
+        PreparedStatement ps = null;
+
+        //SENTENCIA SQL
+        String sql = "SELECT * FROM materias WHERE nombre = ? AND descripcion = ?";
+        try {
+            ps = Conexion.Conex.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.setString(2, descripcion);
+
+            Conexion.Conj_Registros = ps.executeQuery();
+
+        } catch (SQLException ex) {
+            System.out.println("Error de SQL: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general: " + ex.getMessage());
+        } finally {
+            try {
+                if (Conexion.Conj_Registros.next()) {
+                    idMateria = Conj_Registros.getInt("id");
+                }
+                ps.close();
+                Conexion.cerrarBD();
+            } catch (Exception ex) {
+                System.out.println("Error general 2: " + ex.getMessage());
+            }
+        }
+        return idMateria;
+    }
+
+    public static void asignarMateria(int idCiclo, int idMateria) {
+        Conexion.nueva();
+        String sentencia = "INSERT INTO asig_materias VALUES('" + idCiclo + "','" + idMateria + "')";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+
+            Conexion.cerrarBD();
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+    }
 }

@@ -133,9 +133,15 @@
     if (request.getParameter("addMateria") != null) {
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-
+        int idCiclo = Integer.parseInt(request.getParameter("cicloAsignado"));
+        //insertamos en la tabla materias
         Conexion.insertMateria(nombre, descripcion);
-
+        if (idCiclo != -1) {
+            //obtenemos la id que se asigna a esa materia.
+            int idMateria = Conexion.getIdMateria(nombre, descripcion);
+            //Asignamos la materia a un ciclo en su creacion.
+            Conexion.asignarMateria(idCiclo, idMateria);
+        }
         LinkedList<Materia> materias = Conexion.getMaterias();
         session.setAttribute("materias", materias);
         response.sendRedirect("../Vistas/crudMaterias.jsp");
