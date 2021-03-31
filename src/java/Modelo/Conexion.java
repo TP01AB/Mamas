@@ -91,6 +91,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
     // USUARIO ACTIVADO
@@ -197,6 +198,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
     public static int getId(String email) {
@@ -334,7 +336,6 @@ public class Conexion {
         } catch (Exception ex) {
             System.out.println("Error general 2: " + ex.getMessage());
         }
-
     }
 //Metodos para cambio de contraseña-----------------------------
 
@@ -347,6 +348,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
 //ADMINISTRADOR
@@ -476,6 +478,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
     public static void setActive(int id, int status) {
@@ -487,6 +490,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
     public static void borrarAcceso(int id) {
@@ -498,6 +502,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
     public static void borrarPerfil(int id) {
@@ -509,6 +514,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
     public static void actualizarUsuario(int id, String nombre, String apellidos, int telefono) {
@@ -520,6 +526,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
     public static String getDni(int id) {
@@ -561,6 +568,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
     //CRUD CICLOS
@@ -608,6 +616,7 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
 
     public static void actualizarCiclo(int id, String nombre, String descripcion) {
@@ -619,5 +628,29 @@ public class Conexion {
             Conexion.Sentencia_SQL.executeUpdate(sql);
         } catch (SQLException ex) {
         }
+        Conexion.cerrarBD();
     }
+
+    //CRUD MATERIAS
+    public static LinkedList getMaterias() {
+        Conexion.nueva();
+        LinkedList materias = new LinkedList();
+        try {
+            String sentencia = "SELECT * FROM materias ";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String nombre = Conj_Registros.getString("nombre");
+                String descripcion = Conj_Registros.getString("descripcion");
+                Materia m = new Materia(id, nombre, descripcion);
+                materias.add(m);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return materias;
+    }
+
 }

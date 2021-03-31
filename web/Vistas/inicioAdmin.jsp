@@ -4,6 +4,7 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,13 +41,19 @@
     </head>
     <body>
         <jsp:include page="../Recursos/navbar.jsp"/>
-        <h1>Hello Administrador!</h1>
-        <form action="../Controladores/controladorAdmin.jsp" method="POST">
-            <input type="submit" name="crudUsuarios" value="Crud Usuarios">
-            <input type="submit" name="crudCiclos" value="Crud Ciclos">
-            <input type="submit" name="crudMaterias" value="Crud Materias">
-        </form>
-
+        <%
+            Usuario uActual = (Usuario) session.getAttribute("usuarioActual");
+        %>
+        <div class="card mb-3">
+            <h1 class="card-header">Hello <%=uActual.getNombre()%> ,eres Administrador!</h1>
+            <div class="card-body">
+                <form action="../Controladores/controladorAdmin.jsp" method="POST">
+                    <input type="submit" name="crudUsuarios" value="Crud Usuarios">
+                    <input type="submit" name="crudCiclos" value="Crud Ciclos">
+                    <input type="submit" name="crudMaterias" value="Crud Materias">
+                </form>
+            </div>
+        </div>
         <!-- SCRIPT -->
 
         <!-- jQuery -->

@@ -4,6 +4,7 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Materia"%>
 <%@page import="Modelo.Ciclo"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -123,10 +124,22 @@
 
     //CRUD MATERIAS
     if (request.getParameter("crudMaterias") != null) {
-
+        LinkedList<Materia> materias = Conexion.getMaterias();
+        LinkedList<Ciclo> ciclos = Conexion.getCiclos();
+        session.setAttribute("ciclos", ciclos);
+        session.setAttribute("materias", materias);
         response.sendRedirect("../Vistas/crudMaterias.jsp");
     }
+    if (request.getParameter("addMateria") != null) {
+        String nombre = request.getParameter("nombre");
+        String descripcion = request.getParameter("descripcion");
 
+        Conexion.insertMateria(nombre, descripcion);
+
+        LinkedList<Materia> materias = Conexion.getMaterias();
+        session.setAttribute("materias", materias);
+        response.sendRedirect("../Vistas/crudMaterias.jsp");
+    }
     //CRUD CICLOS
     if (request.getParameter("crudCiclos") != null) {
         LinkedList<Ciclo> ciclos = Conexion.getCiclos();
