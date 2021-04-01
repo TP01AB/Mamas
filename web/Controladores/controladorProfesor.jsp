@@ -10,7 +10,7 @@
         session.setAttribute("mensaje", null);
     }
     //HOME
-    if (request.getParameter("profHome") != null) {
+    if (request.getParameter("profHomes") != null) {
         response.sendRedirect("../Vistas/inicioProf.jsp");
     }
     //CERRAR SESION

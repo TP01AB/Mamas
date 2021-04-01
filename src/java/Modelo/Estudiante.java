@@ -13,4 +13,25 @@ public class Estudiante extends Usuario {
 
     private Ciclo ciclo;
 
+    public Estudiante(Ciclo ciclo, int id, String email, int isActive) {
+        super(id, email, isActive);
+        this.ciclo = ciclo;
+    }
+
+    public Estudiante(int id_user, String email, String password, int isActive, int intentos) {
+        super(id_user, email, password, isActive, intentos);
+    }
+
+    public Estudiante(Ciclo ciclo) {
+        this.ciclo = ciclo;
+    }
+
+    public Ciclo getCiclo() {
+        return ciclo;
+    }
+
+    public void setCiclo(Ciclo ciclo) {
+        this.ciclo = ciclo;
+    }
+
 }

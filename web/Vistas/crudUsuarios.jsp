@@ -48,7 +48,7 @@
                                     Usuarios = (LinkedList<Usuario>) session.getAttribute("usuarios");
                                 }
                             %>
-                            <table >
+                            <table class="mx-auto table table-striped" >
                                 <tr class="m-5">
                                     <th>DNI</th>
                                     <th >Nombre</th>
@@ -134,9 +134,9 @@
                                                 out.print("disabled");
                                             }%>>X</button>
                                         <button class="btn btn-primary m-1 p-1" type="submit" name="update" title="actualiza usuario">UP</button>
-                                        <button class="btn btn-green m-1 p-1" type="submit" name="activar" title="activar usuario"  <% if (actual) {
-                                                        out.print("disabled");
-                                                    }%>>On/Off</button>
+                                                <button class="btn btn-green m-1 p-1" type="submit" name="activar" title="activar usuario"  <% if (actual) {
+                                                out.print("disabled");
+                                            }%>>On/Off</button>
                                     </td>
                                     </tr>
                                 </form>

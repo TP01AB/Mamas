@@ -24,8 +24,7 @@
     <h2 class="title m-3">Mamas 2.0</h2>
     <div class="align-content-end">
         <% int rol = (int) session.getAttribute("rolActual");
-        %>
-        <%
+
             if (rol == 3) {
         %>
         <form action="../Controladores/controladorProfesor" method="POST" >

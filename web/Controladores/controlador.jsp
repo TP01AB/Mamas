@@ -1,3 +1,5 @@
+<%@page import="Modelo.Estudiante"%>
+<%@page import="Modelo.Profesor"%>
 <%@page import="java.sql.Date"%>
 <%@page import="Modelo.Email"%>
 <%@page import="Auxiliar.passwordEncryption"%>
@@ -53,7 +55,10 @@
                 } else if (usuarioActual.getRol() == 3) {
                     //Rol de administrador
                     session.setAttribute("rolActual", 3);
-                    
+                    LinkedList<Profesor> profesores = Conexion.getProfesores();
+                    session.setAttribute("profesores", profesores);
+                    LinkedList<Estudiante> alumnos = Conexion.getEstudiantes();
+                    session.setAttribute("estudiantes", alumnos);
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
                 }
 

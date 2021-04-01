@@ -52,7 +52,7 @@
                                 <input class="form-control" type="text" name="descripcion" placeholder="introduce una descripcion" >
                                 <input class="btn btn-primary" type="submit" name="addCiclo" value="+">
                             </form>
-                            <table class="mx-auto" >
+                            <table class="mx-auto table table-striped" >
                                 <tr class="m-5">
                                     <th>id</th>
                                     <th >Nombre</th>
