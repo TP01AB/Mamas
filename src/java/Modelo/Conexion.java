@@ -793,4 +793,53 @@ public class Conexion {
         }
         Conexion.cerrarBD();
     }
+
+    //DASHBOARD ADMIN
+    public static LinkedList getProfesores() {
+        Conexion.nueva();
+        LinkedList<Profesor> profesores = new LinkedList<Profesor>();
+        try {
+            String sentencia = "SELECT * FROM usuarios ,asig_rol WHERE asig_rol.id_usuario=usuarios.id AND (asig_rol.id_rol=2 OR asig_rol.id_rol=3)";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String email = Conj_Registros.getString("email");
+                String password = Conj_Registros.getString("password");
+                int activo = Conj_Registros.getInt("isActive");
+                int intentos = Conj_Registros.getInt("intentos");
+                Profesor p = new Profesor(id, email, password, activo, intentos);
+                p.setRol(Conj_Registros.getInt("id_rol"));
+                profesores.add(p);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return profesores;
+    }
+
+    public static LinkedList getEstudiantes() {
+        Conexion.nueva();
+        LinkedList<Estudiante> estudiantes = new LinkedList<Estudiante>();
+        try {
+            String sentencia = "SELECT * FROM usuarios ,asig_rol WHERE asig_rol.id_usuario=usuarios.id AND asig_rol.id_rol=1";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String email = Conj_Registros.getString("email");
+                String password = Conj_Registros.getString("password");
+                int activo = Conj_Registros.getInt("isActive");
+                int intentos = Conj_Registros.getInt("intentos");
+                Estudiante e = new Estudiante(id, email, password, activo, intentos);
+                e.setRol(Conj_Registros.getInt("id_rol"));
+                estudiantes.add(e);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return estudiantes;
+    }
 }
