@@ -130,6 +130,32 @@
         session.setAttribute("materias", materias);
         response.sendRedirect("../Vistas/crudMaterias.jsp");
     }
+    if (request.getParameter("editarMateria") != null) {
+        int id = (Integer.parseInt(request.getParameter("id")));
+        String nombre = request.getParameter("nombre");
+        String descripcion = request.getParameter("descripcion");
+        Conexion.actualizarCiclo(id, nombre, descripcion);
+
+    }
+    if (request.getParameter("asignarMateria") != null) {
+        int idCiclo = Integer.parseInt(request.getParameter("cicloAsignado"));
+        int idMateria = Integer.parseInt(request.getParameter("idMateria"));
+        //Asignamos la materia a un ciclo en su creacion.
+        Conexion.asignarMateria(idCiclo, idMateria);
+        LinkedList<Ciclo> ciclosAsignados = (LinkedList<Ciclo>) Conexion.getAsignacionesMateria(idMateria);
+        LinkedList<Ciclo> ciclos = (LinkedList<Ciclo>) Conexion.getCiclos();
+        for (int i = 0; i < ciclos.size(); i++) {
+            for (int j = 0; j < ciclosAsignados.size(); j++) {
+                if (ciclos.get(i).getId_ciclo() == ciclosAsignados.get(j).getId_ciclo()) {
+                    ciclos.remove(i);
+                }
+            }
+        }
+        session.setAttribute("ciclos", ciclos);
+        session.setAttribute("ciclosAsignados", ciclosAsignados);
+
+        response.sendRedirect("../Vistas/verAsignaciones.jsp");
+    }
     if (request.getParameter("addMateria") != null) {
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
@@ -146,6 +172,15 @@
         session.setAttribute("materias", materias);
         response.sendRedirect("../Vistas/crudMaterias.jsp");
     }
+    if (request.getParameter("eliminarMateria") != null) {
+        int id = (Integer.parseInt(request.getParameter("id")));
+        //insertamos en la tabla materias
+        Conexion.borrarMateria(id);
+
+        LinkedList<Materia> materias = Conexion.getMaterias();
+        session.setAttribute("materias", materias);
+        response.sendRedirect("../Vistas/crudMaterias.jsp");
+    }
     if (request.getParameter("verAsignaciones") != null) {
         int id = (Integer.parseInt(request.getParameter("id")));
         String nombre = request.getParameter("nombre");
@@ -153,8 +188,36 @@
 
         Materia m = new Materia(id, nombre, descripcion);
         session.setAttribute("Materia", m);
-        LinkedList ciclos = Conexion.getAsignacionesMateria(m.getId());
+        LinkedList<Ciclo> ciclosAsignados = (LinkedList<Ciclo>) Conexion.getAsignacionesMateria(id);
+        LinkedList<Ciclo> ciclos = (LinkedList<Ciclo>) Conexion.getCiclos();
+        for (int i = 0; i < ciclos.size(); i++) {
+            for (int j = 0; j < ciclosAsignados.size(); j++) {
+                if (ciclos.get(i).getId_ciclo() == ciclosAsignados.get(j).getId_ciclo()) {
+                    ciclos.remove(i);
+                }
+            }
+        }
         session.setAttribute("ciclos", ciclos);
+        session.setAttribute("ciclosAsignados", ciclosAsignados);
+
+        response.sendRedirect("../Vistas/verAsignaciones.jsp");
+    }
+    if (request.getParameter("eliminarAsignacion") != null) {
+        int idCiclo = (Integer.parseInt(request.getParameter("id")));
+        int idMateria = (Integer.parseInt(request.getParameter("idMateria")));
+        Conexion.borrarAsignacion(idCiclo, idMateria);
+
+        LinkedList<Ciclo> ciclosAsignados = (LinkedList<Ciclo>) Conexion.getAsignacionesMateria(idMateria);
+        LinkedList<Ciclo> ciclos = (LinkedList<Ciclo>) Conexion.getCiclos();
+        for (int i = 0; i < ciclos.size(); i++) {
+            for (int j = 0; j < ciclosAsignados.size(); j++) {
+                if (ciclos.get(i).getId_ciclo() == ciclosAsignados.get(j).getId_ciclo()) {
+                    ciclos.remove(i);
+                }
+            }
+        }
+        session.setAttribute("ciclos", ciclos);
+        session.setAttribute("ciclosAsignados", ciclosAsignados);
 
         response.sendRedirect("../Vistas/verAsignaciones.jsp");
     }

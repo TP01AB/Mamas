@@ -53,6 +53,7 @@
                 } else if (usuarioActual.getRol() == 3) {
                     //Rol de administrador
                     session.setAttribute("rolActual", 3);
+                    
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
                 }
 

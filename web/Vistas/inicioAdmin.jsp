@@ -44,15 +44,32 @@
         <%
             Usuario uActual = (Usuario) session.getAttribute("usuarioActual");
         %>
-        <div class="card mb-3">
+        <div class="card m-3">
+
             <h1 class="card-header">Hello <%=uActual.getNombre()%> ,eres Administrador!</h1>
-            <div class="card-body">
-                <form action="../Controladores/controladorAdmin.jsp" method="POST">
-                    <input type="submit" name="crudUsuarios" value="Crud Usuarios">
-                    <input type="submit" name="crudCiclos" value="Crud Ciclos">
-                    <input type="submit" name="crudMaterias" value="Crud Materias">
-                </form>
-            </div>
+
+            <form action="../Controladores/controladorAdmin.jsp" method="POST">
+                <div class="card-body row justify-content-center">
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudUsuarios" value="Crud Usuarios">
+                        <h3 class="card-header mx-auto  m-2 bg-primary">Usuarios</h3>
+
+                        <h5 class="card-subtitle m-2 mx-auto">0 Profesores</h5>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Alumnos</h5>
+                    </button>
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudCiclos" value="Crud Usuarios">
+                        <h3 class="card-header m-2 bg-primary mx-auto">Ciclos</h3>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Profesores</h5>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Alumnos</h5>
+                    </button>
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudMaterias" value="Crud Usuarios">
+                        <h3 class="card-header m-2 bg-primary mx-auto">Materias</h3>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Profesores</h5>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Alumnos</h5>
+                    </button>
+
+                </div>
+            </form>
+
         </div>
         <!-- SCRIPT -->
 

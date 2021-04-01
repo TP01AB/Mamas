@@ -65,22 +65,23 @@
                                 <input class="btn btn-primary col-2 text-center" type="submit" name="addMateria" value="+">
 
                             </form>
-                            <table class="mx-auto" >
+                            <hr>
+                            <table class="table table-striped mx-auto" >
                                 <tr class="m-5">
-                                    <th>id</th>
-                                    <th >Nombre</th>
-                                    <th >Descripcion</th>
-                                    <th >Acciones</th>
+                                    <th scope="col">id</th>
+                                    <th scope="col" >Nombre</th>
+                                    <th scope="col" >Descripcion</th>
+                                    <th scope="col" >Acciones</th>
                                 </tr>
                                 <%
                                     for (int i = 0; i < materias.size(); i++) {
                                         Materia m = materias.get(i);
                                 %>
                                 <form class="text-center justify-content-center"  action="../Controladores/controladorAdmin.jsp" method="POST" >
-                                    <tr>
+                                    <tr >
                                     <input type="hidden" name="id" value="<%= m.getId()%>">
-                                    <td >
-                                        <p><%=m.getId()%></p>
+                                    <td scope="row" >
+                                        <%=m.getId()%>
                                     </td>
                                     <td >
                                         <input class="form-control" type="text" name="nombre" value="<%=m.getNombre()%>" >
@@ -89,11 +90,12 @@
                                         <input class="form-control" type="text" name="descripcion" value="<%=m.getDescripcion()%>" >
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-success m-1 p-1" type="submit" name="verAsignaciones" title="asignar Materia">Ver</button>
+                                        <button class="btn btn-success m-1 p-1" type="submit" name="verAsignaciones" title="Ver ciclos asignados">Ver</button>
                                         <button class="btn btn-success m-1 p-1" type="submit" name="editarMateria" title="editar Materia">+</button>
                                         <button class="btn btn-danger m-1 p-1" type="submit" name="eliminarMateria" title="eliminar Materia">-</button>
                                     </td>
                                     </tr>
+
                                 </form>
                                 <%}%>
                             </table>

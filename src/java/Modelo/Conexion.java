@@ -769,4 +769,28 @@ public class Conexion {
         }
         return c;
     }
+
+    public static void borrarMateria(int id) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "DELETE FROM materias  WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+        Conexion.cerrarBD();
+    }
+
+    public static void borrarAsignacion(int idCiclo, int idMateria) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "DELETE FROM asig_materias  WHERE id_ciclo = '" + idCiclo + "' AND id_materia = '" + idMateria + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+        Conexion.cerrarBD();
+    }
 }
