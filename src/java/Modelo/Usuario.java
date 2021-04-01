@@ -9,30 +9,52 @@ package Modelo;
  *
  * @author isra9
  */
+import Auxiliar.passwordEncryption;
+import java.sql.Date;
 import java.util.LinkedList;
 
 public class Usuario {
-    //Atributos  usuario 
 
+    //Atributos  usuario 
+    private String nombre;
+    private String apellidos;
+    private String dni;
+    private int telefono;
+    private Date nacimiento;
     private int id_user;
     private String email;
+    private String password;
     private boolean isActive;
+    private int intentos;
     //Roles
     private int rol;
 
     //Constructor de usuario sin ID y rol , los cuales se asignaran tras el Login.
-    public Usuario(int id,String email, boolean isActive) {
-        this.id_user=id;
+    public Usuario(int id, String email, int isActive) {
+        this.id_user = id;
         this.email = email;
-        this.isActive = isActive;
+        if (isActive == 1) {
+            this.isActive = true;
+        } else {
+            this.isActive = false;
+        }
     }
 
     //Constructor de usuario con todos los datos para casos en los que se consulte el usuario completo en BD.
-    public Usuario(int id_user, String email, boolean isActive, int rol) {
+    public Usuario(int id_user, String email, String password, int isActive, int intentos) {
         this.id_user = id_user;
         this.email = email;
-        this.isActive = isActive;
+        this.password = password;
+        if (isActive == 1) {
+            this.isActive = true;
+        } else {
+            this.isActive = false;
+        }
+
         this.rol = rol;
+        this.intentos = intentos;
+        this.apellidos = "prueba";
+        this.nombre = "prueba";
     }
 
     //Constructor vacio
@@ -56,6 +78,46 @@ public class Usuario {
         this.email = email;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public Date getNacimiento() {
+        return nacimiento;
+    }
+
+    public void setNacimiento(Date nacimiento) {
+        this.nacimiento = nacimiento;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
     public boolean isIsActive() {
         return isActive;
     }
@@ -70,6 +132,27 @@ public class Usuario {
 
     public void setRol(int rol) {
         this.rol = rol;
+    }
+
+    public int getIntentos() {
+        return intentos;
+    }
+
+    public void setIntentos(int intentos) {
+        this.intentos = intentos;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id_user=" + id_user + ", email=" + email + ", password=" + password + ", isActive=" + isActive + ", intentos=" + intentos + ", rol=" + rol + '}';
     }
 
 }

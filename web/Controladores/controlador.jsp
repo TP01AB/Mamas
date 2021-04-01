@@ -41,6 +41,7 @@
                 usuarioActual.setRol(Conexion.getRol(usuarioActual.getId_user()));
                 session.setAttribute("usuarioActual", usuarioActual);
                 //redireccionamos a su inicio dependiendo de su rol.
+                session.setMaxInactiveInterval(-1);
                 if (usuarioActual.getRol() == 1) {
                     //Rol de alumno
                     session.setAttribute("rolActual", 1);
@@ -52,6 +53,7 @@
                 } else if (usuarioActual.getRol() == 3) {
                     //Rol de administrador
                     session.setAttribute("rolActual", 3);
+                    
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
                 }
 
@@ -105,8 +107,10 @@
             response.sendRedirect("../index.jsp");
         } else {
             Conexion.insertAcceso(email, password);
-            Conexion.insertPerfil(nombre, apellidos, dni, telefono, nacimiento);
-
+            int id = Conexion.getId(email);
+            Conexion.insertPerfil(id, nombre, apellidos, dni, telefono, nacimiento);
+            int rol = Integer.parseInt(request.getParameter("rol"));
+            Conexion.insertRol(id, rol);
             session.setAttribute("mensaje", "Registro correcto.");
             response.sendRedirect("../index.jsp");
 

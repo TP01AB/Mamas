@@ -31,7 +31,7 @@
             Conexion.sumarIntento(email, 0);
             if (intentos > 2) {
                 session.setAttribute("email", email);
-                //dirigimos al usuario a la pantalla donde se le obligara a cambiar de contraseï¿½a.
+                //dirigimos al usuario a la pantalla donde se le obligara a cambiar de contraseña.
                 response.sendRedirect("../Vistas/cambioContra.jsp");
             }
 
@@ -41,6 +41,7 @@
                 usuarioActual.setRol(Conexion.getRol(usuarioActual.getId_user()));
                 session.setAttribute("usuarioActual", usuarioActual);
                 //redireccionamos a su inicio dependiendo de su rol.
+                session.setMaxInactiveInterval(-1);
                 if (usuarioActual.getRol() == 1) {
                     //Rol de alumno
                     session.setAttribute("rolActual", 1);
@@ -52,6 +53,7 @@
                 } else if (usuarioActual.getRol() == 3) {
                     //Rol de administrador
                     session.setAttribute("rolActual", 3);
+                    
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
                 }
 
@@ -66,24 +68,24 @@
             if (intentos < 3) {
                 Conexion.sumarIntento(email, 1);
                 intentos++;
-                session.setAttribute("mensaje", "Contraseï¿½a o e-mail erroneos, intentelo de nuevo.Intento numero:" + intentos + ".");
+                session.setAttribute("mensaje", "Contraseña o e-mail erroneos, intentelo de nuevo.Intento numero:" + intentos + ".");
                 response.sendRedirect("../Vistas/login.jsp");
             } else {
                 //Enviar email
                 String az = Integer.toString((int) (Math.random() * 9999999));
 
-                //Envï¿½a email con la contraseï¿½a nueva
+                //Envía email con la contraseña nueva
                 Email em = new Email();
                 String para = email;
-                String mensaje = "Nueva contraseï¿½a: " + az + " \n Debido a superar el numero de intentos maximos , se ha procedido a modificar su contraseï¿½a. Al iniciar sesion se le pedria un cambio de contraseï¿½a.";
-                String asunto = "Superado intentos de sesion-cambio de contraseï¿½a.";
+                String mensaje = "Nueva contraseña: " + az + " \n Debido a superar el numero de intentos maximos , se ha procedido a modificar su contraseña. Al iniciar sesion se le pedria un cambio de contraseña.";
+                String asunto = "Superado intentos de sesion-cambio de contraseña.";
                 em.enviarCorreo(para, mensaje, asunto);
 
-                //Asignar nueva contraseï¿½a al usuario
+                //Asignar nueva contraseña al usuario
                 az = passwordEncryption.MD5(az);
                 Conexion.modificarClave(para, az);
 
-                session.setAttribute("mensaje", "Contraseï¿½a enviada al e-mail proporcionado.");
+                session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
                 System.out.println("Email enviado correctamente a " + para);
                 response.sendRedirect("../index.jsp");
             }
@@ -105,8 +107,10 @@
             response.sendRedirect("../index.jsp");
         } else {
             Conexion.insertAcceso(email, password);
-            Conexion.insertPerfil(nombre, apellidos, dni, telefono, nacimiento);
-
+            int id = Conexion.getId(email);
+            Conexion.insertPerfil(id, nombre, apellidos, dni, telefono, nacimiento);
+            int rol = Integer.parseInt(request.getParameter("rol"));
+            Conexion.insertRol(id, rol);
             session.setAttribute("mensaje", "Registro correcto.");
             response.sendRedirect("../index.jsp");
 
@@ -114,33 +118,33 @@
 
     }
 
-// Vista de Contraseï¿½a olvidadad -------------------------------------
-    //CONTRASEï¿½A OLVIDADA
+// Vista de Contraseña olvidadad -------------------------------------
+    //CONTRASEÑA OLVIDADA
     if (request.getParameter("passwordForget") != null) {
         //Enviar email
         String az = Integer.toString((int) (Math.random() * 9999999));
 
-        //Envï¿½a email con la contraseï¿½a nueva
+        //Envía email con la contraseña nueva
         Email em = new Email();
         String para = request.getParameter("emailForget");
-        String mensaje = "Nueva contraseï¿½a: " + az + " \n  Como has solicitado se te envia una nueva contraseï¿½a , la cual debe ser cambiada en el primer inicio de sesion.";
-        String asunto = "Solicitado cambio de contraseï¿½a";
+        String mensaje = "Nueva contraseña: " + az + " \n  Como has solicitado se te envia una nueva contraseña , la cual debe ser cambiada en el primer inicio de sesion.";
+        String asunto = "Solicitado cambio de contraseña";
         em.enviarCorreo(para, mensaje, asunto);
 
-        //Asignar nueva contraseï¿½a al usuario
+        //Asignar nueva contraseña al usuario
         az = passwordEncryption.MD5(az);
         Conexion.modificarClave(para, az);
 
-        session.setAttribute("mensaje", "Contraseï¿½a enviada al e-mail proporcionado.");
+        session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
         System.out.println("Email enviado correctamente a " + para);
         response.sendRedirect("../index.jsp");
     }
-//Vista de cambio de contraseï¿½a --------------------------------------
+//Vista de cambio de contraseña --------------------------------------
     if (request.getParameter("passwordChange") != null) {
         String email = (String) session.getAttribute("email");
         String password = passwordEncryption.MD5(request.getParameter("passwordChange")); //encriptacion por MD5
         Conexion.passwordChange(email, password);
-        session.setAttribute("mensaje", "Contraseï¿½a cambiada correctamente.");
+        session.setAttribute("mensaje", "Contraseña cambiada correctamente.");
         response.sendRedirect("../Vistas/login.jsp");
     }
 //GENERALES ----------------------------------------------------------
@@ -149,7 +153,7 @@
         response.sendRedirect("../index.jsp");
     }
 
-    // IR A CONTRASEï¿½A OLVIDADA
+    // IR A CONTRASEÑA OLVIDADA
     if (request.getParameter("vistaOlvidada") != null) {
         response.sendRedirect("../Vistas/olvidada.jsp");
     }

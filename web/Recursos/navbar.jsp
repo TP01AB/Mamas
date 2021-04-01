@@ -21,37 +21,39 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="../js/mdb.min.js"></script>
 <div class="row bg-primary mb-3">
-
-    <% int rol = (int) session.getAttribute("rolActual");
-    %>
-    <%
-        if (rol == 3) {
-    %>
-    <form action="../Controladores/controladorProfesor" method="POST">
-        <button type="submit" name="profHome">Home prof</button>
-    </form>
-    <form action="../Controladores/controladorAdmin.jsp" method="POST">    
-        <button type="submit" name="adminHome">Home</button>
-
+    <h2 class="title m-3">Mamas 2.0</h2>
+    <div class="align-content-end">
+        <% int rol = (int) session.getAttribute("rolActual");
+        %>
         <%
-        } else
+            if (rol == 3) {
         %>
-        <%if (rol == 1) {
-        %>
-        <form action="../Controladores/controladorAlumno.jsp" method="POST">    
-            <button type="submit" name="aluHome">Home</button>
+        <form action="../Controladores/controladorProfesor" method="POST" >
+            <button type="submit" name="profHome" disabled>Home prof</button>
+        </form>
+        <form action="../Controladores/controladorAdmin.jsp" method="POST">    
+            <button type="submit" name="adminHome">Home</button>
 
             <%
             } else
             %>
-            <%if (rol == 2) {
+            <%if (rol == 1) {
             %>
-            <form action="../Controladores/controladorProfesor.jsp" method="POST">    
-                <button type="submit" name="profHome">Home</button>
+            <form action="../Controladores/controladorAlumno.jsp" method="POST">    
+                <button type="submit" name="aluHome">Home</button>
 
                 <%
-                    }
+                } else
                 %>
-                <button type="submit" name="close">Cerrar sesion</button>
-            </form>
-            </div>
+                <%if (rol == 2) {
+                %>
+                <form action="../Controladores/controladorProfesor.jsp" method="POST">    
+                    <button type="submit" name="profHome">Home</button>
+
+                    <%
+                        }
+                    %>
+                    <button type="submit" name="close">Cerrar sesion</button>
+                </form>
+                </div>
+                </div>

@@ -58,12 +58,17 @@
                 <input type="date" id="nacimiento" name="nacimiento" required>
                 <div name="nacimientoError" class="" id="nacimientoError" aria-live="polite" required></div>
                 <br>
+                <p>Registrarse como:</p>
+                <input name="rol" type="radio" value="1" />Alumno
+                <input name="rol" type="radio" value="2" />Profesor
+                <input name="rol" type="radio" value="3" checked="checked" />Administrador
+                <hr>
 
-                <input type="submit" id="registrarseBD" name="registrarseBD" value="registrarse">
+                <input class="btn btn-primary " type="submit" id="registrarseBD" name="registrarseBD" value="registrarse">
 
             </form>
             <form name="Form" id="Form" action="../Controladores/controlador.jsp" method="POST" >
-                <input type="submit" id="home" name="home" value="HOME">
+                <input  class="btn btn-primary " type="submit" id="home" name="home" value="HOME">
             </form>
         </main>
         <div></div>

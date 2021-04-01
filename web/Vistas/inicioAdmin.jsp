@@ -4,6 +4,7 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,20 +41,36 @@
     </head>
     <body>
         <jsp:include page="../Recursos/navbar.jsp"/>
-        <h1>Hello Administrador!</h1>
-        <form action="../Controladores/controladorAdmin.jsp" method="POST">
-            <button type="submit" name="crudUsuarios">
-                Crud Usuarios
-            </button>
-            <button type="submit" name="crudCiclos">
-                Crud Ciclos
-            </button>
-            <button type="submit" name="crudMaterias">
-                Crud Materias
-            </button>
+        <%
+            Usuario uActual = (Usuario) session.getAttribute("usuarioActual");
+        %>
+        <div class="card m-3">
 
-        </form>
+            <h1 class="card-header">Hello <%=uActual.getNombre()%> ,eres Administrador!</h1>
 
+            <form action="../Controladores/controladorAdmin.jsp" method="POST">
+                <div class="card-body row justify-content-center">
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudUsuarios" value="Crud Usuarios">
+                        <h3 class="card-header mx-auto  m-2 bg-primary">Usuarios</h3>
+
+                        <h5 class="card-subtitle m-2 mx-auto">0 Profesores</h5>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Alumnos</h5>
+                    </button>
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudCiclos" value="Crud Usuarios">
+                        <h3 class="card-header m-2 bg-primary mx-auto">Ciclos</h3>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Profesores</h5>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Alumnos</h5>
+                    </button>
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudMaterias" value="Crud Usuarios">
+                        <h3 class="card-header m-2 bg-primary mx-auto">Materias</h3>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Profesores</h5>
+                        <h5 class="card-subtitle m-2 mx-auto">0 Alumnos</h5>
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
         <!-- SCRIPT -->
 
         <!-- jQuery -->
