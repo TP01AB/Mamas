@@ -17,6 +17,17 @@
         <!-- Your custom styles (optional) -->
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/all.css">
+        <script src='https://www.google.com/recaptcha/api.js?render=6LdU7-QZAAAAANmiNBKJU677B_eGaE-tJsZL0TMT'>
+        </script>
+        <script>
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LdU7-QZAAAAANmiNBKJU677B_eGaE-tJsZL0TMT', {action: 'login'})
+                        .then(function (token) {
+                            var recaptchaResponse = document.getElementById('recaptchaResponse');
+                            recaptchaResponse.value = token;
+                        });
+            });
+        </script>
     </head>
     <body class="container" onload="validarRegistro()">
         <div></div>
@@ -65,7 +76,7 @@
                 <hr>
 
                 <input class="btn btn-primary " type="submit" id="registrarseBD" name="registrarseBD" value="registrarse">
-
+                <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
             </form>
             <form name="Form" id="Form" action="../Controladores/controlador.jsp" method="POST" >
                 <input  class="btn btn-primary " type="submit" id="home" name="home" value="HOME">

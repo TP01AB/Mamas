@@ -17,6 +17,17 @@
         <!-- Your custom styles (optional) -->
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/all.css">
+        <script src='https://www.google.com/recaptcha/api.js?render=6LdU7-QZAAAAANmiNBKJU677B_eGaE-tJsZL0TMT'>
+        </script>
+        <script>
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LdU7-QZAAAAANmiNBKJU677B_eGaE-tJsZL0TMT', {action: 'login'})
+                        .then(function (token) {
+                            var recaptchaResponse = document.getElementById('recaptchaResponse');
+                            recaptchaResponse.value = token;
+                        });
+            });
+        </script>
     </head>
     <body class="container">
         <div></div>
@@ -26,7 +37,7 @@
             <form name="loginForm" action="../Controladores/controlador.jsp" method="POST">
                 <input type="email" id="emailForget" name="emailForget" >
                 <input type="submit" id="passwordForget" name="passwordForget" value="enviar correo">
-
+ <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
             </form>
             <form name="Form" id="loginForm" action="../Controladores/controlador.jsp" method="POST" >
                 <input type="submit" id="home" name="home" value="HOME">

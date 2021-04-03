@@ -16,15 +16,18 @@ public class Ciclo {
     private int id_ciclo;
     private String nombre;
     private String descripcion;
+    private int plazasMaximas;
     private LinkedList<Materia> Materias;
 
     public Ciclo() {
     }
 
-    public Ciclo(int id_ciclo, String nombre, String descripcion) {
+    public Ciclo(int id_ciclo, String nombre, String descripcion, int plazas) {
         this.id_ciclo = id_ciclo;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.plazasMaximas = plazas;
+        this.Materias = new LinkedList<Materia>();
     }
 
     public Ciclo(int id_ciclo, String nombre, String descripcion, LinkedList<Materia> Materias) {
@@ -73,4 +76,13 @@ public class Ciclo {
     public void removeMateria(Materia m) {
         this.Materias.remove(m);
     }
+
+    public int getPlazasMaximas() {
+        return plazasMaximas;
+    }
+
+    public void setPlazasMaximas(int plazasMaximas) {
+        this.plazasMaximas = plazasMaximas;
+    }
+
 }

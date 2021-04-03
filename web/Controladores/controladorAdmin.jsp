@@ -134,8 +134,13 @@
         int id = (Integer.parseInt(request.getParameter("id")));
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        Conexion.actualizarCiclo(id, nombre, descripcion);
+        Conexion.actualizarMateria(id, nombre, descripcion);
 
+        LinkedList<Materia> materias = Conexion.getMaterias();
+        LinkedList<Ciclo> ciclos = Conexion.getCiclos();
+        session.setAttribute("ciclos", ciclos);
+        session.setAttribute("materias", materias);
+        response.sendRedirect("../Vistas/crudMaterias.jsp");
     }
     if (request.getParameter("asignarMateria") != null) {
         int idCiclo = Integer.parseInt(request.getParameter("cicloAsignado"));
@@ -230,7 +235,8 @@
     if (request.getParameter("addCiclo") != null) {
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        Conexion.insertCiclo(nombre, descripcion);
+        int plazas = (Integer.parseInt(request.getParameter("plazas")));
+        Conexion.insertCiclo(nombre, descripcion, plazas);
 
         LinkedList<Ciclo> ciclos = Conexion.getCiclos();
         session.setAttribute("ciclos", ciclos);
@@ -248,7 +254,8 @@
         int id = (Integer.parseInt(request.getParameter("id")));
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        Conexion.actualizarCiclo(id, nombre, descripcion);
+        int plazas = (Integer.parseInt(request.getParameter("plazas")));
+        Conexion.actualizarCiclo(id, nombre, descripcion, plazas);
 
         LinkedList<Ciclo> ciclos = Conexion.getCiclos();
         session.setAttribute("ciclos", ciclos);

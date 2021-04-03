@@ -22,11 +22,11 @@
 <script type="text/javascript" src="../js/mdb.min.js"></script>
 <div class="row bg-primary mb-3">
     <h2 class="title m-3">Mamas 2.0</h2>
-    <div class="align-content-end">
-        <% int rol = (int) session.getAttribute("rolActual");
+    <% int rol = (int) session.getAttribute("rolActual");
 
-            if (rol == 3) {
-        %>
+        if (rol == 3) {
+    %>
+    <div class="row">
         <form action="../Controladores/controladorProfesor" method="POST" >
             <button type="submit" name="profHome" disabled>Home prof</button>
         </form>
@@ -53,6 +53,6 @@
                         }
                     %>
                     <button type="submit" name="close">Cerrar sesion</button>
+                    </div>
                 </form>
-                </div>
                 </div>

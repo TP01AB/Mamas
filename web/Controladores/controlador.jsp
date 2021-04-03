@@ -1,3 +1,4 @@
+<%@page import="Modelo.Ciclo"%>
 <%@page import="Modelo.Estudiante"%>
 <%@page import="Modelo.Profesor"%>
 <%@page import="java.sql.Date"%>
@@ -59,6 +60,8 @@
                     session.setAttribute("profesores", profesores);
                     LinkedList<Estudiante> alumnos = Conexion.getEstudiantes();
                     session.setAttribute("estudiantes", alumnos);
+                    LinkedList<Ciclo> ciclos = Conexion.getCiclosCompletos();
+                    session.setAttribute("ciclosCompletos", ciclos);
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
                 }
 

@@ -15,7 +15,7 @@ public class Estudiante extends Usuario {
 
     public Estudiante(Ciclo ciclo, int id, String email, int isActive) {
         super(id, email, isActive);
-        this.ciclo = ciclo;
+       
     }
 
     public Estudiante(int id_user, String email, String password, int isActive, int intentos) {

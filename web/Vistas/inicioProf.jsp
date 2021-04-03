@@ -17,7 +17,8 @@
             if (session.getAttribute("usuarioActual") == null) {
                 session.setAttribute("mensaje", "Debes iniciar sesion para acceder a dicha pagina");
                 response.sendRedirect("../Vistas/login.jsp");
-            } else //Control por rol
+            }
+            //Control por rol
             if (((int) session.getAttribute("rolActual")) == 1) {
                 session.setAttribute("mensaje", "No tienes permisos para acceder a esa pagina");
 
