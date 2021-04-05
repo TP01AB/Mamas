@@ -680,11 +680,63 @@ public class Conexion {
                 materias.add(m);
             }
 
+            for (int i = 0; i < materias.size(); i++) {
+                Materia c = (Materia) materias.get(i);
+                Profesor p = Conexion.getProfesor(c.getId(), IdCiclo);
+                c.setProfesor(p);
+                materias.set(i, c);
+            }
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
         Conexion.cerrarBD();
         return materias;
+    }
+
+    public static Profesor getProfesor(int idMateria, int idCiclo) {
+        Profesor p = new Profesor();
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT * FROM usuarios ,asig_profesor WHERE usuarios.id=asig_profesor.id_usuario AND asig_profesor.id_ciclo='" + idCiclo + "' AND asig_profesor.id_materia='" + idMateria + "'";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            if (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String email = Conj_Registros.getString("email");
+                String password = Conj_Registros.getString("password");
+                int activo = Conj_Registros.getInt("isActive");
+                int intentos = Conj_Registros.getInt("intentos");
+                p = new Profesor(id, email, password, activo, intentos);
+            }
+            System.out.println("empezamos a coger perfiles ");
+            p = (Profesor) Conexion.getPerfil(p);
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return p;
+    }
+
+    public static Usuario getPerfil(Usuario p) {
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT * FROM perfil WHERE id ='" + p.getId_user() + "'";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            if (Conj_Registros.next()) {
+
+                p.setNombre(Conj_Registros.getString("nombre"));
+                p.setApellidos(Conj_Registros.getString("apellidos"));
+                p.setDni(Conj_Registros.getString("dni"));
+                p.setTelefono(Conj_Registros.getInt("telefono"));
+                p.setNacimiento(Conj_Registros.getDate("nacimiento"));
+                System.out.println("PROFESOR: " + p);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+
+        Conexion.cerrarBD();
+        return p;
     }
 
     public static void insertMateria(String nombre, String descripcion) {
@@ -845,7 +897,7 @@ public class Conexion {
                 p.setRol(Conj_Registros.getInt("id_rol"));
                 profesores.add(p);
             }
-
+            profesores = (LinkedList<Profesor>) Conexion.getPerfil(profesores);
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
@@ -869,7 +921,7 @@ public class Conexion {
                 e.setRol(Conj_Registros.getInt("id_rol"));
                 estudiantes.add(e);
             }
-
+            estudiantes = (LinkedList<Estudiante>) Conexion.getPerfil(estudiantes);
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
@@ -948,6 +1000,53 @@ public class Conexion {
         return ciclos;
     }
 
+    public static void updateAsignarMateriaProfesor(int idCiclo, int idMateria, int idProfesor) {
+
+        Conexion.nueva();
+
+        String sentencia = "UPDATE asig_profesor SET id_usuario='" + idProfesor + "' WHERE id_ciclo = '" + idCiclo + "' AND id_materia='" + idMateria + "'";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+
+            Conexion.cerrarBD();
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+    }
+
+    public static boolean estaMateriaestaAsignada(int idCiclo, int idMateria) {
+        boolean asignada = false;
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT * FROM asig_profesor WHERE id_ciclo =' " + idCiclo + "' AND id_materia='" + idMateria + "'";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            if (Conj_Registros.next()) {
+                asignada = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+
+        return asignada;
+    }
+
+    public static void insertAsignarMateriaProfesor(int idCiclo, int idMateria, int idProfesor) {
+
+        Conexion.nueva();
+
+        String sentencia = "INSERT INTO asig_profesor VALUES('" + idMateria + "','" + idCiclo + "','" + idProfesor + "')";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+
+            Conexion.cerrarBD();
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+    }
+
     public static boolean estaConvalidada(int idUsuario, int idMateria) {
         boolean convalidada = false;
         Conexion.nueva();
@@ -962,5 +1061,21 @@ public class Conexion {
         }
         Conexion.cerrarBD();
         return convalidada;
+    }
+
+    public static int getnumConvalidaciones(int tipo) {
+        int num = 0;
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT * FROM asig_convalidacion WHERE estado='" + tipo + "' ";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                num++;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return num;
     }
 }

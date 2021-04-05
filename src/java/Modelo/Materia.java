@@ -27,6 +27,7 @@ public class Materia {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.estudiantes = new LinkedList<Estudiante>();
+        this.profesor = new Profesor();
     }
 
     public int getId() {

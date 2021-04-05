@@ -51,6 +51,9 @@
             LinkedList<Profesor> profesores = (LinkedList<Profesor>) session.getAttribute("profesores");
             LinkedList<Estudiante> estudiantes = (LinkedList<Estudiante>) session.getAttribute("estudiantes");
             LinkedList<Ciclo> ciclos = (LinkedList<Ciclo>) session.getAttribute("ciclosCompletos");
+            int convalidacionesT = (int) session.getAttribute("convalidacionP");
+            int convalidacionesR = (int) session.getAttribute("convalidacionR");
+            int convalidacionesA = (int) session.getAttribute("convalidacionA");
             int materias = 0;
         %>
         <div class="card m-3">
@@ -77,6 +80,12 @@
                                 materias = materias + ciclos.get(i).getMaterias().size();
                             }
                             out.print(materias);%> Materias</h5>
+                    </button>
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudMaterias" value="Crud Usuarios">
+                        <h3 class="card-header  bg-primary mx-auto">Convalidaciones</h3>
+                        <h5 class="card-subtitle m-2 mx-auto"> <%=convalidacionesT%> Pendientes</h5>
+                        <h6 class="card-subtitle m-2 mx-auto"><%=convalidacionesA%>  Aceptadas</h6> 
+                        <h6 class="card-subtitle m-2 mx-auto"><%=convalidacionesR%>  Rechazadas</h6> 
                     </button>
                 </div>
             </form>

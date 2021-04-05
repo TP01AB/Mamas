@@ -42,9 +42,9 @@
             if (Conexion.isActive(email)) {
                 //Obtenemos el rol del usuario por medio de su id_usuario
                 usuarioActual.setRol(Conexion.getRol(usuarioActual.getId_user()));
+                usuarioActual = Conexion.getPerfil(usuarioActual);
                 session.setAttribute("usuarioActual", usuarioActual);
                 //redireccionamos a su inicio dependiendo de su rol.
-                session.setMaxInactiveInterval(-1);
                 if (usuarioActual.getRol() == 1) {
                     //Rol de alumno
                     session.setAttribute("rolActual", 1);
@@ -62,7 +62,11 @@
                     session.setAttribute("estudiantes", alumnos);
                     LinkedList<Ciclo> ciclos = Conexion.getCiclosCompletos();
                     session.setAttribute("ciclosCompletos", ciclos);
+                    session.setAttribute("convalidacionP", Conexion.getnumConvalidaciones(0));
+                    session.setAttribute("convalidacionA", Conexion.getnumConvalidaciones(1));
+                    session.setAttribute("convalidacionR", Conexion.getnumConvalidaciones(2));
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
+
                 }
 
             } //usuario no activado

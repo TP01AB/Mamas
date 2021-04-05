@@ -20,6 +20,9 @@ public class Profesor extends Usuario {
         this.Ciclos = Ciclos;
     }
 
+    public Profesor() {
+    }
+
     public Profesor(int id_user, String email, String password, int isActive, int intentos) {
         super(id_user, email, password, isActive, intentos);
     }
@@ -34,6 +37,11 @@ public class Profesor extends Usuario {
 
     public void setCiclos(LinkedList<Ciclo> Ciclos) {
         this.Ciclos = Ciclos;
+    }
+
+    @Override
+    public String toString() {
+        return "Profesor{" + "Ciclos=" + Ciclos + '}';
     }
 
 }

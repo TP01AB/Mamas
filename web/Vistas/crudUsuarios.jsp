@@ -48,6 +48,25 @@
                                     Usuarios = (LinkedList<Usuario>) session.getAttribute("usuarios");
                                 }
                             %>
+                            <div class="row justify-content-center">
+                                <div class=" border-info m-2 ">
+                                    <svg desc="alumno" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                    </svg>Alumno
+                                </div>
+                                <div class=" border-info m-2 ">
+                                    <svg desc="profesor" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+                                    <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A1.993 1.993 0 0 0 8 6c-.532 0-1.016.208-1.375.547zM14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+                                    </svg>Profesor
+                                </div>
+                                <div class=" border-info m-2 ">
+                                    <svg desc="Administrador" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
+                                    <path d="M8 0l1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
+                                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                    </svg>Administrador
+                                </div>
+                            </div>
                             <table class="mx-auto table table-striped" >
                                 <tr class="m-5">
                                     <th>DNI</th>
@@ -134,9 +153,9 @@
                                                 out.print("disabled");
                                             }%>>X</button>
                                         <button class="btn btn-primary m-1 p-1" type="submit" name="update" title="actualiza usuario">UP</button>
-                                                <button class="btn btn-green m-1 p-1" type="submit" name="activar" title="activar usuario"  <% if (actual) {
-                                                out.print("disabled");
-                                            }%>>On/Off</button>
+                                        <button class="btn btn-green m-1 p-1" type="submit" name="activar" title="activar usuario"  <% if (actual) {
+                                                        out.print("disabled");
+                                                    }%>>On/Off</button>
                                     </td>
                                     </tr>
                                 </form>

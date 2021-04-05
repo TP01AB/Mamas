@@ -84,6 +84,7 @@
                                         <input class="form-control" type="number" name="plazas" value="<%=c.getPlazasMaximas()%>" >
                                     </td>
                                     <td class="text-center">
+                                        <button class="btn btn-success m-1 p-1" type="submit" name="asignarProfesores" title="Profesores">ver</button>
                                         <button class="btn btn-success m-1 p-1" type="submit" name="editarCiclo" title="editar Ciclo">+</button>
                                         <button class="btn btn-danger m-1 p-1" type="submit" name="eliminarCiclo" title="eliminar Ciclo">-</button>
                                     </td>
