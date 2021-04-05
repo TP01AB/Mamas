@@ -4,6 +4,11 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Ciclo"%>
+<%@page import="Modelo.Estudiante"%>
+<%@page import="Modelo.Profesor"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="java.util.LinkedList"%>
 <%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -43,6 +48,13 @@
         <jsp:include page="../Recursos/navbar.jsp"/>
         <%
             Usuario uActual = (Usuario) session.getAttribute("usuarioActual");
+            LinkedList<Profesor> profesores = (LinkedList<Profesor>) session.getAttribute("profesores");
+            LinkedList<Estudiante> estudiantes = (LinkedList<Estudiante>) session.getAttribute("estudiantes");
+            LinkedList<Ciclo> ciclos = (LinkedList<Ciclo>) session.getAttribute("ciclosCompletos");
+            int convalidacionesT = (int) session.getAttribute("convalidacionP");
+            int convalidacionesR = (int) session.getAttribute("convalidacionR");
+            int convalidacionesA = (int) session.getAttribute("convalidacionA");
+            int materias = 0;
         %>
         <div class="card m-3">
 
@@ -50,23 +62,31 @@
 
             <form action="../Controladores/controladorAdmin.jsp" method="POST">
                 <div class="card-body row justify-content-center">
-                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudUsuarios" value="Crud Usuarios">
-                        <h3 class="card-header mx-auto  m-2 bg-primary">Usuarios</h3>
+                    <%
 
-                        <h5 class="card-subtitle m-2 mx-auto">0 Profesores</h5>
-                        <h5 class="card-subtitle m-2 mx-auto">0 Alumnos</h5>
+                    %>
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudUsuarios" value="Crud Usuarios">
+                        <h3 class="card-header   mx-auto   bg-primary">Usuarios</h3>
+                        <h5 class="card-subtitle m-2 mx-auto"><%=profesores.size()%> Profesores</h5>
+                        <h5 class="card-subtitle m-2 mx-auto"><%=estudiantes.size()%> Alumnos</h5>
                     </button>
                     <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudCiclos" value="Crud Usuarios">
-                        <h3 class="card-header m-2 bg-primary mx-auto">Ciclos</h3>
-                        <h5 class="card-subtitle m-2 mx-auto">0 Profesores</h5>
-                        <h5 class="card-subtitle m-2 mx-auto">0 Alumnos</h5>
+                        <h3 class="card-header  bg-primary mx-auto">Ciclos</h3>
+                        <h5 class="card-subtitle m-2 mx-auto"><%=ciclos.size()%> Ciclos </h5>
                     </button>
                     <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudMaterias" value="Crud Usuarios">
-                        <h3 class="card-header m-2 bg-primary mx-auto">Materias</h3>
-                        <h5 class="card-subtitle m-2 mx-auto">0 Profesores</h5>
-                        <h5 class="card-subtitle m-2 mx-auto">0 Alumnos</h5>
+                        <h3 class="card-header  bg-primary mx-auto">Materias</h3>
+                        <h5 class="card-subtitle m-2 mx-auto"><%for (int i = 0; i < ciclos.size(); i++) {
+                                materias = materias + ciclos.get(i).getMaterias().size();
+                            }
+                            out.print(materias);%> Materias</h5>
                     </button>
-
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudMaterias" value="Crud Usuarios">
+                        <h3 class="card-header  bg-primary mx-auto">Convalidaciones</h3>
+                        <h5 class="card-subtitle m-2 mx-auto"> <%=convalidacionesT%> Pendientes</h5>
+                        <h6 class="card-subtitle m-2 mx-auto"><%=convalidacionesA%>  Aceptadas</h6> 
+                        <h6 class="card-subtitle m-2 mx-auto"><%=convalidacionesR%>  Rechazadas</h6> 
+                    </button>
                 </div>
             </form>
 

@@ -11,8 +11,37 @@ import java.util.LinkedList;
  *
  * @author isra9
  */
-public class Profesor {
+public class Profesor extends Usuario {
 
     private LinkedList<Ciclo> Ciclos;
-    
+
+    public Profesor(LinkedList<Ciclo> Ciclos, int id, String email, int isActive) {
+        super(id, email, isActive);
+        this.Ciclos = Ciclos;
+    }
+
+    public Profesor() {
+    }
+
+    public Profesor(int id_user, String email, String password, int isActive, int intentos) {
+        super(id_user, email, password, isActive, intentos);
+    }
+
+    public Profesor(LinkedList<Ciclo> Ciclos) {
+        this.Ciclos = Ciclos;
+    }
+
+    public LinkedList<Ciclo> getCiclos() {
+        return Ciclos;
+    }
+
+    public void setCiclos(LinkedList<Ciclo> Ciclos) {
+        this.Ciclos = Ciclos;
+    }
+
+    @Override
+    public String toString() {
+        return "Profesor{" + "Ciclos=" + Ciclos + '}';
+    }
+
 }

@@ -76,7 +76,7 @@
                             </form>
                             <hr>
 
-                            <table class="mx-auto" >
+                            <table class="mx-auto table table-striped" >
                                 <tr class="m-5">
                                     <th>id</th>
                                     <th >Nombre</th>

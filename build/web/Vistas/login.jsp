@@ -19,6 +19,17 @@
         <!-- Your custom styles (optional) -->
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/all.css">
+        <script src='https://www.google.com/recaptcha/api.js?render=6LdU7-QZAAAAANmiNBKJU677B_eGaE-tJsZL0TMT'>
+        </script>
+        <script>
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LdU7-QZAAAAANmiNBKJU677B_eGaE-tJsZL0TMT', {action: 'login'})
+                        .then(function (token) {
+                            var recaptchaResponse = document.getElementById('recaptchaResponse');
+                            recaptchaResponse.value = token;
+                        });
+            });
+        </script>
     </head>
     <body onload="validacionLogin()" class="container">
         <div class=""></div>
@@ -26,7 +37,7 @@
             <h1>Hello Login!</h1>
             <!-- Formulario de inicio sesion -->
             <form name="loginForm" id="loginForm" action="../Controladores/controlador.jsp" method="POST" novalidate>
-                
+
                 <label for="emailLogin">Email:</label><br>
                 <input type="email" id="emailLogin" name="emailLogin" required>
                 <span name="emailLoginError" class="" id="emailLoginError" aria-live="polite"></span>
@@ -52,7 +63,7 @@
                 %>
                 <br>
                 <input type="submit" id="iniciarseBD" name="iniciarseBD" value="inicar sesion">
-
+ <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
             </form>
             <form name="Form" id="Form" action="../Controladores/controlador.jsp" method="POST" >
                 <input type="submit" id="home" name="home" value="HOME">

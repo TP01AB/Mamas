@@ -47,16 +47,21 @@
                                     ciclos = (LinkedList<Ciclo>) session.getAttribute("ciclos");
                                 }
                             %>
+                            <hr>
                             <form class="text-center"  action="../Controladores/controladorAdmin.jsp" method="POST" >
-                                <input class="form-control" type="text" name="nombre" placeholder="introduce un nombre" >
-                                <input class="form-control" type="text" name="descripcion" placeholder="introduce una descripcion" >
+                                <legend>Nuevo Ciclo</legend>
+                                <input class="form-control mb-3" type="text" name="nombre" placeholder="introduce un nombre" >
+                                <input class="form-control mb-3" type="text" name="descripcion" placeholder="introduce una descripcion" >
+                                <input class="form-control mb-3" type="number" name="plazas" placeholder="introduce las plazas maximas" >
                                 <input class="btn btn-primary" type="submit" name="addCiclo" value="+">
                             </form>
-                            <table class="mx-auto" >
+                            <hr>
+                            <table class="mx-auto table table-striped" >
                                 <tr class="m-5">
                                     <th>id</th>
                                     <th >Nombre</th>
                                     <th >Descripcion</th>
+                                    <th >Plazas</th>
                                     <th >Acciones</th>
                                 </tr>
                                 <%
@@ -75,7 +80,11 @@
                                     <td >
                                         <input class="form-control" type="text" name="descripcion" value="<%=c.getDescripcion()%>" >
                                     </td>
+                                    <td >
+                                        <input class="form-control" type="number" name="plazas" value="<%=c.getPlazasMaximas()%>" >
+                                    </td>
                                     <td class="text-center">
+                                        <button class="btn btn-success m-1 p-1" type="submit" name="asignarProfesores" title="Profesores">ver</button>
                                         <button class="btn btn-success m-1 p-1" type="submit" name="editarCiclo" title="editar Ciclo">+</button>
                                         <button class="btn btn-danger m-1 p-1" type="submit" name="eliminarCiclo" title="eliminar Ciclo">-</button>
                                     </td>

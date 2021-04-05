@@ -17,8 +17,9 @@
             if (session.getAttribute("usuarioActual") == null) {
                 session.setAttribute("mensaje", "Debes iniciar sesion para acceder a dicha pagina");
                 response.sendRedirect("../Vistas/login.jsp");
-            } else //Control por rol
-            if (((int) session.getAttribute("rolActual")) < 2) {
+            }
+            //Control por rol
+            if (((int) session.getAttribute("rolActual")) == 1) {
                 session.setAttribute("mensaje", "No tienes permisos para acceder a esa pagina");
 
                 response.sendRedirect("../Vistas/inicioAlu.jsp");
@@ -50,6 +51,6 @@
         <script type="text/javascript" src="../js/mdb.min.js"></script>
         <!-- Your custom scripts (optional) -->
         <script type="text/javascript"></script>
-          <jsp:include page="../Recursos/Footer.jsp"/>
+        <jsp:include page="../Recursos/Footer.jsp"/>
     </body>
 </html>

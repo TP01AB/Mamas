@@ -31,7 +31,23 @@
         session.setAttribute("usuarios", usuarios);
         response.sendRedirect("../Vistas/crudUsuarios.jsp");
     }
+    if (request.getParameter("guardarAsignacion") != null) {
+        int idCiclo = (Integer.parseInt(request.getParameter("idCiclo")));
+        String[] id = request.getParameterValues("idMateria");
+        String[] profesor = request.getParameterValues("profesor");
 
+        for (int i = 0; i < id.length; i++) {
+            if (Conexion.estaMateriaestaAsignada(idCiclo, Integer.parseInt(id[i]))) {
+                Conexion.updateAsignarMateriaProfesor(idCiclo, Integer.parseInt(id[i]), Integer.parseInt(profesor[i]));
+            } else {
+                Conexion.insertAsignarMateriaProfesor(idCiclo, Integer.parseInt(id[i]), Integer.parseInt(profesor[i]));
+            }
+
+            System.out.println("---------------------------------------------------------------------------");
+            System.out.println(profesor[i]);
+            System.out.println(id[i]);
+        }
+    }
     if (request.getParameter("update") != null) {
         int id = (Integer.parseInt(request.getParameter("id")));
         String dni = request.getParameter("dni");
@@ -130,12 +146,26 @@
         session.setAttribute("materias", materias);
         response.sendRedirect("../Vistas/crudMaterias.jsp");
     }
+    if (request.getParameter("profHome") != null) {
+        response.sendRedirect("../Vistas/inicioProf.jsp");
+    }
     if (request.getParameter("editarMateria") != null) {
         int id = (Integer.parseInt(request.getParameter("id")));
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        Conexion.actualizarCiclo(id, nombre, descripcion);
+        Conexion.actualizarMateria(id, nombre, descripcion);
 
+        LinkedList<Materia> materias = Conexion.getMaterias();
+        LinkedList<Ciclo> ciclos = Conexion.getCiclos();
+        session.setAttribute("ciclos", ciclos);
+        session.setAttribute("materias", materias);
+        response.sendRedirect("../Vistas/crudMaterias.jsp");
+    }
+    if (request.getParameter("asignarProfesores") != null) {
+        int id = (Integer.parseInt(request.getParameter("id")));
+        Ciclo c = Conexion.getCiclo(id);
+        session.setAttribute("Ciclo", c);
+        response.sendRedirect("../Vistas/asignacionesProfesores.jsp");
     }
     if (request.getParameter("asignarMateria") != null) {
         int idCiclo = Integer.parseInt(request.getParameter("cicloAsignado"));
@@ -230,7 +260,8 @@
     if (request.getParameter("addCiclo") != null) {
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        Conexion.insertCiclo(nombre, descripcion);
+        int plazas = (Integer.parseInt(request.getParameter("plazas")));
+        Conexion.insertCiclo(nombre, descripcion, plazas);
 
         LinkedList<Ciclo> ciclos = Conexion.getCiclos();
         session.setAttribute("ciclos", ciclos);
@@ -248,7 +279,8 @@
         int id = (Integer.parseInt(request.getParameter("id")));
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        Conexion.actualizarCiclo(id, nombre, descripcion);
+        int plazas = (Integer.parseInt(request.getParameter("plazas")));
+        Conexion.actualizarCiclo(id, nombre, descripcion, plazas);
 
         LinkedList<Ciclo> ciclos = Conexion.getCiclos();
         session.setAttribute("ciclos", ciclos);
