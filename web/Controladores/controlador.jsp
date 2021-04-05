@@ -43,28 +43,38 @@
                 //Obtenemos el rol del usuario por medio de su id_usuario
                 usuarioActual.setRol(Conexion.getRol(usuarioActual.getId_user()));
                 usuarioActual = Conexion.getPerfil(usuarioActual);
-                session.setAttribute("usuarioActual", usuarioActual);
+
+                LinkedList<Ciclo> ciclos = Conexion.getCiclosCompletos();
+                session.setAttribute("ciclosCompletos", ciclos);
                 //redireccionamos a su inicio dependiendo de su rol.
                 if (usuarioActual.getRol() == 1) {
                     //Rol de alumno
                     session.setAttribute("rolActual", 1);
+                    Estudiante e = new Estudiante(usuarioActual.getId_user(), usuarioActual.getEmail(), usuarioActual.getPassword(), usuarioActual.getIntentos());
+                    e = (Estudiante) Conexion.getPerfil(e);
+                    Ciclo c = Conexion.getCicloAlumno(e.getId_user());
+                    e.setCiclo(c);
+                    session.setAttribute("usuarioActual", e);
                     response.sendRedirect("../Vistas/inicioAlu.jsp");
                 } else if (usuarioActual.getRol() == 2) {
                     //Rol de profesor
                     session.setAttribute("rolActual", 2);
+
+                    session.setAttribute("usuarioActual", usuarioActual);
                     response.sendRedirect("../Vistas/inicioProf.jsp");
                 } else if (usuarioActual.getRol() == 3) {
+
                     //Rol de administrador
                     session.setAttribute("rolActual", 3);
                     LinkedList<Profesor> profesores = Conexion.getProfesores();
                     session.setAttribute("profesores", profesores);
                     LinkedList<Estudiante> alumnos = Conexion.getEstudiantes();
                     session.setAttribute("estudiantes", alumnos);
-                    LinkedList<Ciclo> ciclos = Conexion.getCiclosCompletos();
-                    session.setAttribute("ciclosCompletos", ciclos);
+
                     session.setAttribute("convalidacionP", Conexion.getnumConvalidaciones(0));
                     session.setAttribute("convalidacionA", Conexion.getnumConvalidaciones(1));
                     session.setAttribute("convalidacionR", Conexion.getnumConvalidaciones(2));
+                    session.setAttribute("usuarioActual", usuarioActual);
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
 
                 }

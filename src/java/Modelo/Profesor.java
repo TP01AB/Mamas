@@ -15,8 +15,8 @@ public class Profesor extends Usuario {
 
     private LinkedList<Ciclo> Ciclos;
 
-    public Profesor(LinkedList<Ciclo> Ciclos, int id, String email, int isActive) {
-        super(id, email, isActive);
+    public Profesor(LinkedList<Ciclo> Ciclos, int id, String email, int isActive, int intentos) {
+        super(id, email, isActive, intentos);
         this.Ciclos = Ciclos;
     }
 

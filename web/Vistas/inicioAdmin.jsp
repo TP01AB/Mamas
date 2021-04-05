@@ -59,7 +59,16 @@
         <div class="card m-3">
 
             <h1 class="card-header">Hello <%=uActual.getNombre()%> ,eres Administrador!</h1>
+            <!<!-- Mensaje de error guardado en sesion -->
+            <%
 
+                if (session.getAttribute("mensaje") != null) {
+                    String mensaje = (String) session.getAttribute("mensaje");
+            %>
+            <hr>
+            <div ><span name="mensaje" id="mensaje"><%=mensaje%></span></div>
+            <hr>
+            <%}%>
             <form action="../Controladores/controladorAdmin.jsp" method="POST">
                 <div class="card-body row justify-content-center">
                     <%

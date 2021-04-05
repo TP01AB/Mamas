@@ -20,6 +20,7 @@ public class Ciclo {
     private LinkedList<Materia> Materias;
 
     public Ciclo() {
+        this.Materias = new LinkedList<Materia>();
     }
 
     public Ciclo(int id_ciclo, String nombre, String descripcion, int plazas) {

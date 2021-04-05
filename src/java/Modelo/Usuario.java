@@ -30,7 +30,7 @@ public class Usuario {
     private int rol;
 
     //Constructor de usuario sin ID y rol , los cuales se asignaran tras el Login.
-    public Usuario(int id, String email, int isActive) {
+    public Usuario(int id, String email, int isActive, int intentos) {
         this.id_user = id;
         this.email = email;
         if (isActive == 1) {
@@ -38,6 +38,7 @@ public class Usuario {
         } else {
             this.isActive = false;
         }
+        this.intentos = intentos;
     }
 
     //Constructor de usuario con todos los datos para casos en los que se consulte el usuario completo en BD.
