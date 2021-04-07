@@ -61,4 +61,75 @@
     if (request.getParameter("CrudExamenes") != null) {
         response.sendRedirect("../Vistas/crudExamenes.jsp");
     }
+    if (request.getParameter("crearExamen") != null) {
+        Materia materia = (Materia) session.getAttribute("materiaElegida");
+        Ciclo c = (Ciclo) session.getAttribute("cicloElegido");
+
+        String contenido = request.getParameter("contenido");
+        String descripcion = request.getParameter("descripcion");
+        int ponderacion = (Integer.parseInt(request.getParameter("ponderacion")));
+        Conexion.insertExamen(materia.getId(), contenido, descripcion, ponderacion);
+
+        Profesor p = (Profesor) session.getAttribute("usuarioActual");
+        LinkedList<Ciclo> ciclos = p.getCiclos();
+        ciclos = Conexion.getCiclosProfesor(p.getId_user());
+        for (int i = 0; i < ciclos.size(); i++) {
+            for (int j = 0; j < ciclos.get(i).getMaterias().size(); j++) {
+                if (materia.getId() == ciclos.get(i).getMaterias().get(j).getId()) {
+                    session.setAttribute("materiaElegida", ciclos.get(i).getMaterias().get(j));
+                }
+            }
+        }
+        p.setCiclos(ciclos);
+        session.setAttribute("usuarioActual", p);
+        response.sendRedirect("../Vistas/crudExamenes.jsp");
+    }
+    if (request.getParameter("cambiarEstado") != null) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Materia materia = (Materia) session.getAttribute("materiaElegida");
+        Ciclo c = (Ciclo) session.getAttribute("cicloElegido");
+        int activado = Integer.parseInt(request.getParameter("activado"));
+        String contenido = request.getParameter("contenido");
+        String descripcion = request.getParameter("descripcion");
+        int ponderacion = (Integer.parseInt(request.getParameter("ponderacion")));
+        Conexion.updateExamen(id, activado);
+
+        Profesor p = (Profesor) session.getAttribute("usuarioActual");
+        LinkedList<Ciclo> ciclos = p.getCiclos();
+        ciclos = Conexion.getCiclosProfesor(p.getId_user());
+        for (int i = 0; i < ciclos.size(); i++) {
+            for (int j = 0; j < ciclos.get(i).getMaterias().size(); j++) {
+                if (materia.getId() == ciclos.get(i).getMaterias().get(j).getId()) {
+                    session.setAttribute("materiaElegida", ciclos.get(i).getMaterias().get(j));
+                }
+            }
+        }
+        p.setCiclos(ciclos);
+        session.setAttribute("usuarioActual", p);
+        response.sendRedirect("../Vistas/crudExamenes.jsp");
+    }
+    if (request.getParameter("finalizar") != null) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Materia materia = (Materia) session.getAttribute("materiaElegida");
+        Ciclo c = (Ciclo) session.getAttribute("cicloElegido");
+        int activado = Integer.parseInt(request.getParameter("activado"));
+        String contenido = request.getParameter("contenido");
+        String descripcion = request.getParameter("descripcion");
+        int ponderacion = (Integer.parseInt(request.getParameter("ponderacion")));
+        Conexion.finExamen(id);
+
+        Profesor p = (Profesor) session.getAttribute("usuarioActual");
+        LinkedList<Ciclo> ciclos = p.getCiclos();
+        ciclos = Conexion.getCiclosProfesor(p.getId_user());
+        for (int i = 0; i < ciclos.size(); i++) {
+            for (int j = 0; j < ciclos.get(i).getMaterias().size(); j++) {
+                if (materia.getId() == ciclos.get(i).getMaterias().get(j).getId()) {
+                    session.setAttribute("materiaElegida", ciclos.get(i).getMaterias().get(j));
+                }
+            }
+        }
+        p.setCiclos(ciclos);
+        session.setAttribute("usuarioActual", p);
+        response.sendRedirect("../Vistas/crudExamenes.jsp");
+    }
 %>

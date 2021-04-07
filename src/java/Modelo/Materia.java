@@ -18,6 +18,7 @@ public class Materia {
     private String descripcion;
     private Profesor profesor;
     private LinkedList<Estudiante> estudiantes;
+    private LinkedList<Examen> examenes;
 
     public Materia() {
     }
@@ -78,9 +79,17 @@ public class Materia {
         this.profesor = profesor;
     }
 
+    public LinkedList<Examen> getExamenes() {
+        return examenes;
+    }
+
+    public void setExamenes(LinkedList<Examen> examenes) {
+        this.examenes = examenes;
+    }
+
     @Override
     public String toString() {
-        return "Materia{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", profesor=" + profesor + ", estudiantes=" + estudiantes + '}';
+        return "Materia{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", profesor=" + profesor + ", estudiantes=" + estudiantes + ", examenes=" + examenes + '}';
     }
 
 }

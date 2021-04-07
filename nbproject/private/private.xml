@@ -3,12 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/crudConvalidacion.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controlador.jsp</file>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/inicioAdmin.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Profesor.java</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controladorProfesor.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Ciclo.java</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/crudMaterias.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Conexion.java</file>
-            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Convalidacion.java</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/crudExamenes.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/crudUsuarios.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Estudiante.java</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/vistaMateria.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/inicioAlu.jsp</file>
             <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Controladores/controladorAdmin.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/web/Vistas/inicioProf.jsp</file>
+            <file>file:/C:/Users/isra9/Desktop/Third/Servidor/Mamas/src/java/Modelo/Examen.java</file>
         </group>
     </open-files>
 </project-private>

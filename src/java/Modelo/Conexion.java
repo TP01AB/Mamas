@@ -492,6 +492,37 @@ public class Conexion {
         Conexion.cerrarBD();
     }
 
+    public static void updateExamen(int id, int activado) {
+        Conexion.nueva();
+        int estado = 0;
+        if (activado == 0) {
+            estado = 1;
+        } else {
+            estado = 0;
+        }
+        try {
+            String sql;
+            sql = "UPDATE examenes SET estado = '" + estado + "' WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+        Conexion.cerrarBD();
+    }
+
+    public static void finExamen(int id) {
+        Conexion.nueva();
+
+        try {
+            String sql;
+            sql = "UPDATE examenes SET estado = '3' WHERE id = '" + id + "'";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+        Conexion.cerrarBD();
+    }
+
     public static void borrarAcceso(int id) {
         Conexion.nueva();
         try {
@@ -1109,12 +1140,56 @@ public class Conexion {
                 String descripcion = Conj_Registros.getString("descripcion");
                 m = new Materia(idMateria, nombre, descripcion);
             }
+            m.setExamenes(Conexion.getExamenes(idMateria));
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-
         Conexion.cerrarBD();
         return m;
+    }
+
+    public static LinkedList<Examen> getPreguntas(int idMateria) {
+        LinkedList<Examen> examenes = new LinkedList<Examen>();
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT * FROM examenes WHERE id_materia= '" + idMateria + "'";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String contenido = Conj_Registros.getString("contenido");
+                String descripcion = Conj_Registros.getString("descripcion");
+                int estado = Conj_Registros.getInt("estado");
+                int ponderacion = Conj_Registros.getInt("ponderacion");
+                Examen e = new Examen(id, idMateria, contenido, descripcion, estado, ponderacion);
+                examenes.add(e);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return examenes;
+    }
+
+    public static LinkedList<Examen> getExamenes(int idMateria) {
+        LinkedList<Examen> examenes = new LinkedList<Examen>();
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT * FROM examenes WHERE id_materia= '" + idMateria + "'";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String contenido = Conj_Registros.getString("contenido");
+                String descripcion = Conj_Registros.getString("descripcion");
+                int estado = Conj_Registros.getInt("estado");
+                int ponderacion = Conj_Registros.getInt("ponderacion");
+                Examen e = new Examen(id, idMateria, contenido, descripcion, estado, ponderacion);
+                examenes.add(e);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return examenes;
     }
 
     public static Ciclo getCicloAlumno(int idAlumno) throws SQLException {
@@ -1452,5 +1527,20 @@ public class Conexion {
         }
         Conexion.cerrarBD();
         return convalidaciones;
+    }
+
+    public static void insertExamen(int idMateria, String contenido, String descripcion, int ponderacion) {
+
+        Conexion.nueva();
+
+        String sentencia = "INSERT INTO examenes VALUES(default,'" + idMateria + "','" + contenido + "','" + descripcion + "','0','" + ponderacion + "')";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+
+            Conexion.cerrarBD();
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
     }
 }

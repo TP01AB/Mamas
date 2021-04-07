@@ -34,7 +34,7 @@
                 <h1><%= ciclo.getNombre()%> (<%= materia.getNombre()%> )</h1>
             </div>
             <div class="card-body">
-                <form class="text-center justify-content-center"  action="../Controladores/controladorAlumno.jsp" method="POST" >
+                <form class="text-center justify-content-center"  action="../Controladores/controladorProfesor.jsp" method="POST" >
                     <input class="btn btn-info" type="submit" name="crudPreguntas" value="Preguntas">
                     <input class="btn btn-info" type="submit" name="CrudExamenes" value="Examenes">
                 </form>
