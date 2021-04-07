@@ -23,9 +23,9 @@
             <div class="card">
                 <h1 class="card-header mx-auto text-primary">BIENVENIDO</h1>
                 <form class="card-body mx-auto" action="Controladores/controlador.jsp" method="post">
-                    <input type="submit" name="vistaLogin" value="LOGIN">
-                    <input type="submit" name="vistaRegistro" value="REGISTRO">
-                    <input type="submit" name="vistaOlvidada" value="CONTRASEÑA OLV">
+                    <input class="btn btn-secondary" type="submit" name="vistaLogin" value="LOGIN">
+                    <input class="btn btn-secondary" type="submit" name="vistaRegistro" value="REGISTRO">
+                    <input class="btn btn-secondary" type="submit" name="vistaOlvidada" value="CONTRASEÑA OLV">
                 </form>
 
 

@@ -4,6 +4,7 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Convalidacion"%>
 <%@page import="Modelo.Estudiante"%>
 <%@page import="Modelo.Profesor"%>
 <%@page import="Modelo.Materia"%>
@@ -46,66 +47,54 @@
                             <!------------------TABLA------------------------->
                             <%
                                 LinkedList<Estudiante> estudiantes = (LinkedList<Estudiante>) session.getAttribute("estudiantes");
-                                LinkedList<Ciclo> ciclos = (LinkedList<Ciclo>) session.getAttribute("ciclosCompletos");
-                                LinkedList<Profesor> profesores = (LinkedList<Profesor>) session.getAttribute("profesores");
+                                LinkedList<Convalidacion> convalidaciones = (LinkedList<Convalidacion>) session.getAttribute("convalidaciones");
 
-                                Ciclo c;
-                                c = (Ciclo) session.getAttribute("Ciclo");
                             %>
-
-                            <h3><%=c.getNombre()%></h3>
-                            <h6><%=c.getDescripcion()%></h6>
-                            <form class="text-center mx-auto row"  action="../Controladores/controladorAdmin.jsp" method="POST" >
-
-                                <input class="btn btn-primary  text-center" type="submit" name="crudMaterias" value="Crud Materias">
-                            </form>
-                            <hr>
-
                             <table class="mx-auto table table-striped" >
                                 <tr class="m-5">
-                                    <th>id</th>
-                                    <th >Nombre</th>
-                                    <th >Descripcion</th>
-                                    <th>Profesor</th>
-                                    <th >Acciones</th>
+                                    <th>Ciclo</th>
+                                    <th>Materia</th>
+                                    <th>Descripcion</th>
+                                    <th>Alumno</th>
+                                    <th>Acciones</th>
                                 </tr>
-                                <%
-                                    for (int i = 0; i < ciclos.size(); i++) {
-                                        if (ciclos.get(i).getId_ciclo() == c.getId_ciclo()) {
-                                            LinkedList<Materia> materias = ciclos.get(i).getMaterias();
-                                            for (int j = 0; j < materias.size(); j++) {
-                                                Materia materia = materias.get(j);
+                                <% for (int i = 0; i < convalidaciones.size(); i++) {
+                                        for (int j = 0; j < estudiantes.size(); j++) {
+                                            Estudiante e = estudiantes.get(j);
+                                            if (e.getCiclo() != null) {
+                                                LinkedList<Materia> materias = e.getCiclo().getMaterias();
+                                                for (int k = 0; k < materias.size(); k++) {
+                                                    Materia materia = materias.get(k);
+                                                    if (materia.getId() == convalidaciones.get(i).getIdMateria() && estudiantes.get(j).getId_user() == convalidaciones.get(i).getIdAlumno()) {
 
                                 %>
                                 <form class="text-center justify-content-center"  action="../Controladores/controladorAdmin.jsp" method="POST" >
                                     <input type="hidden" name="idMateria" value="<%= materia.getId()%>">
+                                    <input type="hidden" name="idAlumno" value="<%= convalidaciones.get(i).getIdAlumno()%>">
                                     <tr>
-                                    <input type="hidden" name="id" value="<%= materia.getId()%>">
-                                    <td >
-                                        <p><%=materia.getId()%></p>
-                                    </td>
-                                    <td >
-                                        <input class="form-control" type="text" name="nombre" value="<%=materia.getNombre()%>" readonly>
-                                    </td>
-                                    <td >
-                                        <input class="form-control" type="text" name="descripcion" value="<%=materia.getDescripcion()%>" readonly>
-                                    </td>
+                                        <td >
+                                            <input class="form-control" type="text" name="nombreCiclo" value="<%=estudiantes.get(j).getCiclo().getNombre()%>" readonly>
+                                        </td>
+                                        <td >
+                                            <input class="form-control" type="text" name="nombreMateria" value="<%=materia.getNombre()%>" readonly>
+                                        </td>
+                                        <td >
+                                            <input class="form-control" type="text" name="descripcion" value="<%=materia.getDescripcion()%>" readonly>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" name="nombreAlumno" value="<%= convalidaciones.get(i).getNombreAlumno()%>" readonly>
 
-                                    <td>
-                                        <select>
-                                            <% for (int k = 0; k < profesores.size(); k++) {
-                                                    Profesor p = profesores.get(k);
-                                            %>
-                                            <option value="<%=p.getId_user()%>"><%=p.getNombre()%></option>
-                                            <%}%>
-                                        </select>
-                                    </td> 
-                                    <td class="text-center">
-                                        <button class="btn btn-danger m-1 p-1" type="submit" name="eliminarAsignacion" title="eliminar Asignacion">-</button>
-                                    </td>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-success m-1 p-2" type="submit" name="aceptaConvalida" title="aceptar">+</button>
+                                            <button class="btn btn-danger m-1 p-2" type="submit" name="denegarConvalida" title="rechazar">-</button>
+
+                                        </td>
                                     </tr>
                                 </form>
                                 <%}
+                                                }
+                                            }
                                         }
                                     }%>
                             </table>

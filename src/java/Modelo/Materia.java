@@ -78,4 +78,9 @@ public class Materia {
         this.profesor = profesor;
     }
 
+    @Override
+    public String toString() {
+        return "Materia{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", profesor=" + profesor + ", estudiantes=" + estudiantes + '}';
+    }
+
 }

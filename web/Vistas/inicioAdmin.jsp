@@ -4,6 +4,7 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Convalidacion"%>
 <%@page import="Modelo.Ciclo"%>
 <%@page import="Modelo.Estudiante"%>
 <%@page import="Modelo.Profesor"%>
@@ -51,9 +52,22 @@
             LinkedList<Profesor> profesores = (LinkedList<Profesor>) session.getAttribute("profesores");
             LinkedList<Estudiante> estudiantes = (LinkedList<Estudiante>) session.getAttribute("estudiantes");
             LinkedList<Ciclo> ciclos = (LinkedList<Ciclo>) session.getAttribute("ciclosCompletos");
-            int convalidacionesT = (int) session.getAttribute("convalidacionP");
-            int convalidacionesR = (int) session.getAttribute("convalidacionR");
-            int convalidacionesA = (int) session.getAttribute("convalidacionA");
+            LinkedList<Convalidacion> convalidaciones = (LinkedList<Convalidacion>) session.getAttribute("convalidaciones");
+            int convalidacionesT = 0;
+            int convalidacionesR = 0;
+            int convalidacionesA = 0;
+            for (int i = 0; i < convalidaciones.size(); i++) {
+                if (convalidaciones.get(i).getEstado() == 0) {
+                    convalidacionesT++;
+                }
+                if (convalidaciones.get(i).getEstado() == 1) {
+                    convalidacionesA++;
+                }
+                if (convalidaciones.get(i).getEstado() == 2) {
+                    convalidacionesR++;
+                }
+            }
+
             int materias = 0;
         %>
         <div class="card m-3">
@@ -90,7 +104,7 @@
                             }
                             out.print(materias);%> Materias</h5>
                     </button>
-                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudMaterias" value="Crud Usuarios">
+                    <button class="card border-dark bg-info m-2 col-3 mx-auto" type="submit" name="crudConvalidacion" value="Crud Usuarios">
                         <h3 class="card-header  bg-primary mx-auto">Convalidaciones</h3>
                         <h5 class="card-subtitle m-2 mx-auto"> <%=convalidacionesT%> Pendientes</h5>
                         <h6 class="card-subtitle m-2 mx-auto"><%=convalidacionesA%>  Aceptadas</h6> 

@@ -30,7 +30,12 @@
             LinkedList<Ciclo> ciclos = (LinkedList<Ciclo>) session.getAttribute("ciclosCompletos");
             Estudiante uActual = (Estudiante) session.getAttribute("usuarioActual");
             Ciclo c = uActual.getCiclo();
-
+            int idCicloLE = 0;
+            int numeroListaEspera = 0;
+            if (session.getAttribute("idCicloListaEspera") != null) {
+                idCicloLE = (int) session.getAttribute("idCicloListaEspera");
+                numeroListaEspera = (int) session.getAttribute("numeroListaEspera");
+            }
         %>
 
         <h1 >Hello <%= uActual.getNombre()%>!</h1>
@@ -66,7 +71,41 @@
             <input class="btn btn-danger" type="submit" name="anularMatricula" value="Anular Matricula">
         </form>
         <%
-        } else {%>
+        } else if (idCicloLE != 0) {%>
+        <div class="card m-5  text-center">
+            <h1>Lista de espera</h1>
+            <h6>Su numero en la lista de espera es <%=numeroListaEspera%> .</h6>
+            <hr>
+            <table class="table mx-auto">
+                <tr >
+                    <th class="mx-auto">Nombre</th>
+                    <th class="mx-auto">Desripcion</th>
+                    <th class="mx-auto">Plazas</th>
+                </tr>
+                <%
+                    for (int j = 0; j < ciclos.size(); j++) {
+                        if (ciclos.get(j).getId_ciclo() == idCicloLE) {
+                %>
+
+                <tr >
+                    <td>
+                        <p > <%= ciclos.get(j).getNombre()%> </p>
+                    </td>
+
+                    <td>
+                        <p > <%= ciclos.get(j).getDescripcion()%> </p>
+                    </td>
+                    <td>
+                        <p > <%= ciclos.get(j).getPlazasMaximas()%> </p>
+                    </td>
+                </tr>
+
+                <%}
+                    }%>
+            </table>
+
+        </div>
+        <%} else {%>
         <div class="card m-5  text-center">
             <h1>¿Qué puedes estudiar?</h1>
             <h6>Tenemos la mejor oferta educativa en Formación Profesional Presencial y a Distancia.</h6>

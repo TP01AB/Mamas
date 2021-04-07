@@ -40,7 +40,7 @@
             <hr> 
             <%}
             %>
-            <input class="btn btn-success" type="submit" name="convalidarBD" value="Enviar matricula.">
+            <input class="btn btn-success" type="submit" name="convalidarBD" value="Enviar convalidacion.">
         </form>
         <!-- SCRIPT -->
 

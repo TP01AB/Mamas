@@ -20,7 +20,7 @@
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="../js/mdb.min.js"></script>
-<div class="row bg-secondary pl-4 mx-auto">
+<div class="row text-center bg-secondary pl-4 mx-auto mt-2">
 
     <a class="text-dark m-2 p-2" href="https://github.com/TP01AB">Israel Molina Pulpón</a> <a class="text-dark m-2 p-2" href="https://github.com/TP01AB/Mamas.git">Repositorio</a> <a class="text-dark m-2 p-2" href="https://app.gitkraken.com/glo/board/YFCQxyrR4wARIbb2">BoardTareas</a>
 </div>
