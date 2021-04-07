@@ -30,7 +30,6 @@
             Ciclo ciclo = (Ciclo) session.getAttribute("cicloElegido");
             Materia materia = (Materia) session.getAttribute("materiaElegida");
             LinkedList<Examen> examenes = materia.getExamenes();
-            System.out.println("EXAMENES---- " + materia);
         %>
     </head>
 <body>

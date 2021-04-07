@@ -55,6 +55,16 @@
             }
         }
     }
+    if (request.getParameter("crearPregunta") != null) {
+        String enunciado = request.getParameter("enunciado");
+        int tipo = (Integer.parseInt(request.getParameter("tipo")));
+        int puntuacion = (Integer.parseInt(request.getParameter("puntuacion")));
+        int idMateria = Integer.parseInt(request.getParameter("id"));
+        Conexion.insertPregunta(idMateria, enunciado, tipo, puntuacion);
+        int idPregunta = Conexion.getMaxIdPregunta();
+        System.out.println(idPregunta + " " + tipo);
+        response.sendRedirect("../Vistas/crudPreguntas.jsp");
+    }
     if (request.getParameter("crudPreguntas") != null) {
         response.sendRedirect("../Vistas/crudPreguntas.jsp");
     }

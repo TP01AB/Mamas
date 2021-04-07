@@ -1148,26 +1148,46 @@ public class Conexion {
         return m;
     }
 
-    public static LinkedList<Examen> getPreguntas(int idMateria) {
-        LinkedList<Examen> examenes = new LinkedList<Examen>();
+    public static LinkedList<Pregunta> getPreguntas(int idMateria) {
+        LinkedList<Pregunta> preguntas = new LinkedList<Pregunta>();
         Conexion.nueva();
         try {
-            String sentencia = "SELECT * FROM examenes WHERE id_materia= '" + idMateria + "'";
+            String sentencia = "SELECT * FROM preguntas WHERE id_materia= '" + idMateria + "'";
             Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
             while (Conj_Registros.next()) {
                 int id = Conj_Registros.getInt("id");
-                String contenido = Conj_Registros.getString("contenido");
-                String descripcion = Conj_Registros.getString("descripcion");
-                int estado = Conj_Registros.getInt("estado");
-                int ponderacion = Conj_Registros.getInt("ponderacion");
-                Examen e = new Examen(id, idMateria, contenido, descripcion, estado, ponderacion);
-                examenes.add(e);
+                String enunciado = Conj_Registros.getString("enunciado");
+                int tipo = Conj_Registros.getInt("tipo");
+                int puntuacion = Conj_Registros.getInt("puntuacion");
+                Pregunta e = new Pregunta(id, idMateria, enunciado, tipo, puntuacion);
+                e.setRespuestas(Conexion.getRespuestas(id));
+                preguntas.add(e);
             }
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
         Conexion.cerrarBD();
-        return examenes;
+        return preguntas;
+    }
+
+    public static LinkedList<Respuesta> getRespuestas(int idPregunta) {
+        LinkedList<Respuesta> respuestas = new LinkedList<Respuesta>();
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT * FROM respuestas WHERE id_pregunta= '" + idPregunta + "'";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String respuesta = Conj_Registros.getString("Respuesta");
+                int correcta = Conj_Registros.getInt("correcta");
+                Respuesta e = new Respuesta(id, idPregunta, respuesta, correcta);
+                respuestas.add(e);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return respuestas;
     }
 
     public static LinkedList<Examen> getExamenes(int idMateria) {
@@ -1183,6 +1203,7 @@ public class Conexion {
                 int estado = Conj_Registros.getInt("estado");
                 int ponderacion = Conj_Registros.getInt("ponderacion");
                 Examen e = new Examen(id, idMateria, contenido, descripcion, estado, ponderacion);
+                LinkedList<Pregunta> preguntas = Conexion.getPreguntas(idMateria);
                 examenes.add(e);
             }
         } catch (SQLException ex) {
@@ -1471,6 +1492,21 @@ public class Conexion {
         }
     }
 
+    public static void insertPregunta(int idMateria, String enunciado, int tipo, int puntuacion) {
+
+        Conexion.nueva();
+
+        String sentencia = "INSERT INTO preguntas VALUES(default,'" + idMateria + "','" + enunciado + "','" + tipo + "','" + puntuacion + "')";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+
+            Conexion.cerrarBD();
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+    }
+
     public static boolean estaConvalidada(int idUsuario, int idMateria) {
         boolean convalidada = false;
         Conexion.nueva();
@@ -1495,6 +1531,22 @@ public class Conexion {
             Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
             while (Conj_Registros.next()) {
                 num++;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return num;
+    }
+
+    public static int getMaxIdPregunta() {
+        int num = 0;
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT (id)MAX FROM preguntas ";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            if (Conj_Registros.next()) {
+                num = Conj_Registros.getInt("id");
             }
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());

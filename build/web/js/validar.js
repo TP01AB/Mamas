@@ -1,8 +1,44 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+function tipotexto() {
+    const form1 = document.getElementById("text");
+    const form2 = document.getElementById("num");
+    const form3 = document.getElementById("test");
+    const form4 = document.getElementById("mult");
+    form1.classList.remove('d-none');
+    form2.classList.add('d-none');
+    form3.classList.add('d-none');
+    form4.classList.add('d-none');
+}
+function tipoNum() {
+    const form1 = document.getElementById("text");
+    const form2 = document.getElementById("num");
+    const form3 = document.getElementById("test");
+    const form4 = document.getElementById("mult");
+    form1.classList.add('d-none');
+    form2.classList.remove('d-none');
+    form3.classList.add('d-none');
+    form4.classList.add('d-none');
+}
+function tipoTest() {
+    const form1 = document.getElementById("text");
+    const form2 = document.getElementById("num");
+    const form3 = document.getElementById("test");
+    const form4 = document.getElementById("mult");
+    form1.classList.add('d-none');
+    form2.classList.add('d-none');
+    form3.classList.remove('d-none');
+    form4.classList.add('d-none');
+}
+function tipoMultiple() {
+    const form1 = document.getElementById("text");
+    const form2 = document.getElementById("num");
+    const form3 = document.getElementById("test");
+    const form4 = document.getElementById("mult");
+    form1.classList.add('d-none');
+    form2.classList.add('d-none');
+    form3.classList.add('d-none');
+    form4.classList.remove('d-none');
+}
 //Validacion cambio en perfil.
 function validarPerfil() {
     const form = document.getElementById("perfil");
