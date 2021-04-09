@@ -1282,6 +1282,30 @@ public class Conexion {
         return examenes;
     }
 
+    public static Examen getExamen(int idExamen, int idMateria) {
+        Examen e = null;
+        Conexion.nueva();
+        try {
+            String sentencia = "SELECT * FROM examenes WHERE id= '" + idExamen + "'";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            while (Conj_Registros.next()) {
+                int id = Conj_Registros.getInt("id");
+                String contenido = Conj_Registros.getString("contenido");
+                String descripcion = Conj_Registros.getString("descripcion");
+                int estado = Conj_Registros.getInt("estado");
+                int ponderacion = Conj_Registros.getInt("ponderacion");
+                e = new Examen(id, idMateria, contenido, descripcion, estado, ponderacion);
+            }
+
+            LinkedList<Pregunta> preguntas = Conexion.getPreguntasExamen(e.getIdMateria(), e.getId());
+            e.setPreguntas(preguntas);
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        Conexion.cerrarBD();
+        return e;
+    }
+
     public static Ciclo getCicloAlumno(int idAlumno) throws SQLException {
         Ciclo c = null;
         int idCiclo = 0;
@@ -1721,5 +1745,32 @@ public class Conexion {
         } catch (Exception ex) {
             System.out.println("Error general 2: " + ex.getMessage());
         }
+    }
+
+    public static void asignarPreguntaExamen(int idExamen, int idPregunta) {
+
+        Conexion.nueva();
+
+        String sentencia = "INSERT INTO asig_preguntas VALUES('" + idExamen + "','" + idPregunta + "')";
+
+        try {
+            Conexion.Sentencia_SQL.executeUpdate(sentencia);
+
+            Conexion.cerrarBD();
+        } catch (Exception ex) {
+            System.out.println("Error general 2: " + ex.getMessage());
+        }
+    }
+
+    public static void deletePreguntaExamen(int idExamen, int idPregunta) {
+        Conexion.nueva();
+        try {
+            String sql;
+            sql = "DELETE FROM asig_preguntas  WHERE id_examen = '" + idExamen + "' AND id_pregunta = '" + idPregunta + "' ";
+            System.out.println(sql);
+            Conexion.Sentencia_SQL.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+        Conexion.cerrarBD();
     }
 }

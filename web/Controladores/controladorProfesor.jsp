@@ -4,6 +4,7 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Examen"%>
 <%@page import="Modelo.Conexion"%>
 <%@page import="Modelo.Materia"%>
 <%@page import="Modelo.Ciclo"%>
@@ -91,6 +92,60 @@
         session.setAttribute("materiaElegida", m);
         response.sendRedirect("../Vistas/crudPreguntas.jsp");
     }
+    if (request.getParameter("crearPreguntaEX") != null) {
+        String enunciado = request.getParameter("enunciado");
+        int tipo = (Integer.parseInt(request.getParameter("tipo")));
+        int puntuacion = (Integer.parseInt(request.getParameter("puntuacion")));
+        int idMateria = Integer.parseInt(request.getParameter("id"));
+        int idExamen = Integer.parseInt(request.getParameter("idE"));
+        Conexion.insertPregunta(idMateria, enunciado, tipo, puntuacion);
+        int idPregunta = Conexion.getMaxIdPregunta();
+        if (tipo == 0) {
+            //futura implementacion para palabras clave y corregir automaticamente
+        } else {
+            String[] respuestas = request.getParameterValues("respuesta");
+            String[] seleccionada = request.getParameterValues("respuestaS");
+            for (int i = 0; i < respuestas.length; i++) {
+                int correcta = 0;
+                for (int j = 0; j < seleccionada.length; j++) {
+                    if (i == Integer.parseInt(seleccionada[j])) {
+                        correcta = 1;
+                    }
+                }
+                Conexion.insertRespuesta(idPregunta, respuestas[i], correcta);
+                int idRespuesta = Conexion.getMaxIdRespuesta();
+                Conexion.asignarRespuesta(idRespuesta, idPregunta);
+            }
+        }
+        Conexion.asignarPreguntaExamen(idExamen, idPregunta);
+
+        Materia m = Conexion.getMateria(idMateria);
+        session.setAttribute("materiaElegida", m);
+        session.setAttribute("examenElegido", Conexion.getExamen(idExamen, idMateria));
+        response.sendRedirect("../Vistas/asignarPreguntas.jsp");
+    }
+    if (request.getParameter("asignarPreguntaExamen") != null) {
+        int idPregunta = Integer.parseInt(request.getParameter("id"));
+        int idExamen = Integer.parseInt(request.getParameter("idE"));
+        int idMateria = Integer.parseInt(request.getParameter("idM"));
+        Conexion.asignarPreguntaExamen(idExamen, idPregunta);
+
+        Materia m = Conexion.getMateria(idMateria);
+        session.setAttribute("materiaElegida", m);
+        session.setAttribute("examenElegido", Conexion.getExamen(idExamen, idMateria));
+        response.sendRedirect("../Vistas/asignarPreguntas.jsp");
+    }
+    if (request.getParameter("eliminarAsignacionExamen") != null) {
+        int idPregunta = Integer.parseInt(request.getParameter("id"));
+        int idExamen = Integer.parseInt(request.getParameter("idE"));
+        int idMateria = Integer.parseInt(request.getParameter("idM"));
+        Conexion.deletePreguntaExamen(idExamen, idPregunta);
+
+        Materia m = Conexion.getMateria(idMateria);
+        session.setAttribute("materiaElegida", m);
+        session.setAttribute("examenElegido", Conexion.getExamen(idExamen, idMateria));
+        response.sendRedirect("../Vistas/asignarPreguntas.jsp");
+    }
     if (request.getParameter("crudPreguntas") != null) {
         session.setAttribute("preguntas", Conexion.getPreguntas());
         response.sendRedirect("../Vistas/crudPreguntas.jsp");
@@ -141,5 +196,12 @@
         Materia m = Conexion.getMateria(idMateria);
         session.setAttribute("materiaElegida", m);
         response.sendRedirect("../Vistas/crudPreguntas.jsp");
+    }
+    if (request.getParameter("asignarPreguntas") != null) {
+        int idExamen = Integer.parseInt(request.getParameter("id"));
+        int idMateria = Integer.parseInt(request.getParameter("idM"));
+        Examen e = Conexion.getExamen(idExamen, idMateria);
+        session.setAttribute("examenElegido", e);
+        response.sendRedirect("../Vistas/asignarPreguntas.jsp");
     }
 %>

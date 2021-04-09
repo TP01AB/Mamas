@@ -29,7 +29,7 @@
         Usuario usuarioActual = null;
         //Comprobamos las credenciales en BBDD.
         usuarioActual = Conexion.login(email, password);
-        
+
         if (usuarioActual != null) {
             //Ahora vamos a poner el contador de intentos a 0 tras hacer un inicio correcto.
             Conexion.sumarIntento(email, 0);
@@ -44,7 +44,7 @@
                 //Obtenemos el rol del usuario por medio de su id_usuario
                 usuarioActual.setRol(Conexion.getRol(usuarioActual.getId_user()));
                 usuarioActual = Conexion.getPerfil(usuarioActual);
-                
+
                 LinkedList<Ciclo> ciclos = Conexion.getCiclosCompletos();
                 session.setAttribute("ciclosCompletos", ciclos);
                 //redireccionamos a su inicio dependiendo de su rol.
@@ -70,7 +70,7 @@
                     Profesor p = new Profesor(usuarioActual.getId_user(), usuarioActual.getEmail(), usuarioActual.getPassword(), usuarioActual.getIntentos());
                     p = (Profesor) Conexion.getPerfil(p);
                     LinkedList<Ciclo> Ciclos = Conexion.getCiclosProfesor(p.getId_user());
-                    
+
                     p.setCiclos(Ciclos);
                     session.setAttribute("usuarioActual", p);
                     response.sendRedirect("../Vistas/inicioProf.jsp");
@@ -84,17 +84,22 @@
                     session.setAttribute("estudiantes", alumnos);
                     LinkedList<Convalidacion> convalidaciones = Conexion.getConvalidaciones();
                     session.setAttribute("convalidaciones", convalidaciones);
-                    session.setAttribute("usuarioActual", usuarioActual);
+                    Profesor p = new Profesor(usuarioActual.getId_user(), usuarioActual.getEmail(), usuarioActual.getPassword(), usuarioActual.getIntentos());
+                    p = (Profesor) Conexion.getPerfil(p);
+                    LinkedList<Ciclo> Ciclos = Conexion.getCiclosProfesor(p.getId_user());
+
+                    p.setCiclos(Ciclos);
+                    session.setAttribute("usuarioActual", p);
                     response.sendRedirect("../Vistas/inicioAdmin.jsp");
-                    
+
                 }
-                
+
             } //usuario no activado
             else {
                 session.setAttribute("mensaje", "Usuario desactivado,contacte con el administrador.");
                 response.sendRedirect("../Vistas/login.jsp");
             }
-            
+
         } else { //credenciales erroneas o no existentes en BD.
 
             if (intentos < 3) {
@@ -116,7 +121,7 @@
                 //Asignar nueva contraseña al usuario
                 az = passwordEncryption.MD5(az);
                 Conexion.modificarClave(para, az);
-                
+
                 session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
                 System.out.println("Email enviado correctamente a " + para);
                 response.sendRedirect("../index.jsp");
@@ -145,9 +150,9 @@
             Conexion.insertRol(id, rol);
             session.setAttribute("mensaje", "Registro correcto.");
             response.sendRedirect("../index.jsp");
-            
+
         }
-        
+
     }
 
 // Vista de Contraseña olvidadad -------------------------------------
@@ -166,7 +171,7 @@
         //Asignar nueva contraseña al usuario
         az = passwordEncryption.MD5(az);
         Conexion.modificarClave(para, az);
-        
+
         session.setAttribute("mensaje", "Contraseña enviada al e-mail proporcionado.");
         System.out.println("Email enviado correctamente a " + para);
         response.sendRedirect("../index.jsp");

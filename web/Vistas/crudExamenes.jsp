@@ -74,6 +74,7 @@
                             <form class="text-center justify-content-center"  action="../Controladores/controladorProfesor.jsp" method="POST" >
                                 <tr >
                                 <input type="hidden" name="id" value="<%= m.getId()%>">
+                                <input type="hidden" name="idM" value="<%= materia.getId()%>">
                                 <td scope="row" >
                                     <%=m.getId()%>
                                 </td>
