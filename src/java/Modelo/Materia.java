@@ -19,6 +19,7 @@ public class Materia {
     private Profesor profesor;
     private LinkedList<Estudiante> estudiantes;
     private LinkedList<Examen> examenes;
+    private LinkedList<Pregunta> preguntas;
 
     public Materia() {
     }
@@ -29,6 +30,7 @@ public class Materia {
         this.descripcion = descripcion;
         this.estudiantes = new LinkedList<Estudiante>();
         this.profesor = new Profesor();
+        this.preguntas = new LinkedList<Pregunta>();
     }
 
     public int getId() {
@@ -85,6 +87,18 @@ public class Materia {
 
     public void setExamenes(LinkedList<Examen> examenes) {
         this.examenes = examenes;
+    }
+
+    public LinkedList<Pregunta> getPreguntas() {
+        return preguntas;
+    }
+
+    public void setPreguntas(LinkedList<Pregunta> preguntas) {
+        this.preguntas = preguntas;
+    }
+
+    public void addPregunta(Pregunta p) {
+        this.preguntas.add(p);
     }
 
     @Override

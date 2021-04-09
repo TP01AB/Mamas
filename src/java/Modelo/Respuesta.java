@@ -64,4 +64,9 @@ class Respuesta {
         this.correcta = correcta;
     }
 
+    @Override
+    public String toString() {
+        return "Respuesta{" + "id=" + id + ", idPregunta=" + idPregunta + ", Respuesta=" + Respuesta + ", correcta=" + correcta + '}';
+    }
+
 }

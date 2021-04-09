@@ -29,9 +29,7 @@
         <%
             Profesor uActual = (Profesor) session.getAttribute("usuarioActual");
             Materia materia = (Materia) session.getAttribute("materiaElegida");
-            LinkedList<Examen> examenes = materia.getExamenes();
-            LinkedList<Pregunta> preguntas = new LinkedList<Pregunta>();
-
+            LinkedList<Pregunta> preguntas = materia.getPreguntas();
         %>
     </head>
 <body>
@@ -50,12 +48,12 @@
                         <hr>
                         <%}%>
                         <!------------------TABLA------------------------->
-                        <h5>Creaccion de examen: <%= materia.getNombre()%></h5>
+                        <h5>Creaccion de preguntas <%= materia.getNombre()%></h5>
                         <input class="btn btn-primary  text-center" type="submit" name="tipo" id="" value="texto" onclick="tipotexto()" >
                         <input class="btn btn-primary  text-center" type="submit" name="tipo" id="" value="numerica" onclick="tipoNum()">
                         <input class="btn btn-primary  text-center" type="submit" name="tipo" id="" value="test" onclick="tipoTest()">
                         <input class="btn btn-primary  text-center" type="submit" name="tipo" id="" value="multiple" onclick="tipoMultiple()">
-                        <form id="text" class="text-center row d-none"  action="../Controladores/controladorProfesor.jsp" method="POST" >
+                        <form id="text" class="text-center  d-none"  action="../Controladores/controladorProfesor.jsp" method="POST" >
                             <input type="hidden" name="id" value="<%= materia.getId()%>">
                             <input class="form-control  m-1 " type="text" name="enunciado" placeholder="introduce un nombre" required >
                             <input class="form-control  m-1" type="hidden" name="tipo" value="0">
@@ -63,51 +61,51 @@
                             <br>
                             <input class="btn btn-primary col-2 text-center" type="submit" name="crearPregunta" value="+">
                         </form>
-                        <form id="num" class="text-center row d-none"  action="../Controladores/controladorProfesor.jsp" method="POST" >
+                        <form id="num" class="text-center  d-none"  action="../Controladores/controladorProfesor.jsp" method="POST" >
                             <input type="hidden" name="id" value="<%= materia.getId()%>">
                             <input class="form-control  m-1" type="text" name="enunciado" placeholder="introduce un nombre" required >
                             <input class="form-control  m-1" type="hidden" name="tipo" value="1">
                             <input class="form-control  m-1" type="number" name="puntuacion" min="1" max="100" placeholder="introduce la ponderacion 1-100" required>
                             <hr>
                             <div class="row  m-2">
-                                <input type="radio" name="respuesta"><input type="number" name="respuesta" placeholder="" required> 
-                                <input type="radio" name="respuesta"> <input type="number" name="respuesta" placeholder="" required> 
+                                <input type="radio" name="respuestaS" value="0"><input type="number" name="respuesta" placeholder="" required> 
+                                <input type="radio" name="respuestaS" value="1"> <input type="number" name="respuesta" placeholder="" required> 
                             </div>
                             <div class="row  m-2">
-                                <input type="radio" name="respuesta"> <input type="number" name="respuesta" placeholder="" required> 
-                                <input type="radio" name="respuesta"><input type="number" name="respuesta" placeholder="" required> 
+                                <input type="radio" name="respuestaS" value="2"> <input type="number" name="respuesta" placeholder="" required> 
+                                <input type="radio" name="respuestaS" value="3"><input type="number" name="respuesta" placeholder="" required> 
                             </div>
                             <input class="btn btn-primary col-2 text-center" type="submit" name="crearPregunta" value="+">
                         </form>
-                        <form id="test" class="text-center row d-none"  action="../Controladores/controladorProfesor.jsp" method="POST" >
+                        <form id="test" class="text-center  d-none"  action="../Controladores/controladorProfesor.jsp" method="POST" >
                             <input type="hidden" name="id" value="<%= materia.getId()%>">
                             <input class="form-control  m-1" type="text" name="enunciado" placeholder="introduce un nombre" required >
                             <input class="form-control  m-1" type="hidden" name="tipo" value="2">
                             <input class="form-control  m-1" type="number" name="puntuacion" min="1" max="100" placeholder="introduce la ponderacion 1-100" required>
                             <hr>
                             <div class="row  m-2">
-                                <input type="radio" name="respuesta"><input type="number" name="respuesta" placeholder="" required> 
-                                <input type="radio" name="respuesta"> <input type="number" name="respuesta" placeholder="" required> 
+                                <input type="radio" name="respuestaS" value="0"><input type="text" name="respuesta" placeholder="" required> 
+                                <input type="radio" name="respuestaS" value="1"> <input type="text" name="respuesta" placeholder="" required> 
                             </div>
                             <div class="row  m-2">
-                                <input type="radio" name="respuesta"> <input type="number" name="respuesta" placeholder="" required> 
-                                <input type="radio" name="respuesta"><input type="number" name="respuesta" placeholder="" required> 
+                                <input type="radio" name="respuestaS" value="2"> <input type="text" name="respuesta" placeholder="" required> 
+                                <input type="radio" name="respuestaS" value="3"><input type="text" name="respuesta" placeholder="" required> 
                             </div>
                             <br>
                             <input class="btn btn-primary col-2 text-center" type="submit" name="crearPregunta" value="+">
                         </form>
-                        <form id="mult" class="text-center row d-none"  action="../Controladores/controladorProfesor.jsp" method="POST" >
+                        <form id="mult" class="text-center  d-none"  action="../Controladores/controladorProfesor.jsp" method="POST" >
                             <input type="hidden" name="id" value="<%= materia.getId()%>">
                             <input class="form-control  m-1" type="text" name="enunciado" placeholder="introduce un nombre" required >
                             <input class="form-control  m-1" type="hidden" name="tipo" value="3">
                             <input class="form-control  m-1" type="number" name="puntuacion" min="1" max="100" placeholder="introduce la ponderacion 1-100" required>
                             <div class="row m-2">
-                                <input type="checkbox" name="respuesta"><input type="number" name="respuesta" placeholder="" required> 
-                                <input type="checkbox" name="respuesta"> <input type="number" name="respuesta" placeholder="" required> 
+                                <input type="checkbox" name="respuestaS" value="0"><input type="text" name="respuesta" placeholder="" required> 
+                                <input type="checkbox" name="respuestaS" value="1"> <input type="text" name="respuesta" placeholder="" required> 
                             </div>
                             <div class="row m-2">
-                                <input type="checkbox" name="respuesta"> <input type="number" name="respuesta" placeholder="" required> 
-                                <input type="checkbox" name="respuesta"><input type="number" name="respuesta" placeholder="" required> 
+                                <input type="checkbox" name="respuestaS" value="2"> <input type="text" name="respuesta" placeholder="" required> 
+                                <input type="checkbox" name="respuestaS" value="3"><input type="text" name="respuesta" placeholder="" required> 
                             </div>
                             <input class="btn btn-primary col-2 text-center" type="submit" name="crearPregunta" value="+">
                         </form>
@@ -115,49 +113,43 @@
                         <table class="table table-striped mx-auto" >
                             <tr class="m-5">
                                 <th scope="col">id</th>
-                                <th scope="col" >Contenido</th>
-                                <th scope="col" >Descripcion</th>
-                                <th scope="col" >Estado</th>
-                                <th scope="col" >Ponderacion</th>
+                                <th scope="col" >Enunciado</th>
+                                <th scope="col" >Tipo</th>
+                                <th scope="col" >Puntuacion</th>
                                 <th scope="col" >Acciones</th>
                             </tr>
                             <%
-                                for (int i = 0; i < examenes.size(); i++) {
-                                    Examen m = examenes.get(i);
+                                for (int i = 0; i < preguntas.size(); i++) {
+                                    Pregunta m = preguntas.get(i);
                             %>
                             <form class="text-center justify-content-center"  action="../Controladores/controladorProfesor.jsp" method="POST" >
                                 <tr >
                                 <input type="hidden" name="id" value="<%= m.getId()%>">
+                                <input type="hidden" name="idM" value="<%= materia.getId()%>">
                                 <td scope="row" >
                                     <%=m.getId()%>
                                 </td>
                                 <td >
-                                    <input class="form-control" type="text" name="nombre" value="<%=m.getContenido()%>" readonly>
+                                    <input class="form-control" type="text" name="enunciado" value="<%=m.getEnunciado()%>" readonly>
+                                </td>
+                                <td class="text-center " >
+
+                                    <input type="hidden" name="activado" value="<%
+                                        if (m.getTipo() == 0) {
+                                            out.print("texto");
+                                        } else if (m.getTipo() == 1) {
+                                            out.print("nuerica");
+                                        } else if (m.getTipo() == 2) {
+                                            out.print("test");
+                                        } else if (m.getTipo() == 3) {
+                                            out.print("multiple");
+                                        }%>">
                                 </td>
                                 <td >
-                                    <input class="form-control" type="text" name="descripcion" value="<%=m.getDescripcion()%>" readonly>
-                                </td>
-                                <td class="text-center <%if (m.getEstado() == 1) {
-                                        out.print("text-success");
-                                    } else if (m.getEstado() == 0) {
-                                        out.print("text-danger");
-                                    } else if (m.getEstado() == 1) {
-                                        out.print("text-info");
-                                    }%> " >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
-                                    <circle cx="8" cy="8" r="8"/>
-                                    </svg>
-                                    <input type="hidden" name="activado" value="<%=m.getEstado()%>">
-                                </td>
-                                <td >
-                                    <input class="form-control" type="text" name="ponderacion" value="<%=m.getPonderacion()%>" readonly>
+                                    <input class="form-control" type="text" name="ponderacion" value="<%=m.getPuntuacion()%>" readonly>
                                 </td>
                                 <td class="text-center">
-                                    <button class="btn btn-secondary m-1 p-1" type="submit" name="asignarPreguntas" title="asignar preguntas">?</button>
-                                    <button class="btn btn-success m-1 p-1" type="submit" name="cambiarEstado" title="cambiar estado examen" <%if (m.getEstado() == 2) {
-                                            out.print("readonly");
-                                        } %> >ON/OFF</button>
-                                    <button class="btn btn-info m-1 p-1" type="submit" name="finalizar" title="finalizar examen">FIN</button>
+                                    <button class="btn btn-danger m-1 p-1" type="submit" name="eliminarPregunta" title="eliminar preguntas">-</button>
                                 </td>
                                 </tr>
 

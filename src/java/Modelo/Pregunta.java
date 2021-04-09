@@ -79,4 +79,9 @@ public class Pregunta {
         this.respuestas = respuestas;
     }
 
+    @Override
+    public String toString() {
+        return "Pregunta{" + "id=" + id + ", idMateria=" + idMateria + ", enunciado=" + enunciado + ", tipo=" + tipo + ", puntuacion=" + puntuacion + ", respuestas=" + respuestas + '}';
+    }
+
 }
