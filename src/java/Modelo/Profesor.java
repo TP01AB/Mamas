@@ -15,16 +15,16 @@ public class Profesor extends Usuario {
 
     private LinkedList<Ciclo> Ciclos;
 
-    public Profesor(LinkedList<Ciclo> Ciclos, int id, String email, int isActive) {
-        super(id, email, isActive);
+    public Profesor(LinkedList<Ciclo> Ciclos, int id, String email, int isActive, int intentos) {
+        super(id, email, isActive, intentos);
         this.Ciclos = Ciclos;
     }
 
     public Profesor() {
     }
 
-    public Profesor(int id_user, String email, String password, int isActive, int intentos) {
-        super(id_user, email, password, isActive, intentos);
+    public Profesor(int id_user, String email, String password, int intentos) {
+        super(id_user, email, password, 1, intentos);
     }
 
     public Profesor(LinkedList<Ciclo> Ciclos) {

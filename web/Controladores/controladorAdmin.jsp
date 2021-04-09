@@ -4,6 +4,9 @@
     Author     : isra9
 --%>
 
+<%@page import="Modelo.Convalidacion"%>
+<%@page import="Modelo.Estudiante"%>
+<%@page import="Modelo.Profesor"%>
 <%@page import="Modelo.Materia"%>
 <%@page import="Modelo.Ciclo"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -21,6 +24,12 @@
     }
     //HOME
     if (request.getParameter("adminHome") != null) {
+        LinkedList<Profesor> profesores = Conexion.getProfesores();
+        session.setAttribute("profesores", profesores);
+        LinkedList<Estudiante> alumnos = Conexion.getEstudiantes();
+        session.setAttribute("estudiantes", alumnos);
+        LinkedList<Convalidacion> convalidaciones = Conexion.getConvalidaciones();
+        session.setAttribute("convalidaciones", convalidaciones);
         response.sendRedirect("../Vistas/inicioAdmin.jsp");
     }
     //CRUD USUARIOS
@@ -42,11 +51,8 @@
             } else {
                 Conexion.insertAsignarMateriaProfesor(idCiclo, Integer.parseInt(id[i]), Integer.parseInt(profesor[i]));
             }
-
-            System.out.println("---------------------------------------------------------------------------");
-            System.out.println(profesor[i]);
-            System.out.println(id[i]);
         }
+        response.sendRedirect("../Vistas/asignacionesProfesores.jsp");
     }
     if (request.getParameter("update") != null) {
         int id = (Integer.parseInt(request.getParameter("id")));
@@ -291,5 +297,41 @@
         session.removeAttribute("usuarioActual");
         session.removeAttribute("rolActual");
         response.sendRedirect("../index.jsp");
+    }
+    //CRUD CONVALIDACION
+    if (request.getParameter("crudConvalidacion") != null) {
+        response.sendRedirect("../Vistas/crudConvalidacion.jsp");
+    }
+    if (request.getParameter("aceptaConvalida") != null) {
+        int idMateria = (Integer.parseInt(request.getParameter("idMateria")));
+        int idAlumno = (Integer.parseInt(request.getParameter("idAlumno")));
+        Conexion.aceptarConvalidacion(idAlumno, idMateria);
+
+        LinkedList<Estudiante> alumnos = Conexion.getEstudiantes();
+        session.setAttribute("estudiantes", alumnos);
+        LinkedList<Convalidacion> convalidaciones = Conexion.getConvalidaciones();
+        session.setAttribute("convalidaciones", convalidaciones);
+        response.sendRedirect("../Vistas/crudConvalidacion.jsp");
+    }
+    if (request.getParameter("denegarConvalida") != null) {
+        int idMateria = (Integer.parseInt(request.getParameter("idMateria")));
+        int idAlumno = (Integer.parseInt(request.getParameter("idAlumno")));
+        Conexion.rechazarConvalidacion(idAlumno, idMateria);
+        LinkedList<Estudiante> alumnos = Conexion.getEstudiantes();
+        session.setAttribute("estudiantes", alumnos);
+        LinkedList<Convalidacion> convalidaciones = Conexion.getConvalidaciones();
+        session.setAttribute("convalidaciones", convalidaciones);
+        response.sendRedirect("../Vistas/crudConvalidacion.jsp");
+    }
+    if (request.getParameter("editarPerfil") != null) {
+        response.sendRedirect("../Vistas/editarPerfil.jsp");
+    }
+    if (request.getParameter("updatePerfil") != null) {
+
+        response.sendRedirect("../Vistas/editarPerfil.jsp");
+    }
+    if (request.getParameter("cambioPass") != null) {
+
+        response.sendRedirect("../Vistas/cambioContra.jsp");
     }
 %>

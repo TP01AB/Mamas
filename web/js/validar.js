@@ -1,8 +1,203 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+function tipotexto() {
+    const form1 = document.getElementById("text");
+    const form2 = document.getElementById("num");
+    const form3 = document.getElementById("test");
+    const form4 = document.getElementById("mult");
+    form1.classList.remove('d-none');
+    form2.classList.add('d-none');
+    form3.classList.add('d-none');
+    form4.classList.add('d-none');
+}
+function tipoNum() {
+    const form1 = document.getElementById("text");
+    const form2 = document.getElementById("num");
+    const form3 = document.getElementById("test");
+    const form4 = document.getElementById("mult");
+    form1.classList.add('d-none');
+    form2.classList.remove('d-none');
+    form3.classList.add('d-none');
+    form4.classList.add('d-none');
+}
+function tipoTest() {
+    const form1 = document.getElementById("text");
+    const form2 = document.getElementById("num");
+    const form3 = document.getElementById("test");
+    const form4 = document.getElementById("mult");
+    form1.classList.add('d-none');
+    form2.classList.add('d-none');
+    form3.classList.remove('d-none');
+    form4.classList.add('d-none');
+}
+function tipoMultiple() {
+    const form1 = document.getElementById("text");
+    const form2 = document.getElementById("num");
+    const form3 = document.getElementById("test");
+    const form4 = document.getElementById("mult");
+    form1.classList.add('d-none');
+    form2.classList.add('d-none');
+    form3.classList.add('d-none');
+    form4.classList.remove('d-none');
+}
+//Validacion cambio en perfil.
+function validarPerfil() {
+    const form = document.getElementById("perfil");
+    const email = document.getElementById("emailRegistro");
+    const nombre = document.getElementById("nombre");
+    const apellidos = document.getElementById("apellidos");
+    const dni = document.getElementById("dni");
+    const telefono = document.getElementById("telefono");
+    const nacimiento = document.getElementById("nacimiento");
+    const emailError = document.getElementById("emailRegistroError");
+    const nombreError = document.getElementById("nombreError");
+    const apellidosError = document.getElementById("apellidosError");
+    const dniError = document.getElementById("dniError");
+    const telefonoError = document.getElementById("telefonoError");
+    const nacimientoError = document.getElementById("nacimientoError");
+    //-----------------------------FORMULARIO SUBMIT
+    var correcto;
+    form.addEventListener('submit', function (event) {
+        if (!nombre.validity.valid) {
+            error(nombre);
+            event.preventDefault();
+        }
+        if (!apellidos.validity.valid) {
+            error(apellidos);
+            event.preventDefault();
+        }
+        if (!email.validity.valid) {
+            error(email);
+            event.preventDefault();
+        }
+        if (!dni.validity.valid) {
+            error(dni);
+            event.preventDefault();
+        }
+        if (!tfno.validity.valid) {
+            error(tfno);
+            event.preventDefault();
+        }
+    });
+    nombre.addEventListener('blur', function (event) {
+        if (nombre.validity.valid) {
+            nombreError.className = 'valid-feedback';
+            nombre.classList.add('is-valid');
+            nombre.classList.remove('is-invalid');
+            nombreError.textContent = '';
+        } else {
+            error(nombre);
+        }
+    });
+    apellidos.addEventListener('blur', function (event) {
+        if (apellidos.validity.valid) {
+            apellidosError.className = 'valid-feedback';
+            apellidos.classList.add('is-valid');
+            apellidos.classList.remove('is-invalid');
+            apellidosError.textContent = '';
+        } else {
+            error(apellidos);
+        }
+    });
+    email.addEventListener('blur', function (event) {
+        if (email.validity.valid) {
+            emailError.className = 'valid-feedback';
+            email.classList.add('is-valid');
+            email.classList.remove('is-invalid');
+            emailError.textContent = '';
+        } else {
+            error(email);
+        }
+    });
+    dni.addEventListener('blur', function (event) {
+        if (dni.validity.valid) {
+            dniError.className = 'valid-feedback';
+            dni.classList.add('is-valid');
+            dni.classList.remove('is-invalid');
+            dniError.textContent = '';
+        } else {
+            error(dni);
+        }
+    });
+    telefono.addEventListener('blur', function (event) {
+        if (telefono.validity.valid) {
+            telefonoError.className = 'valid-feedback';
+            telefono.classList.add('is-valid');
+            telefono.classList.remove('is-invalid');
+            telefonoError.textContent = '';
+        } else {
+            error(telefono);
+        }
+    });
+    function error(campo) {
+        if (campo == nombre) {
+//Campo vacío
+            if (nombre.validity.valueMissing) {
+                nombreError.textContent = 'Debe introducir su nombre.';
+            } else if (nombre.validity.tooShort) {
+                nombreError.textContent = 'Debe tener al menos ' + nombre.minLength + ' caracteres; ha introducido ' + nombre.value.length;
+            } else if (nombre.validity.tooLong) {
+                nombreError.textContent = 'Debe tener como máximo ' + nombre.maxLength + ' caracteres; ha introducido ' + nombre.value.length;
+            }
+// Establece el estilo apropiado
+            nombre.classList.remove('is-valid');
+            nombre.classList.add('is-invalid');
+            nombreError.className = 'invalid-feedback';
+        }
+        if (campo == apellidos) {
+//Campo vacío
+            if (apellidos.validity.valueMissing) {
+                apellidosError.textContent = 'Debe introducir sus apellidos.';
+            } else if (apellidos.validity.tooShort) {
+                apellidosError.textContent = 'Debe tener al menos ' + apellidos.minLength + ' caracteres; ha introducido ' + apellidos.value.length;
+            } else if (apellidos.validity.tooLong) {
+                apellidosError.textContent = 'Debe tener como máximo ' + apellidos.maxLength + ' caracteres; ha introducido ' + apellidos.value.length;
+            }
+// Establece el estilo apropiado
+            apellidos.classList.remove('is-valid');
+            apellidos.classList.add('is-invalid');
+            apellidosError.className = 'invalid-feedback';
+        }
+        if (campo == email) {
+//Campo vacío
+            if (email.validity.valueMissing) {
+                emailError.textContent = 'Debe introducir su dirección de correo electrónico.';
+                //No cumple los requisitos del campo email
+            } else if (email.validity.typeMismatch) {
+                emailError.textContent = 'El valor introducido debe ser una dirección de correo electrónico ';
+                //Datos demasiado cortos
+            }
+// Establece el estilo apropiado
+            email.classList.remove('is-valid');
+            email.classList.add('is-invalid');
+            emailError.className = 'invalid-feedback';
+        }
+        if (campo == dni) {
+//Campo vacío
+            if (dni.validity.valueMissing) {
+                dniError.textContent = 'Debe introducir su dni.';
+                //No cumple con el pattern
+            } else if (dni.validity.patternMismatch) {
+                dniError.textContent = 'El valor introducido debe seguir este patron 00000000X';
+            }
+// Establece el estilo apropiado
+            dni.classList.remove('is-valid');
+            dni.classList.add('is-invalid');
+            dniError.className = 'invalid-feedback';
+        }
+        if (campo == telefono) {
+            if (telefono.validity.valueMissing) {
+                telefonoError.textContent = 'Debe introducir su teléfono.';
+            } else if (telefono.validity.patternMismatch) {
+                telefonoError.textContent = 'El valor introducido debe ser un numero de telefono de 9 digitos.';
+            }
+// Establece el estilo apropiado
+            telefono.classList.remove('is-valid');
+            telefono.classList.add('is-invalid');
+            telefonoError.className = 'invalid-feedback';
+        }
+    }
+
+}
 //Validacion del formulario de registro.
 function validarRegistro() {
 //---------------------------VARIABLES
@@ -327,26 +522,6 @@ function comprobarContras(pass1, pass2) {
             pass2.classList.add('is-valid');
             pass2.classList.remove('is-invalid');
         }
-    }
-}
-
-
-//VALIDACION LETRA DNI-------------------
-function validateDNI(dni) {
-    var numero, let, letra;
-    var expresion_regular_dni = /^[0-9]{8}[A-Z]{1}$/;
-    dni = dni.toUpperCase();
-    numero = dni.substr(0, dni.length - 1);
-    let = dni.substr(dni.length - 1, 1);
-    numero = numero % 23;
-    letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
-    letra = letra.substring(numero, numero + 1);
-    if (letra != let) {
-//alert('Dni erroneo, la letra del NIF no se corresponde');
-        return false;
-    } else {
-//alert('Dni correcto');
-        return true;
     }
 }
 

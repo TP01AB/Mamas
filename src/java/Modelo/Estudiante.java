@@ -13,13 +13,19 @@ public class Estudiante extends Usuario {
 
     private Ciclo ciclo;
 
-    public Estudiante(Ciclo ciclo, int id, String email, int isActive) {
-        super(id, email, isActive);
-       
+    public Estudiante(Ciclo ciclo, int id, String email, int isActive, int intentos) {
+        super(id, email, isActive, intentos);
+        this.ciclo = ciclo;
     }
 
     public Estudiante(int id_user, String email, String password, int isActive, int intentos) {
         super(id_user, email, password, isActive, intentos);
+        this.ciclo = new Ciclo();
+    }
+
+    public Estudiante(int id_user, String email, String password, int intentos) {
+        super(id_user, email, password, 1, intentos);
+        this.ciclo = new Ciclo();
     }
 
     public Estudiante(Ciclo ciclo) {

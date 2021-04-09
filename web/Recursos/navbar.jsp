@@ -20,24 +20,24 @@
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="../js/mdb.min.js"></script>
-<div class="row bg-primary mb-3">
-    <h2 class="title m-3">Mamas 2.0</h2>
+<div class="pl-4  row bg-primary mb-3">
+    <h4 class=" display-4 font-weight-bold white-text ">Mamás 2.0</h4>
     <% int rol = (int) session.getAttribute("rolActual");
 
         if (rol == 3) {
     %>
-    <div class="row">
+    <div class=" row">
 
         <form action="../Controladores/controladorAdmin.jsp" method="POST">    
-            <button type="submit" name="adminHome">Home</button>
-            <button type="submit" name="profHome" >Home prof</button>
+            <button class="btn btn-secondary" type="submit" name="adminHome">Home</button>
+            <button class="btn btn-secondary" type="submit" name="profHome" >Home prof</button>
             <%
             } else
             %>
             <%if (rol == 1) {
             %>
             <form action="../Controladores/controladorAlumno.jsp" method="POST">    
-                <button type="submit" name="aluHome">Home</button>
+                <button class="btn btn-secondary" type="submit" name="aluHome">Home</button>
 
                 <%
                 } else
@@ -45,12 +45,13 @@
                 <%if (rol == 2) {
                 %>
                 <form action="../Controladores/controladorProfesor.jsp" method="POST">    
-                    <button type="submit" name="profHome">Home</button>
+                    <button class="btn btn-secondary" type="submit" name="profHome">Home</button>
 
                     <%
                         }
                     %>
-                    <button type="submit" name="close">Cerrar sesion</button>
+                    <button class="btn btn-secondary" type="submit" name="editarPerfil" >Editar perfil</button>
+                    <button class="btn btn-secondary" type="submit" name="close">Cerrar sesion</button>
                     </div>
                 </form>
                 </div>
